@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="entries">
+        <item>"Cash"</item>
+    </array>
+    <string-array name="planets_array">Preferences
+    <item name="My Order"/>
+    <item name="Settings"/>
+
+    </string-array>
+
+</resources>

@@ -1,0 +1,35 @@
+{
+  "project_info": {
+    "project_number": "820330206565",
+    "project_id": "delivo-3234a"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:820330206565:android:88888d6791d487ca",
+        "android_client_info": {
+          "package_name": "com.attribe.delivo.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCGWoe8_S8QqeDm8OMUGSAp2atLfNU2QSY"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

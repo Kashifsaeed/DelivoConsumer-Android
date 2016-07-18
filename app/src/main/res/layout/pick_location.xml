@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              style="@style/pick_location"
+              >
+
+    <utils.CustomEditText
+            android:id="@+id/pickAddress"
+            android:hint="Pick up address"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_weight="25"
+            android:elevation="5dp"
+            android:drawableRight="@drawable/places_ic_search"
+            android:imeOptions="actionDone"
+            />
+    <Button
+            android:id="@+id/showDropLoc"
+            android:text="Add Drop Location"
+            android:elevation="4dp"
+            style="@style/Button"
+            />
+</LinearLayout>

@@ -1,0 +1,53 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+    </style>
+    <style name="AppActionBar"></style>
+
+
+    <style name="Button" parent="Widget.AppCompat.Button">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">50dp</item>
+        <item name="android:background">#01BDD6</item>
+        <item name="android:textColor">@color/text_color_button</item>
+
+    </style>
+
+    <style name="GreyButton" parent="Widget.AppCompat.Button">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">80dp</item>
+        <item name="android:background">@color/secondary_color</item>
+        <item name="android:textColor">@color/text_color_button</item>
+    </style>
+
+    <style name="Button_Signup" parent="Widget.AppCompat.Button">
+        <item name="android:layout_width">120dp</item>
+        <item name="android:layout_height">40dp</item>
+        <item name="android:background">#01BDD6</item>
+        <item name="android:textColor">@color/text_color_button</item>
+        <item name="android:elevation">8dp</item>
+
+    </style>
+    <style name="Button_Signup_grey" parent="Widget.AppCompat.Button">
+        <item name="android:layout_width">120dp</item>
+        <item name="android:layout_height">40dp</item>
+        <item name="android:background">@color/secondary_color</item>
+        <item name="android:textColor">@color/text_color_button</item>
+        <item name="android:elevation">8dp</item>
+
+    </style>
+
+
+    <style name="pick_location">
+
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginRight">10dp</item>
+        <item name="android:layout_marginTop">30dp</item>
+        <item name="android:layout_marginLeft">10dp</item>
+
+    </style>
+    <color name="secondary_color">#303030</color>
+</resources>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              style="@style/pick_location">
+
+    <utils.CustomEditText
+            android:id="@+id/dropAddress"
+            android:hint="Add drop off location"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:elevation="5dp"
+            android:drawableRight="@drawable/places_ic_search"
+            />
+
+    <Button
+            android:id="@+id/buttonDelivo"
+            android:text="Delivo"
+            style="@style/Button"
+            />
+</LinearLayout>

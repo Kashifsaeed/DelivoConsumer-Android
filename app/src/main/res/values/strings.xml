@@ -1,0 +1,27 @@
+<resources>
+    <string name="app_name">Delivo</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="delivoNow">Delivo Now</string>
+
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="signup_heading">Sign Up</string>
+    <string name="confirmation_heading">Confirmation</string>
+    <string name="confirmation_text">A rider has been assigned to you. He is 2 km away. Will take 6 mins to reach pickup
+        address.
+    </string>
+    <string name="delivery_time">Estimated Delivo time:</string>
+    <string name="title_activity_screen_splash">Splash</string>
+    <string name="confirm">Confirm</string>
+    <string name="cancel">Cancel</string>
+    <string name="success">Success</string>
+    <string name="rider_detail_head">Here are your rider details</string>
+    <string name="google_app_id">AIzaSyCGWoe8_S8QqeDm8OMUGSAp2atLfNU2QSY</string>
+    <string name="pick_address_empty">Please specify pick address</string>
+    <string name="drop_address_empty">Please specify drop address</string>
+    <string name="drawer_open">Drawer open</string>
+    <string name="drawer_close">Drawer Close</string>
+</resources>
