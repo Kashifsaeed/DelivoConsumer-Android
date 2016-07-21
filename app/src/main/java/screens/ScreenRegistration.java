@@ -17,7 +17,7 @@ import network.interfaces.SignupUserResponse;
 public class ScreenRegistration extends FragmentActivity {
 
     public static final String STATUS_ORDER_DEFERRED = "222";
-    private EditText fieldName,fieldEmail,fieldNumber;
+    private EditText fieldName,fieldFullName,fieldEmail,fieldNumber;
     private Button buttonSignup;
 
     @Override
@@ -30,6 +30,7 @@ public class ScreenRegistration extends FragmentActivity {
 
     private void init(/**View view**/) {
         fieldName = (EditText)findViewById(R.id.name);
+        fieldFullName = (EditText) findViewById(R.id.fullname);
         fieldEmail = (EditText)findViewById(R.id.email);
         fieldNumber = (EditText)findViewById(R.id.number);
 
@@ -42,11 +43,11 @@ public class ScreenRegistration extends FragmentActivity {
         @Override
         public void onClick(View view) {
 
-            String userName,phone,email,fullname;
-            userName = fieldNumber.getText().toString();
-            phone = fieldNumber.getText().toString();
+            String userName,fullname,phone,email;
+            userName = fieldName.getText().toString();
+            fullname = fieldFullName.getText().toString();
             email= fieldEmail.getText().toString();
-            fullname = fieldName.getText().toString();
+            phone = fieldNumber.getText().toString();
 
             NewUser newUser = new NewUser(userName,phone,email,fullname);
 

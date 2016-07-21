@@ -166,6 +166,7 @@ public class DropLocation extends BaseActivity {
         if (requestCode == PLACE_AUTOCOMPLETE_REQUEST_CODE) {
             if (resultCode == RESULT_OK) {
                 Place place = PlaceAutocomplete.getPlace(this, data);
+                DevicePreferences.getInstance().setDropLocation(place.getAddress().toString());
                 initMap(place.getLatLng());
                 dropAddress.setText(place.getAddress().toString());
 
