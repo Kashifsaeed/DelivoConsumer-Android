@@ -29,6 +29,11 @@ public interface ServicesInterface {
                                       @Field("password") String password,
                                       @Field("scope") String scope);
 
+    @POST("http://stage.dmenu.co:8080/delvo-api/oauth/token")
+    Call<GenerateTokenResponse> refresh(@Field("grant_type") String grant_type,
+                                        @Field("username") String username,
+                                        @Field("refresh_token") String refresh_token,
+                                        @Field("scope") String scope);
 
     @POST("guest")
     Call<User> createUser(@Body NewUser user);

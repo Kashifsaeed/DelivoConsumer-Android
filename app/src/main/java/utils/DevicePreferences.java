@@ -2,8 +2,11 @@ package utils;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import com.google.gson.Gson;
+import models.DestinationLocation;
 import models.NewOrder;
+import models.SourceLocation;
 import models.User;
 import models.response.GenerateTokenResponse;
 import org.json.JSONException;
@@ -24,14 +27,23 @@ public class DevicePreferences {
     private static final String KEY_PICK_LOC = "pickLoc";
     private static final String KEY_DROP_LOC = "dropLoc";
     private static final String KEY_NEW_ORDER = "newOrder";
+
+    private static final String KEY_SOURCE_LAT = "sourceLat";
+    private static final String KEY_SOURCE_LONG = "sourceLong";
+    private static final String KEY_SOURCE_ADDR = "sourceAddr";
+    private static final String KEY_DEST_LAT = "destLat";
+    private static final String KEY_DEST_LONG = "destLong";
+    private static final String KEY_DEST_ADDR = "destAddr";
+
     private static DevicePreferences instance;
     private static SharedPreferences prefs;
     private Context mContext;
-    private static String header = "bearer 13f7ce77-16fb-426d-bb34-3ff37ae667a0";
-
+//    private static String header = "bearer 13f7ce77-16fb-426d-bb34-3ff37ae667a0";
+    private static String header = "";
 
     private static String authHeader = "Basic NDlhMmRiZTExN2E0NDdjZWFmYjhiOTZiNTIwMTE2ZTY6ZDYzODQ0YjU2MDE3NDI4NjlhODQwNzRhYWZmNGNiNjY=";
     private String KEY_AUTH_HEADER = "AuthenticationHeader";
+
 
     public void init(Context context){
 
@@ -66,7 +78,7 @@ public class DevicePreferences {
         }
         else{
 
-            return header;
+            return getInstance().getUserToken().getAccess_token();
         }
 
     }
@@ -105,6 +117,13 @@ public class DevicePreferences {
 
         return user;
 
+    }
+
+    public void removeUser(Context context){
+        SharedPreferences mySPrefs = PreferenceManager.getDefaultSharedPreferences(context);
+        SharedPreferences.Editor editor = mySPrefs.edit();
+        editor.remove(KEY_USER);
+        editor.apply();
     }
 
     public void setUserToken(GenerateTokenResponse response) {
@@ -173,4 +192,57 @@ public class DevicePreferences {
         return newOrder;
 
     }
+
+    public void setSourceLocationObject(double latitude, double longitude, String address){
+
+        String sLatitude = String.valueOf(latitude);
+        String sLongitude = String.valueOf(longitude);
+
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putString(KEY_SOURCE_LAT,sLatitude);
+        editor.putString(KEY_SOURCE_LONG,sLongitude);
+        editor.putString(KEY_SOURCE_ADDR,address);
+        editor.commit();
+    }
+
+    public SourceLocation getSourceLocationObject(){
+
+        String latitude = "";
+        String longitude = "";
+        String address = "";
+
+        latitude = prefs.getString(KEY_SOURCE_LAT, "");
+        longitude = prefs.getString(KEY_SOURCE_LONG, "");
+        address = prefs.getString(KEY_SOURCE_ADDR, "");
+
+        SourceLocation sourceLocation = new SourceLocation(latitude, longitude, address);
+        return sourceLocation;
+    }
+
+    public void setDestinationLocationObject(double latitude, double longitude, String address){
+
+        String dLatitude = String.valueOf(latitude);
+        String dLongitude = String.valueOf(longitude);
+
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putString(KEY_DEST_LAT,dLatitude);
+        editor.putString(KEY_DEST_LONG,dLongitude);
+        editor.putString(KEY_DEST_ADDR,address);
+        editor.commit();
+    }
+
+    public DestinationLocation getDestinationLocationObject(){
+
+        String latitude = "";
+        String longitude = "";
+        String address = "";
+
+        latitude = prefs.getString(KEY_DEST_LAT, "");
+        longitude = prefs.getString(KEY_DEST_LONG, "");
+        address = prefs.getString(KEY_DEST_ADDR, "");
+
+        DestinationLocation destinationLocation = new DestinationLocation(latitude, longitude, address);
+        return destinationLocation;
+    }
+
 }

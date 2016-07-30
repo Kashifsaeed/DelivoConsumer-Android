@@ -1,59 +1,67 @@
-package screens;
+package fragments;
 
+import android.app.Fragment;
+import android.app.FragmentManager;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
+import android.os.StrictMode;
+import android.view.LayoutInflater;
 import android.view.View;
-
+import android.view.ViewGroup;
 import android.widget.Button;
 import com.attribe.delivo.app.NavigationUtils;
 import com.attribe.delivo.app.R;
-import fragments.ScreenRegistration;
 import models.response.ResponseNewOrder;
 import network.bals.OrderBAL;
 import network.interfaces.CreateOrderResponse;
 import network.interfaces.OrderConfirmListener;
+import screens.Confirmation;
 import utils.DevicePreferences;
 import utils.Progress;
 
+/**
+ * Created by Maaz on 7/29/2016.
+ */
+public class ConfirmationScreen extends Fragment {
 
-public class Confirmation extends FragmentActivity {
-
-
-
+    private View view;
     private String orderID ="";
-    private ConfirmationFragmentInteraction mListener;
     private Button confirmButton;
     private Progress progress;
 
-//    public static Confirmation newInstance(String orderID) {
-//        Confirmation fragment = new Confirmation();
-//        Bundle args = new Bundle();
-//
-//        args.putString(KEY_ORDER_ID,orderID);
-//        fragment.setArguments(args);
-//        return fragment;
+//    public ConfirmationScreen() {
+//        // Required empty public constructor
 //    }
 
-    public Confirmation() {
-        // Required empty public constructor
-    }
-
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.fragment_confirmation);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        view=inflater.inflate(R.layout.fragment_confirmation, container, false);
+
+        if (android.os.Build.VERSION.SDK_INT > 9) {
+            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+            StrictMode.setThreadPolicy(policy);
+        }
+        setHasOptionsMenu(true);
 
         progress = NavigationUtils.getProgress(false);
-        init();
+        initViews(view);
         fetchIntent();
+        return view;
+
+    }
+
+    private void initViews(View view) {
+        confirmButton = (Button)view.findViewById(R.id.confirm);
+        confirmButton.setOnClickListener(new ConfirmOrderListener());
 
     }
 
     private void fetchIntent() {
-        if(getIntent() != null){
+        if(getArguments().get("KEY_ORDERID") != null){
 
-            orderID = getIntent().getStringExtra(NavigationUtils.KEY_ORDERID);
+//            orderID = getIntent().getStringExtra(NavigationUtils.KEY_ORDERID);
+              orderID = getArguments().getString("KEY_ORDERID");
 
             if(orderID.equalsIgnoreCase(ScreenRegistration.STATUS_ORDER_DEFERRED)){
                 progress.show(getFragmentManager(),"");
@@ -87,56 +95,20 @@ public class Confirmation extends FragmentActivity {
 
     }
 
-    /**
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-
-        // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_confirmation, container, false);
-
-        init(view);
-        return view;
-    }**/
-
-    private void init() {
-        confirmButton = (Button)findViewById(R.id.confirm);
-        confirmButton.setOnClickListener(new ConfirmOrderListener());
-    }
-
-
-    /**
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        try {
-            mListener = (ConfirmationFragmentInteraction) context;
-        } catch (ClassCastException e) {
-            throw new ClassCastException(context.toString()
-                    + " must implement ConfirmationFragmentInteraction");
-        }
-    }**/
-
-    /**
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
-    }**/
-
-
     public interface ConfirmationFragmentInteraction {
 
         public void onFragmentInteraction(Uri uri);
     }
 
+
     private class ConfirmOrderListener implements View.OnClickListener {
         @Override
-        public void onClick(View view) {
+        public void onClick(View v) {
+
             OrderBAL.confirmOrder(orderID, new OrderConfirmListener() {
                 @Override
                 public void OnOrderConfirmed() {
-                    NavigationUtils.showRiderDetailScreen(Confirmation.this);
+                    NavigationUtils.showRiderDetailScreen(getActivity());
                 }
 
                 @Override

@@ -27,7 +27,8 @@
             android:layout_height="fill_parent"
             android:weightSum="1.5"
             android:orientation="vertical"
-            android:layout_marginTop="60dp" android:layout_marginLeft="30dp" >
+            android:layout_marginTop="60dp"
+            android:layout_marginLeft="30dp" >
 
 
 
@@ -60,6 +61,11 @@
                   android:text="42101-9947555-8"
                   android:textSize="@dimen/size_text"
                 />
+
+        <Button android:id="@+id/backToMain"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Back To Main Screen"/>
 
     </LinearLayout>
 

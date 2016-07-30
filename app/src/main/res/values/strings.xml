@@ -25,4 +25,15 @@
     <string name="drawer_open">Drawer open</string>
     <string name="drawer_close">Drawer Close</string>
     <string name="toast_crash">Delivery App Crashed !</string>
+    <string name="profile_heading">User Profile</string>
+
+    <string-array name="delivo_utilities">
+
+        <item>Home</item>
+        <item>My Orders</item>
+        <item>Settings</item>
+        <item>Call Us</item>
+        <item>Sign Out</item>
+
+    </string-array>
 </resources>

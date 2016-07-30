@@ -19,11 +19,11 @@ public class SignupBAL {
 
     public static void createUser(NewUser user, final SignupUserResponse signupUserResponse) {
 
-        Call<User> newUser = RestClient.getAdapter().createUser(user);
+        Call<User> newUser = RestClient.getAuthAdapter().createUser(user);
 
         newUser.enqueue(new Callback<User>() {
             @Override
-            public void onResponse(Call<User> call, Response<User> response) {
+            public void onResponse(Call<User> call, final Response<User> response) {
 
                 if(response.isSuccessful()){
 

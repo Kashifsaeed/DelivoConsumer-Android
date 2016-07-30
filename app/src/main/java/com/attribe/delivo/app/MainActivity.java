@@ -12,11 +12,12 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.places.Places;
 import com.zl.reik.dilatingdotsprogressbar.DilatingDotsProgressBar;
+import fragments.ConfirmationScreen;
 import screens.*;
 
 public class MainActivity extends Activity implements
         DelivoParameter.OnDelivoParameterInteration,
-        Confirmation.ConfirmationFragmentInteraction,
+        ConfirmationScreen.ConfirmationFragmentInteraction,
         GoogleApiClient.OnConnectionFailedListener {
 
 

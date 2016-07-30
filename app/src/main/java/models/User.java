@@ -111,6 +111,14 @@ public class User implements Serializable{
         public void setMobilenum(String mobilenum) {
             this.mobilenum = mobilenum;
         }
+
+        public Boolean getIsavailable() {
+            return isavailable;
+        }
+
+        public void setIsavailable(Boolean isavailable) {
+            this.isavailable = isavailable;
+        }
     }
 
 }

@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+    <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="90dp"
+            android:text="@string/profile_heading"
+            android:textSize="@dimen/size_heading"
+            android:layout_margin="85dp"
+            android:gravity="center" />
+
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="150dp"
+            android:orientation="vertical"
+
+    >
+
+        <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/left_margin_signup"
+        >
+
+            <ImageView android:layout_width="@dimen/signup_ic_width"
+                       android:layout_height="@dimen/signup_ic_width"
+                       android:src="@drawable/ic_user"
+                       android:layout_alignParentLeft="true"
+                       android:layout_marginTop="@dimen/signup_ic_margin_top"
+            />
+
+
+            <android.support.design.widget.TextInputLayout
+                    android:id="@+id/input_layout_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="false"
+                    android:layout_alignParentRight="false"
+                    android:layout_marginLeft="50dp"
+                    android:layout_marginStart="50dp"
+                    android:layout_marginRight="25dp"
+                    android:layout_marginEnd="25dp">
+
+                <EditText
+                        android:id="@+id/profile_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Name"
+
+                />
+            </android.support.design.widget.TextInputLayout>
+        </RelativeLayout>
+
+        <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/left_margin_signup"
+        >
+
+            <ImageView android:layout_width="@dimen/signup_ic_width"
+                       android:layout_height="@dimen/signup_ic_width"
+                       android:src="@drawable/ic_user"
+                       android:layout_alignParentLeft="true"
+                       android:layout_marginTop="@dimen/signup_ic_margin_top"
+            />
+
+
+            <android.support.design.widget.TextInputLayout
+                    android:id="@+id/input_layout_fullname"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="false"
+                    android:layout_alignParentRight="false"
+                    android:layout_marginLeft="50dp"
+                    android:layout_marginStart="50dp"
+                    android:layout_marginRight="25dp"
+                    android:layout_marginEnd="25dp">
+
+                <EditText
+                        android:id="@+id/profile_fullname"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Full Name"
+
+                />
+            </android.support.design.widget.TextInputLayout>
+        </RelativeLayout>
+
+        <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/left_margin_signup"
+        >
+
+            <ImageView android:layout_width="@dimen/signup_ic_width"
+                       android:layout_height="@dimen/sign_ic_height"
+                       android:src="@drawable/ic_email"
+                       android:layout_alignParentLeft="true"
+                       android:layout_marginTop="@dimen/signup_ic_margin_top"
+            />
+            <android.support.design.widget.TextInputLayout
+                    android:id="@+id/input_layout_email"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="50dp"
+                    android:layout_marginStart="50dp"
+                    android:layout_marginRight="25dp"
+                    android:layout_marginEnd="25dp">>
+
+                <EditText
+                        android:id="@+id/profile_email"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Email"
+                />
+            </android.support.design.widget.TextInputLayout>
+
+        </RelativeLayout>
+
+
+        <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/left_margin_signup">
+            <ImageView android:layout_width="@dimen/signup_ic_width"
+                       android:layout_height="@dimen/signup_ic_width"
+                       android:src="@drawable/ic_phone"
+                       android:layout_alignParentLeft="true"
+                       android:layout_marginTop="@dimen/signup_ic_margin_top"
+            />
+            <android.support.design.widget.TextInputLayout
+                    android:id="@+id/input_layout_phone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="50dp"
+                    android:layout_marginStart="50dp"
+                    android:layout_marginRight="25dp"
+                    android:layout_marginEnd="25dp">
+
+                <EditText
+                        android:id="@+id/profile_number"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="phone"
+                        android:inputType="phone"
+
+                />
+
+            </android.support.design.widget.TextInputLayout>
+        </RelativeLayout>
+
+
+
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="40dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp">
+            <!--<Button-->
+                    <!--android:id="@+id/profile_cancel"-->
+                    <!--android:text="@string/cancel"-->
+
+                    <!--style="@style/Button_Signup_grey"/>-->
+            <Button
+                    android:id="@+id/profile_done"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Done"
+                    style="@style/Button_Signup"/>
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>

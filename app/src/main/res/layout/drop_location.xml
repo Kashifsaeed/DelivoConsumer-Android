@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:id="@+id/layout_dropLocation"
               android:orientation="vertical"
-              style="@style/pick_location">
+              style="@style/pick_location"
+              android:visibility="gone">
 
     <utils.CustomEditText
             android:id="@+id/dropAddress"
@@ -10,11 +12,12 @@
             android:layout_height="50dp"
             android:elevation="5dp"
             android:drawableRight="@drawable/places_ic_search"
-            />
+            android:imeOptions="actionDone" />
 
     <Button
             android:id="@+id/buttonDelivo"
             android:text="Delivo"
+            android:elevation="4dp"
             style="@style/Button"
             />
 </LinearLayout>

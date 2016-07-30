@@ -21,7 +21,7 @@ public class OrderBAL {
     public static void createOrder(NewOrder newOrder, final CreateOrderResponse callback){
 
 
-        Call<ResponseNewOrder> order = RestClient.getAdapter().createOrder(newOrder);
+        Call<ResponseNewOrder> order = RestClient.getAuthAdapter().createOrder(newOrder);
 
         order.enqueue(new Callback<ResponseNewOrder>() {
             @Override
@@ -57,7 +57,7 @@ public class OrderBAL {
 
     public static void confirmOrder(String orderID, final OrderConfirmListener orderConfirmListener) {
 
-        Call<ResponseConfirmOrder> confirmOrder = RestClient.getAdapter().confirmOrder(orderID);
+        Call<ResponseConfirmOrder> confirmOrder = RestClient.getAuthRestAdapter().confirmOrder(orderID);
 
         confirmOrder.enqueue(new Callback<ResponseConfirmOrder>() {
             @Override
