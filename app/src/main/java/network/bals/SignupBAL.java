@@ -19,7 +19,7 @@ public class SignupBAL {
 
     public static void createUser(NewUser user, final SignupUserResponse signupUserResponse) {
 
-        Call<User> newUser = RestClient.getAuthAdapter().createUser(user);
+        Call<User> newUser = RestClient.getAuthRestAdapter().createUser(user);
 
         newUser.enqueue(new Callback<User>() {
             @Override
@@ -30,7 +30,8 @@ public class SignupBAL {
 
                     if(response.body() != null){
 
-                        DevicePreferences.getInstance().setUser(response);
+                        User.getInstance(response.body());
+                        DevicePreferences.getInstance().setUser();
 
                         //user has been created successfully,persist this user's info
 

@@ -9,6 +9,7 @@ import models.NewOrder;
 import models.SourceLocation;
 import models.User;
 import models.response.GenerateTokenResponse;
+import models.response.ResponseNewOrder;
 import org.json.JSONException;
 import org.json.JSONObject;
 import retrofit2.Response;
@@ -18,22 +19,14 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * Created by Sabih Ahmed on 09-Jun-16.
+ * Created by Sabih Ahmed and Maaz on 09-Jun-16.
  */
 public class DevicePreferences {
 
     private static final String KEY_USER = "user";
     private static final String KEY_TOKEN = "token";
-    private static final String KEY_PICK_LOC = "pickLoc";
-    private static final String KEY_DROP_LOC = "dropLoc";
     private static final String KEY_NEW_ORDER = "newOrder";
-
-    private static final String KEY_SOURCE_LAT = "sourceLat";
-    private static final String KEY_SOURCE_LONG = "sourceLong";
-    private static final String KEY_SOURCE_ADDR = "sourceAddr";
-    private static final String KEY_DEST_LAT = "destLat";
-    private static final String KEY_DEST_LONG = "destLong";
-    private static final String KEY_DEST_ADDR = "destAddr";
+    private static final String KEY_NEW_ORDER_RESPONSE = "newOrderResponse";
 
     private static DevicePreferences instance;
     private static SharedPreferences prefs;
@@ -44,46 +37,38 @@ public class DevicePreferences {
     private static String authHeader = "Basic NDlhMmRiZTExN2E0NDdjZWFmYjhiOTZiNTIwMTE2ZTY6ZDYzODQ0YjU2MDE3NDI4NjlhODQwNzRhYWZmNGNiNjY=";
     private String KEY_AUTH_HEADER = "AuthenticationHeader";
 
+    SourceLocation sourceLocation;
+    DestinationLocation destinationLocation;
 
-    public void init(Context context){
+
+    public DevicePreferences init(Context context){
 
         this.mContext = context;
 
         prefs = mContext.getSharedPreferences("clientPrefs", Context.MODE_PRIVATE);
+        return instance;
     }
-
-
-    private DevicePreferences() {
-
-    }
+    private DevicePreferences() {}
 
     public static DevicePreferences getInstance(){
 
         if(instance == null ){
-
             instance = new DevicePreferences();
         }
-
         return instance;
-
     }
+
     public String getHeader() {
 
-        //check in prefs which header flag has to be used
-        //return that header
+        //check in prefs which header flag has to be used and return that header
 
         if(isAuthHeaderFlag()){
-
             return authHeader ;
         }
         else{
-
             return getInstance().getUserToken().getAccess_token();
         }
-
     }
-
-
 
     public void setAuthHeaderFlag(Boolean flag) {
         SharedPreferences.Editor editor = prefs.edit();
@@ -99,11 +84,11 @@ public class DevicePreferences {
         return headerFlag;
     }
 
-    public void setUser(Response<User> response) {
+    public void setUser() {
         SharedPreferences.Editor editor = prefs.edit();
 
         Gson gson = new Gson();
-        String user = gson.toJson(response.body());
+        String user = gson.toJson(User.getInstance());
 
         editor.putString(KEY_USER,user);
         editor.commit();
@@ -114,7 +99,6 @@ public class DevicePreferences {
         String userString = prefs.getString(KEY_USER, "");
 
         User user = gson.fromJson(userString, User.class);
-
         return user;
 
     }
@@ -134,48 +118,14 @@ public class DevicePreferences {
         String token = gson.toJson(response);
         editor.putString(KEY_TOKEN,token);
         editor.commit();
-
     }
 
     public GenerateTokenResponse getUserToken(){
         Gson gson = new Gson();
         String userToken = prefs.getString(KEY_TOKEN, null);
         GenerateTokenResponse token = gson.fromJson(userToken, GenerateTokenResponse.class);
-
         return token;
-
     }
-
-    public void setPickLocation(String pickLoc) {
-        SharedPreferences.Editor editor = prefs.edit();
-        editor.putString(KEY_PICK_LOC,pickLoc);
-        editor.commit();
-    }
-
-    public String getPickLoc(){
-        String pickLoc = "";
-
-        pickLoc = prefs.getString(KEY_PICK_LOC, "");
-
-        return pickLoc;
-    }
-
-    public void setDropLocation(String dropLoc){
-        SharedPreferences.Editor editor = prefs.edit();
-        editor.putString(KEY_DROP_LOC,dropLoc);
-        editor.commit();
-
-    }
-
-    public String getDropLoc(){
-        String dropLoc = "";
-
-        dropLoc = prefs.getString(KEY_DROP_LOC, "");
-
-        return dropLoc;
-
-    }
-
 
     public void setOrder(NewOrder newOrder) {
         SharedPreferences.Editor editor = prefs.edit();
@@ -197,25 +147,10 @@ public class DevicePreferences {
 
         String sLatitude = String.valueOf(latitude);
         String sLongitude = String.valueOf(longitude);
-
-        SharedPreferences.Editor editor = prefs.edit();
-        editor.putString(KEY_SOURCE_LAT,sLatitude);
-        editor.putString(KEY_SOURCE_LONG,sLongitude);
-        editor.putString(KEY_SOURCE_ADDR,address);
-        editor.commit();
+        sourceLocation = new SourceLocation(sLatitude, sLongitude, address);
     }
 
     public SourceLocation getSourceLocationObject(){
-
-        String latitude = "";
-        String longitude = "";
-        String address = "";
-
-        latitude = prefs.getString(KEY_SOURCE_LAT, "");
-        longitude = prefs.getString(KEY_SOURCE_LONG, "");
-        address = prefs.getString(KEY_SOURCE_ADDR, "");
-
-        SourceLocation sourceLocation = new SourceLocation(latitude, longitude, address);
         return sourceLocation;
     }
 
@@ -223,26 +158,29 @@ public class DevicePreferences {
 
         String dLatitude = String.valueOf(latitude);
         String dLongitude = String.valueOf(longitude);
-
-        SharedPreferences.Editor editor = prefs.edit();
-        editor.putString(KEY_DEST_LAT,dLatitude);
-        editor.putString(KEY_DEST_LONG,dLongitude);
-        editor.putString(KEY_DEST_ADDR,address);
-        editor.commit();
+        destinationLocation = new DestinationLocation(dLatitude, dLongitude, address);
     }
 
     public DestinationLocation getDestinationLocationObject(){
-
-        String latitude = "";
-        String longitude = "";
-        String address = "";
-
-        latitude = prefs.getString(KEY_DEST_LAT, "");
-        longitude = prefs.getString(KEY_DEST_LONG, "");
-        address = prefs.getString(KEY_DEST_ADDR, "");
-
-        DestinationLocation destinationLocation = new DestinationLocation(latitude, longitude, address);
         return destinationLocation;
+    }
+
+    public void setNewOrderResponse(ResponseNewOrder body){
+
+        SharedPreferences.Editor editor = prefs.edit();
+        Gson gson = new Gson();
+        String body_response = gson.toJson(body);
+        editor.putString(KEY_NEW_ORDER_RESPONSE,body_response);
+        editor.commit();
+    }
+
+
+    public ResponseNewOrder getResponseNewOrder(){
+
+        Gson gson = new Gson();
+        String body_response = prefs.getString(KEY_NEW_ORDER_RESPONSE, null);
+        ResponseNewOrder newOrderResponse = gson.fromJson(body_response, ResponseNewOrder.class);
+        return newOrderResponse;
     }
 
 }

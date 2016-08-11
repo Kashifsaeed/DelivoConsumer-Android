@@ -2,6 +2,7 @@ package network;
 
 import models.NewOrder;
 import models.NewUser;
+import models.UpdatOrderStatus;
 import models.User;
 import models.response.GenerateTokenResponse;
 import models.response.ResponseConfirmOrder;
@@ -39,5 +40,5 @@ public interface ServicesInterface {
     Call<User> createUser(@Body NewUser user);
 
     @PUT("deleveryorder/confirm/{orderid}")
-    Call<ResponseConfirmOrder> confirmOrder(@Path("orderid") String orderID);
+    Call<ResponseConfirmOrder> confirmOrder(@Body UpdatOrderStatus updatOrderStatus, @Path("orderid") String orderID);
 }

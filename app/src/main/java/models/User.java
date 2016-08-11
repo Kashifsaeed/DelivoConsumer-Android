@@ -12,9 +12,26 @@ import java.util.List;
  */
 public class User implements Serializable{
     public Meta meta;
-    public Data data;
-    public GenerateTokenResponse userToken;
+    public Data data = new Data();
+    public GenerateTokenResponse userToken = new GenerateTokenResponse();
+    public static User user;
 
+    private User(){}
+
+    public static User getInstance()
+    {
+        if (user == null)
+            return  user = new User();
+        else
+            return user;
+    }
+    public static User getInstance(User newUser)
+    {
+        if (newUser != null)
+            return  user = newUser;
+        else
+            return getInstance();
+    }
 
     public User(Meta meta, Data data) {
         this.meta = meta;

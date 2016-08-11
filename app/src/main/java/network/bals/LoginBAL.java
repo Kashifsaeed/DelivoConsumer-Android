@@ -18,27 +18,26 @@ public class LoginBAL {
     public static void login(User user, final LoginUserResponse loginUserResponse) {
         DevicePreferences.getInstance().setAuthHeaderFlag(true);
 
-        Call<GenerateTokenResponse> generateToken = RestClient.getAuthAdapter()
-                                                              .login("password",
-                                                                      user.getData().getUsername(),
-                                                                      user.getData().getUsername(),
-                                                                      "read write");
-
-        generateToken.enqueue(new Callback<GenerateTokenResponse>() {
+         RestClient.getAuthAdapter().login("password",
+                 user.getData().getMobilenum(),
+                 user.getData().getMobilenum(),
+                 "read write").enqueue(new Callback<GenerateTokenResponse>() {
             @Override
             public void onResponse(Call<GenerateTokenResponse> call, Response<GenerateTokenResponse> response) {
 
                 if(response.isSuccessful()){
 
-                    if(response.body()!=null ){
+                            if(response.body()!=null ){
 
-                        DevicePreferences.getInstance().setUserToken(response.body());
+                        User.getInstance().setUserToken(response.body());
+                                DevicePreferences.getInstance().setUser();
                         loginUserResponse.OnLoggedIn();
 
                     }
                 }
 
                 DevicePreferences.getInstance().setAuthHeaderFlag(false);
+
             }
 
             @Override

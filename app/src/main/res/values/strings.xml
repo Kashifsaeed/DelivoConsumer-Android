@@ -36,4 +36,6 @@
         <item>Sign Out</item>
 
     </string-array>
+
+    <string name="Main_Screen_Title">Pick and Drop Locations</string>
 </resources>

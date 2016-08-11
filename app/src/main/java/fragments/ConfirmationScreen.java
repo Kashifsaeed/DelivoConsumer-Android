@@ -11,13 +11,12 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import com.attribe.delivo.app.NavigationUtils;
 import com.attribe.delivo.app.R;
+import models.UpdatOrderStatus;
 import models.response.ResponseNewOrder;
 import network.bals.OrderBAL;
 import network.interfaces.CreateOrderResponse;
 import network.interfaces.OrderConfirmListener;
-import screens.Confirmation;
 import utils.DevicePreferences;
-import utils.Progress;
 
 /**
  * Created by Maaz on 7/29/2016.
@@ -27,7 +26,6 @@ public class ConfirmationScreen extends Fragment {
     private View view;
     private String orderID ="";
     private Button confirmButton;
-    private Progress progress;
 
 //    public ConfirmationScreen() {
 //        // Required empty public constructor
@@ -44,7 +42,6 @@ public class ConfirmationScreen extends Fragment {
         }
         setHasOptionsMenu(true);
 
-        progress = NavigationUtils.getProgress(false);
         initViews(view);
         fetchIntent();
         return view;
@@ -54,7 +51,6 @@ public class ConfirmationScreen extends Fragment {
     private void initViews(View view) {
         confirmButton = (Button)view.findViewById(R.id.confirm);
         confirmButton.setOnClickListener(new ConfirmOrderListener());
-
     }
 
     private void fetchIntent() {
@@ -64,7 +60,7 @@ public class ConfirmationScreen extends Fragment {
               orderID = getArguments().getString("KEY_ORDERID");
 
             if(orderID.equalsIgnoreCase(ScreenRegistration.STATUS_ORDER_DEFERRED)){
-                progress.show(getFragmentManager(),"");
+
                 //show progress bar loading
                 //fetch order from preferences
                 //place new order request
@@ -73,19 +69,17 @@ public class ConfirmationScreen extends Fragment {
                 OrderBAL.createOrder(DevicePreferences.getInstance().getOrder(), new CreateOrderResponse() {
                     @Override
                     public void orderCreatedSuccessfully(ResponseNewOrder body) {
-
-                        progress.dismiss();
                         orderID = body.getData().getOrderid();
                     }
 
                     @Override
                     public void tokenExpired() {
-                        progress.dismiss();
+
                     }
 
                     @Override
                     public void failure(String s) {
-                        progress.dismiss();
+
                     }
                 });
 
@@ -95,20 +89,23 @@ public class ConfirmationScreen extends Fragment {
 
     }
 
-    public interface ConfirmationFragmentInteraction {
-
-        public void onFragmentInteraction(Uri uri);
-    }
+//    public interface ConfirmationFragmentInteraction {
+//
+//        public void onFragmentInteraction(Uri uri);
+//    }
 
 
     private class ConfirmOrderListener implements View.OnClickListener {
         @Override
         public void onClick(View v) {
 
-            OrderBAL.confirmOrder(orderID, new OrderConfirmListener() {
+            UpdatOrderStatus updatOrderStatus=new UpdatOrderStatus();
+            updatOrderStatus.setStatus("902");
+
+            OrderBAL.confirmOrder(updatOrderStatus,orderID, new OrderConfirmListener() {
                 @Override
                 public void OnOrderConfirmed() {
-                    NavigationUtils.showRiderDetailScreen(getActivity());
+                    NavigationUtils.showRiderDetailScreen(getFragmentManager());
                 }
 
                 @Override

@@ -1,6 +1,7 @@
 package network.bals;
 
 import models.NewOrder;
+import models.UpdatOrderStatus;
 import models.response.GenerateTokenResponse;
 import models.response.ResponseConfirmOrder;
 import models.response.ResponseNewOrder;
@@ -21,7 +22,7 @@ public class OrderBAL {
     public static void createOrder(NewOrder newOrder, final CreateOrderResponse callback){
 
 
-        Call<ResponseNewOrder> order = RestClient.getAuthAdapter().createOrder(newOrder);
+        Call<ResponseNewOrder> order = RestClient.getAuthRestAdapter().createOrder(newOrder);
 
         order.enqueue(new Callback<ResponseNewOrder>() {
             @Override
@@ -55,9 +56,9 @@ public class OrderBAL {
     }
 
 
-    public static void confirmOrder(String orderID, final OrderConfirmListener orderConfirmListener) {
+    public static void confirmOrder(UpdatOrderStatus updatOrderStatus,String orderID, final OrderConfirmListener orderConfirmListener) {
 
-        Call<ResponseConfirmOrder> confirmOrder = RestClient.getAuthRestAdapter().confirmOrder(orderID);
+        Call<ResponseConfirmOrder> confirmOrder = RestClient.getAuthRestAdapter().confirmOrder(updatOrderStatus,orderID);
 
         confirmOrder.enqueue(new Callback<ResponseConfirmOrder>() {
             @Override

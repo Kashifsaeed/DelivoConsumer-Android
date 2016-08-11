@@ -1,5 +1,6 @@
 package network;
 
+import models.User;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -10,7 +11,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import utils.DevicePreferences;
 
 import java.io.IOException;
-import java.util.concurrent.TimeUnit;
 
 /**
  * Created by Sabih Ahmed on 06-Jun-16.
@@ -44,7 +44,7 @@ public class RestClient {
                         Request request = chain.request();
                         Request newRequest;
                         newRequest = request.newBuilder()
-                                .addHeader("Authorization", DevicePreferences.getInstance().getUserToken().access_token)
+                                .addHeader("Authorization", "bearer " + User.getInstance().getUserToken().getAccess_token())
                                 .build();
                         return chain.proceed(newRequest);
                     }
@@ -52,11 +52,11 @@ public class RestClient {
                 .addInterceptor(logging)
 //                .connectTimeout(ApplicationConstant.TIMEOUT, TimeUnit.MILLISECONDS)
                 //.authenticator()
-                .authenticator(new Authenticator())
+                .authenticator(new RestAuthenticator())
                 .build();
 
         Retrofit retrofit = new Retrofit.Builder().
-                baseUrl(EndPoints.STAGE_URL).
+                baseUrl(EndPoints.STAGE_URL_10).
                 addConverterFactory(GsonConverterFactory.create()).
                 client(httpClient).
                 build();
@@ -80,7 +80,7 @@ public class RestClient {
         }).addInterceptor(logging).build();
 
         Retrofit retrofit = new Retrofit.Builder().
-                baseUrl(EndPoints.STAGE_URL).
+                baseUrl(EndPoints.STAGE_URL_BASE).
                 addConverterFactory(GsonConverterFactory.create()).
                 client(httpClient).
                 build();

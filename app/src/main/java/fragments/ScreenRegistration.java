@@ -73,7 +73,7 @@ public class ScreenRegistration extends Fragment {
                     fieldNumber.setError("Invalid Phone Number");
                 }
 
-                ScreenRegistration fragment = (ScreenRegistration)getFragmentManager().findFragmentById(R.id.auth_container);
+                ScreenRegistration fragment = (ScreenRegistration)getFragmentManager().findFragmentById(R.id.fragments_container);
                 getFragmentManager().beginTransaction()
                         .detach(fragment)
                         .attach(fragment)
@@ -93,13 +93,13 @@ public class ScreenRegistration extends Fragment {
 
                     @Override
                     public void OnUserCreated() {
-
+                        hideProgress();
                     }
 
 
                     @Override
                     public void OnError() {
-
+                        hideProgress();
                     }
                 });
             }

@@ -1,7 +1,6 @@
 package fragments;
 
 import android.app.Fragment;
-import android.app.FragmentManager;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.view.LayoutInflater;
@@ -12,9 +11,17 @@ import android.widget.EditText;
 import android.widget.Toast;
 import com.attribe.delivo.app.NavigationUtils;
 import com.attribe.delivo.app.R;
+import models.User;
+import models.response.GenerateTokenResponse;
 import models.response.ResponseNewOrder;
+import network.RestClient;
+import network.bals.LoginBAL;
 import network.bals.OrderBAL;
 import network.interfaces.CreateOrderResponse;
+import network.interfaces.LoginUserResponse;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import utils.DevicePreferences;
 
 import static com.attribe.delivo.app.NavigationUtils.showConfirmationScreen;
@@ -57,6 +64,11 @@ public class UserAuthentication extends Fragment {
         logIn.setOnClickListener(new LogInListner());
         signUp.setOnClickListener(new SignUpListner());
 
+        if(DevicePreferences.getInstance().getUser()!= null){
+            userAuthName.setText(DevicePreferences.getInstance().getUser().getData().getUsername());
+            userAuthNumber.setText(DevicePreferences.getInstance().getUser().getData().getMobilenum());
+        }
+
     }
 
     private class LogInListner implements View.OnClickListener {
@@ -67,9 +79,11 @@ public class UserAuthentication extends Fragment {
             userName = userAuthName.getText().toString();
             phone = userAuthNumber.getText().toString();
 
+//            makeUser(userName,phone);
+
             if (!isValidPhoneNumber(phone)) {
                 userAuthNumber.setError("Invalid Phone Number");
-                UserAuthentication fragment = (UserAuthentication) getFragmentManager().findFragmentById(R.id.auth_container);
+                UserAuthentication fragment = (UserAuthentication) getFragmentManager().findFragmentById(R.id.fragments_container);
                 getFragmentManager().beginTransaction()
                         .detach(fragment)
                         .attach(fragment)
@@ -77,16 +91,70 @@ public class UserAuthentication extends Fragment {
             } else {
 
                 if (DevicePreferences.getInstance().getUser() != null) {
-                    if (userName == DevicePreferences.getInstance().getUser().data.getUsername() || phone == DevicePreferences.getInstance().getUser().data.getMobilenum()) {
+                LoginBAL.login(DevicePreferences.getInstance().getUser(), new LoginUserResponse() {
+                    @Override
+                    public void OnLoggedIn() {
                         orderID = getArguments().getString("KEY_ORDERID");
                         showConfirmationScreen(getFragmentManager(), orderID);
                     }
-                } else {
-                    Toast.makeText(getActivity(), "Sorry user is not available , You have to register first ", Toast.LENGTH_LONG).show();
+
+                    @Override
+                    public void OnLoggedInFailed() {
+                        Toast.makeText(getActivity(), "Sorry user is not present , You have to register first ", Toast.LENGTH_LONG).show();
+                    }
+                });
+
+                }
+                else{
+                    logIn(phone);
                 }
             }
         }
     }
+
+    private void logIn(String phone) {
+
+        Call<GenerateTokenResponse> generateToken = RestClient.getAuthRestAdapter().login("password"
+                ,phone,phone,
+                "read write");
+        generateToken.enqueue(new Callback<GenerateTokenResponse>() {
+            @Override
+            public void onResponse(Call<GenerateTokenResponse> call, Response<GenerateTokenResponse> response) {
+                if(response.isSuccessful()){
+
+                    if(response.body()!=null ){
+
+                        DevicePreferences.getInstance().setUserToken(response.body());
+
+                        OrderBAL.createOrder(DevicePreferences.getInstance().getOrder(), new CreateOrderResponse() {
+                            @Override
+                            public void orderCreatedSuccessfully(ResponseNewOrder body) {
+                                Toast.makeText(getActivity(), " "+body.getData().getStatus().toString()+" , "+"Order created successfully ....", Toast.LENGTH_SHORT).show();
+                                DevicePreferences.getInstance().setNewOrderResponse(body);
+                                NavigationUtils.showConfirmationScreen(getFragmentManager(),body.getData().getOrderid());
+                            }
+
+                            @Override
+                            public void tokenExpired() {
+                                Toast.makeText(getActivity(), "Token expired !", Toast.LENGTH_SHORT).show();
+                            }
+
+                            @Override
+                            public void failure(String s) {
+
+                            }
+                        });
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<GenerateTokenResponse> call, Throwable t) {
+
+            }
+        });
+    }
+
 
     private boolean isValidPhoneNumber(String phone) {
         if (phone != null && phone.length() == 13) {
