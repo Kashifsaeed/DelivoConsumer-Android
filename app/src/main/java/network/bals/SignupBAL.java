@@ -2,8 +2,6 @@ package network.bals;
 
 import models.NewUser;
 import models.User;
-import models.response.GenerateTokenResponse;
-import models.response.ResponseGuestSignup;
 import network.RestClient;
 import network.interfaces.LoginUserResponse;
 import network.interfaces.SignupUserResponse;

@@ -416,54 +416,11 @@ public class PicknDropLocations extends AppCompatActivity implements OnMapReadyC
             }
 
             else{
-                List<DeleveryOrderItem> paramList = new ArrayList<DeleveryOrderItem>();
-
-                DeleveryOrderItem param = new DeleveryOrderItem( DevicePreferences.getInstance().getSourceLocationObject(),
-                                                                 DevicePreferences.getInstance().getDestinationLocationObject());
-                paramList.add(param);
-
-                NewOrder newOrder = new NewOrder("SUN2", "lorem ipsum description", "userId",paramList);
-
-                DevicePreferences.getInstance().setOrder(newOrder);
-
-                if(DevicePreferences.getInstance().getUser()!=null){
-
-                    OrderBAL.createOrder(newOrder, new CreateOrderResponse() {
-                        @Override
-                        public void orderCreatedSuccessfully(ResponseNewOrder body) {
-                            Toast.makeText(PicknDropLocations.this, " "+body.getData().getStatus().toString()+" , "+"Order created successfully ....", Toast.LENGTH_SHORT).show();
-                            DevicePreferences.getInstance().setNewOrderResponse(body);
-
-                            login(body.getData().getOrderid(),v);
-                        }
-
-                        @Override
-                        public void tokenExpired() {
-                            Toast.makeText(PicknDropLocations.this, "Token expired !", Toast.LENGTH_SHORT).show();
-                        }
-
-                        @Override
-                        public void failure(String s) {
-
-                        }
-                    });
-                }
-                else{
-                    mapLayout.setVisibility(v.GONE);
-                    containerLayout.setVisibility(v.VISIBLE);
-                    NavigationUtils.showUserAuthScreen(PicknDropLocations.this,getFragmentManager());
-                }
-
+                mapLayout.setVisibility(v.GONE);
+                containerLayout.setVisibility(v.VISIBLE);
+                NavigationUtils.placeOrderPanel(PicknDropLocations.this,getFragmentManager());
             }
-
         }
-    }
-
-    private void login(final String orderId, View view) {
-
-        mapLayout.setVisibility(view.GONE);
-        containerLayout.setVisibility(view.VISIBLE);
-        NavigationUtils.showConfirmationScreen(getFragmentManager(),orderId);
     }
 
     public void setDraweropened() {

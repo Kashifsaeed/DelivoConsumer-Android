@@ -6,10 +6,7 @@ import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import fragments.ConfirmationScreen;
-import fragments.ScreenRegistration;
-import fragments.ScreenRiderDetail;
-import fragments.UserAuthentication;
+import fragments.*;
 
 
 /**
@@ -62,4 +59,10 @@ public class NavigationUtils {
         context.startActivity(intent);
     }
 
+    public static void placeOrderPanel(Context context , FragmentManager fragmentManager ){
+
+        OrderMaking orderMaking = new OrderMaking();
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        transaction.replace(R.id.fragments_container, orderMaking).commit();
+    }
 }
