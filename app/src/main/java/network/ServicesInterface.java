@@ -6,7 +6,10 @@ import models.response.GenerateTokenResponse;
 import models.response.ResponseConfirmOrder;
 import models.response.ResponseNewOrder;
 import retrofit2.Call;
+import retrofit2.Callback;
 import retrofit2.http.*;
+
+import java.util.ArrayList;
 
 /**
  * Created by Sabih Ahmed on 06-Jun-16.
@@ -41,5 +44,5 @@ public interface ServicesInterface {
     Call<User> userEditProfile(@Body EditUserProfile editUserProfile);
 
     @GET("deleveryorder")
-    Call<ConsumerOrders> getUserOrders();
+    void getUserOrders(Callback<ArrayList<ConsumerOrders>> callback);
 }
