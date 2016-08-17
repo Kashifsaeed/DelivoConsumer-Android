@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 import com.attribe.delivo.app.NavigationUtils;
 import com.attribe.delivo.app.R;
 import models.UpdatOrderStatus;
@@ -54,10 +55,9 @@ public class ConfirmationScreen extends Fragment {
     }
 
     private void fetchIntent() {
-        if(getArguments().get("KEY_ORDERID") != null){
+    //    if(getArguments().get("KEY_ORDERID") != null){
 
-//            orderID = getIntent().getStringExtra(NavigationUtils.KEY_ORDERID);
-              orderID = getArguments().getString("KEY_ORDERID");
+              //orderID = getArguments().getString("KEY_ORDERID");
 
             if(orderID.equalsIgnoreCase(ScreenRegistration.STATUS_ORDER_DEFERRED)){
 
@@ -83,34 +83,32 @@ public class ConfirmationScreen extends Fragment {
                     }
                 });
 
-            }
+//            }
 
         }
 
     }
-
-//    public interface ConfirmationFragmentInteraction {
-//
-//        public void onFragmentInteraction(Uri uri);
-//    }
 
 
     private class ConfirmOrderListener implements View.OnClickListener {
         @Override
         public void onClick(View v) {
 
-            UpdatOrderStatus updatOrderStatus=new UpdatOrderStatus();
+            final UpdatOrderStatus updatOrderStatus=new UpdatOrderStatus();
             updatOrderStatus.setStatus("902");
 
-            OrderBAL.confirmOrder(updatOrderStatus,orderID, new OrderConfirmListener() {
+            OrderBAL.confirmOrder(updatOrderStatus,DevicePreferences.getInstance().getResponseNewOrder().getData().getOrderid(),
+                                  new OrderConfirmListener() {
                 @Override
                 public void OnOrderConfirmed() {
+                    Toast.makeText(getActivity(), "" + updatOrderStatus.getStatus(), Toast.LENGTH_SHORT).show();
+
                     NavigationUtils.showRiderDetailScreen(getFragmentManager());
                 }
 
                 @Override
                 public void OnFailure() {
-
+                    Toast.makeText(getActivity(), " Order confirmation failed !" , Toast.LENGTH_SHORT).show();
                 }
             });
         }

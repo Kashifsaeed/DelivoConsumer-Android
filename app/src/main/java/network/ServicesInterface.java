@@ -43,6 +43,9 @@ public interface ServicesInterface {
     @POST("guest")
     Call<User> userEditProfile(@Body EditUserProfile editUserProfile);
 
+//    @GET("deleveryorder")
+//    void getUserOrders(Callback<ArrayList<ConsumerOrders>> callback);
     @GET("deleveryorder")
-    void getUserOrders(Callback<ArrayList<ConsumerOrders>> callback);
+    Call<ConsumerOrders> getUserOrders();
+
 }

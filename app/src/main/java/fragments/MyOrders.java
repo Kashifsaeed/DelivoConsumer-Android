@@ -10,6 +10,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+import android.widget.Toast;
 import com.attribe.delivo.app.R;
 import models.response.ConsumerOrders;
 import network.RestClient;
@@ -49,27 +51,26 @@ public class MyOrders extends Fragment {
     private void initViews(View view) {
 
         recyclerView = (RecyclerView)view.findViewById(R.id.listOrders);
+
     }
 
     private void getAllOrders() {
 
-        RestClient.getAuthRestAdapter().getUserOrders(new Callback<ArrayList<ConsumerOrders>>() {
+        RestClient.getAuthRestAdapter().getUserOrders().enqueue(new Callback<ConsumerOrders>() {
             @Override
-            public void onResponse(Call<ArrayList<ConsumerOrders>> call, Response<ArrayList<ConsumerOrders>> response) {
-
-
+            public void onResponse(Call<ConsumerOrders> call, Response<ConsumerOrders> response) {
                 if(response.body() != null){
-                    myordersAdapter = new MyOrdersAdapter(getActivity(),response.body());
+                    myordersAdapter = new MyOrdersAdapter(getActivity().getApplicationContext(),response.body().getData());
                     RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
                     recyclerView.setLayoutManager(mLayoutManager);
-                    recyclerView.setItemAnimator(new DefaultItemAnimator());
+//                    recyclerView.setItemAnimator(new DefaultItemAnimator());
                     recyclerView.setAdapter(myordersAdapter);
                 }
             }
 
             @Override
-            public void onFailure(Call<ArrayList<ConsumerOrders>> call, Throwable t) {
-
+            public void onFailure(Call<ConsumerOrders> call, Throwable t) {
+                Toast.makeText(getActivity(),""+t.toString(),Toast.LENGTH_SHORT).show();
             }
         });
     }

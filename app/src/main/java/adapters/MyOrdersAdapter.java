@@ -19,13 +19,15 @@ import java.util.List;
 public class MyOrdersAdapter extends RecyclerView.Adapter<MyOrdersAdapter.MyViewHolder>{
 
     Context mContext;
-    private List<ConsumerOrders> ordersList;
+    private List<ConsumerOrders.UserData> ordersList;
     OnItemClickListner orderItemClickListner;
 
-    public MyOrdersAdapter(Context mContext, List<ConsumerOrders> ordersList) {
+
+    public MyOrdersAdapter(Context mContext, List<ConsumerOrders.UserData> ordersList) {
         this.mContext = mContext;
         this.ordersList = ordersList;
     }
+
 
     public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         public TextView orderItemCount,orderItemTitle;
@@ -66,10 +68,10 @@ public class MyOrdersAdapter extends RecyclerView.Adapter<MyOrdersAdapter.MyView
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
-        ConsumerOrders consumerOrders = ordersList.get(position);
+//        ConsumerOrders.UserData consumerOrders = ordersList.get(position);
 
-        holder.orderItemCount.setText(""+ consumerOrders.getData().get(position));
-        holder.orderItemTitle.setText(""+ consumerOrders.getData().get(position).getOrderid());
+        holder.orderItemCount.setText(""+ ordersList.get(position).getDescription());
+        holder.orderItemTitle.setText(""+ordersList.get(position).getOrderid());
 
     }
 

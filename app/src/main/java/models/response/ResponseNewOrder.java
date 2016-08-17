@@ -391,18 +391,9 @@ public class ResponseNewOrder {
 
     public class DestinationLocation {
 
-        private Integer latitude;
-        private Integer longitude;
-        private String address;
-        private Object addressSec;
-        private Object createdDate;
-        private Object createdBy;
-        private Object udpatedDate;
-        private Object updatedBy;
-
-        public DestinationLocation(Integer latitude, Integer longitude, String address,
-                                   Object addressSec, Object createdDate, Object createdBy,
-                                   Object udpatedDate, Object updatedBy) {
+        public DestinationLocation(double latitude, double longitude,
+                                   String address, Object addressSec, Object createdDate,
+                                   Object createdBy, Object udpatedDate, Object updatedBy) {
             this.latitude = latitude;
             this.longitude = longitude;
             this.address = address;
@@ -413,19 +404,19 @@ public class ResponseNewOrder {
             this.updatedBy = updatedBy;
         }
 
-        public Integer getLatitude() {
+        public double getLatitude() {
             return latitude;
         }
 
-        public void setLatitude(Integer latitude) {
+        public void setLatitude(double latitude) {
             this.latitude = latitude;
         }
 
-        public Integer getLongitude() {
+        public double getLongitude() {
             return longitude;
         }
 
-        public void setLongitude(Integer longitude) {
+        public void setLongitude(double longitude) {
             this.longitude = longitude;
         }
 
@@ -477,12 +468,8 @@ public class ResponseNewOrder {
             this.updatedBy = updatedBy;
         }
 
-    }
-
-    public class SourceLocation {
-
-        private Integer latitude;
-        private Integer longitude;
+        private double latitude;
+        private double longitude;
         private String address;
         private Object addressSec;
         private Object createdDate;
@@ -490,9 +477,26 @@ public class ResponseNewOrder {
         private Object udpatedDate;
         private Object updatedBy;
 
-        public SourceLocation(Integer latitude, Integer longitude, String address,
-                              Object addressSec, Object createdDate, Object createdBy,
-                              Object udpatedDate, Object updatedBy) {
+
+
+
+    }
+
+    public class SourceLocation {
+
+        private double latitude;
+        private double longitude;
+        private String address;
+        private Object addressSec;
+        private Object createdDate;
+        private Object createdBy;
+        private Object udpatedDate;
+        private Object updatedBy;
+
+
+        public SourceLocation(double latitude, double longitude,
+                              String address, Object addressSec, Object createdDate,
+                              Object createdBy, Object udpatedDate, Object updatedBy) {
             this.latitude = latitude;
             this.longitude = longitude;
             this.address = address;
@@ -503,19 +507,19 @@ public class ResponseNewOrder {
             this.updatedBy = updatedBy;
         }
 
-        public Integer getLatitude() {
+        public double getLatitude() {
             return latitude;
         }
 
-        public void setLatitude(Integer latitude) {
+        public void setLatitude(double latitude) {
             this.latitude = latitude;
         }
 
-        public Integer getLongitude() {
+        public double getLongitude() {
             return longitude;
         }
 
-        public void setLongitude(Integer longitude) {
+        public void setLongitude(double longitude) {
             this.longitude = longitude;
         }
 

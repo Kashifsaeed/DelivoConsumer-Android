@@ -10,7 +10,6 @@ import android.widget.*;
 import com.attribe.delivo.app.NavigationUtils;
 import com.attribe.delivo.app.PicknDropLocations;
 import com.attribe.delivo.app.R;
-import models.DeleveryOrderItem;
 import models.NewOrder;
 import models.response.ResponseNewOrder;
 import network.bals.OrderBAL;
@@ -32,6 +31,11 @@ public class OrderMaking extends Fragment {
     private EditText orderDescription;
     private Button submitOrder;
 
+    List<NewOrder.DeleveryOrderItem> paramList;
+    String order_description;
+    String sourceAddress;
+    String destinationAddress;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
@@ -51,55 +55,58 @@ public class OrderMaking extends Fragment {
     private void init(View view) {
         containerLayout = (LinearLayout)getActivity().findViewById(R.id.containerLayout);
         mapLayout = (LinearLayout)getActivity().findViewById(R.id.mapLayout);
+        orderDescription = (EditText)view.findViewById(R.id.et_order_description_area) ;
         order_pickAddress = (TextView)view.findViewById(R.id.tvPickAdrDetail) ;
         order_dropAdress  = (TextView)view.findViewById(R.id.tvDropAdrDetail) ;
-        orderDescription = (EditText)view.findViewById(R.id.et_order_description_area) ;
         submitOrder = (Button)view.findViewById(R.id.placeOrderBtn) ;
     }
 
     private void makingOrder(final View v) {
 
-        List<DeleveryOrderItem> paramList = new ArrayList<DeleveryOrderItem>();
-
-        DeleveryOrderItem param = new DeleveryOrderItem( DevicePreferences.getInstance().getSourceLocationObject(),
+        paramList = new ArrayList<NewOrder.DeleveryOrderItem>();
+        NewOrder.DeleveryOrderItem param = new NewOrder().new DeleveryOrderItem( DevicePreferences.getInstance().getSourceLocationObject(),
                                                          DevicePreferences.getInstance().getDestinationLocationObject());
         paramList.add(param);
 
-        String sourceAddress = DevicePreferences.getInstance().getSourceLocationObject().getAddress();
-        String destinationAddress = DevicePreferences.getInstance().getDestinationLocationObject().getAddress();
-        String order_description = orderDescription.getText().toString();
+        sourceAddress = DevicePreferences.getInstance().getSourceLocationObject().getAddress();
+        destinationAddress = DevicePreferences.getInstance().getDestinationLocationObject().getAddress();
 
         order_pickAddress.setText(sourceAddress);
         order_dropAdress.setText(destinationAddress);
-
-        NewOrder newOrder = new NewOrder(order_description, sourceAddress, destinationAddress,paramList);
-
-        DevicePreferences.getInstance().setOrder(newOrder);
 
         submitOrder.setOnClickListener(new SubmitOrderListner());
 
     }
 
-    private void login(final String orderId, View view) {
-
-        mapLayout.setVisibility(view.GONE);
-        containerLayout.setVisibility(view.VISIBLE);
-        NavigationUtils.showConfirmationScreen(getFragmentManager(),orderId);
-    }
+//    private void login(final String orderId, View view) {
+//
+//        mapLayout.setVisibility(view.GONE);
+//        containerLayout.setVisibility(view.VISIBLE);
+//        NavigationUtils.showConfirmationScreen(getFragmentManager(),orderId);
+//    }
 
     private class SubmitOrderListner implements View.OnClickListener {
         @Override
         public void onClick(final View v) {
 
+            order_description = orderDescription.getText().toString();
+            NewOrder newOrder = new NewOrder(order_description, sourceAddress, destinationAddress,paramList);
+            DevicePreferences.getInstance().setOrder(newOrder);
+
             if(DevicePreferences.getInstance().getUser()!=null){
 
-                OrderBAL.createOrder(DevicePreferences.getInstance().getOrder(), new CreateOrderResponse() {
+                OrderBAL.createOrder(newOrder , new CreateOrderResponse() {
                     @Override
                     public void orderCreatedSuccessfully(ResponseNewOrder body) {
                         Toast.makeText(getActivity(), " "+body.getData().getStatus().toString()+" , "+"Order created successfully ....", Toast.LENGTH_SHORT).show();
                         DevicePreferences.getInstance().setNewOrderResponse(body);
 
-                        login(body.getData().getOrderid(),v);
+//                        login(body.getData().getOrderid(),v);
+                        mapLayout.setVisibility(view.GONE);
+                        containerLayout.setVisibility(view.VISIBLE);
+                        NavigationUtils.showConfirmationScreen(getFragmentManager(),
+                                                               DevicePreferences.getInstance().getResponseNewOrder().getData().getOrderid());
+//                        NavigationUtils.showConfirmationScreen(getFragmentManager(),body.getData().getOrderid());
                     }
 
                     @Override

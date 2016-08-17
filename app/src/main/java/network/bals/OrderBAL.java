@@ -1,5 +1,6 @@
 package network.bals;
 
+import android.widget.Toast;
 import models.NewOrder;
 import models.UpdatOrderStatus;
 import models.response.GenerateTokenResponse;
@@ -42,8 +43,6 @@ public class OrderBAL {
 
                 }
 
-
-
             }
 
             @Override
@@ -70,8 +69,6 @@ public class OrderBAL {
                     }
 
                 }
-
-
 
             }
 

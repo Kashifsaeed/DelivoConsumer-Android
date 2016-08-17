@@ -4,9 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import com.google.gson.Gson;
-import models.DestinationLocation;
 import models.NewOrder;
-import models.SourceLocation;
 import models.User;
 import models.response.GenerateTokenResponse;
 import models.response.ResponseNewOrder;
@@ -37,8 +35,8 @@ public class DevicePreferences {
     private static String authHeader = "Basic NDlhMmRiZTExN2E0NDdjZWFmYjhiOTZiNTIwMTE2ZTY6ZDYzODQ0YjU2MDE3NDI4NjlhODQwNzRhYWZmNGNiNjY=";
     private String KEY_AUTH_HEADER = "AuthenticationHeader";
 
-    SourceLocation sourceLocation;
-    DestinationLocation destinationLocation;
+    NewOrder.SourceLocation sourceLocation;
+    NewOrder.DestinationLocation destinationLocation;
 
 
     public DevicePreferences init(Context context){
@@ -147,10 +145,10 @@ public class DevicePreferences {
 
         String sLatitude = String.valueOf(latitude);
         String sLongitude = String.valueOf(longitude);
-        sourceLocation = new SourceLocation(sLatitude, sLongitude, address);
+        sourceLocation = new NewOrder().new SourceLocation(sLatitude,sLongitude,address);
     }
 
-    public SourceLocation getSourceLocationObject(){
+    public NewOrder.SourceLocation getSourceLocationObject(){
         return sourceLocation;
     }
 
@@ -158,10 +156,10 @@ public class DevicePreferences {
 
         String dLatitude = String.valueOf(latitude);
         String dLongitude = String.valueOf(longitude);
-        destinationLocation = new DestinationLocation(dLatitude, dLongitude, address);
+        destinationLocation = new NewOrder().new DestinationLocation(dLatitude, dLongitude, address);
     }
 
-    public DestinationLocation getDestinationLocationObject(){
+    public NewOrder.DestinationLocation getDestinationLocationObject(){
         return destinationLocation;
     }
 

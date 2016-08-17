@@ -352,8 +352,8 @@ public class ConsumerOrders {
 
     public class DestinationLocation {
 
-        private Integer latitude;
-        private Integer longitude;
+        private double latitude;
+        private double longitude;
         private String address;
         private Object addressSec;
         private Object createdDate;
@@ -362,7 +362,7 @@ public class ConsumerOrders {
         private Object updatedBy;
 
 
-        public Integer getLatitude() {
+        public double getLatitude() {
             return latitude;
         }
 
@@ -370,7 +370,7 @@ public class ConsumerOrders {
             this.latitude = latitude;
         }
 
-        public Integer getLongitude() {
+        public double getLongitude() {
             return longitude;
         }
 
@@ -432,8 +432,8 @@ public class ConsumerOrders {
     public class SourceLocation {
 
 
-        private Integer latitude;
-        private Integer longitude;
+        private double latitude;
+        private double longitude;
         private String address;
         private Object addressSec;
         private Object createdDate;
@@ -441,7 +441,7 @@ public class ConsumerOrders {
         private Object udpatedDate;
         private Object updatedBy;
 
-        public Integer getLatitude() {
+        public double getLatitude() {
             return latitude;
         }
 
@@ -449,7 +449,7 @@ public class ConsumerOrders {
             this.latitude = latitude;
         }
 
-        public Integer getLongitude() {
+        public double getLongitude() {
             return longitude;
         }
 
@@ -504,6 +504,49 @@ public class ConsumerOrders {
         public void setUpdatedBy(Object updatedBy) {
             this.updatedBy = updatedBy;
         }
+
+    }
+
+    public class Meta {
+
+
+        private Boolean success;
+        private Object apiDeprecated;
+        private Object message;
+        private Integer code;
+
+        public Boolean getSuccess() {
+            return success;
+        }
+
+        public void setSuccess(Boolean success) {
+            this.success = success;
+        }
+
+        public Object getApiDeprecated() {
+            return apiDeprecated;
+        }
+
+        public void setApiDeprecated(Object apiDeprecated) {
+            this.apiDeprecated = apiDeprecated;
+        }
+
+        public Object getMessage() {
+            return message;
+        }
+
+        public void setMessage(Object message) {
+            this.message = message;
+        }
+
+        public Integer getCode() {
+            return code;
+        }
+
+        public void setCode(Integer code) {
+            this.code = code;
+        }
+
 
     }
 

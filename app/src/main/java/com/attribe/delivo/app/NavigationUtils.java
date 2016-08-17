@@ -26,9 +26,9 @@ public class NavigationUtils {
     public static void showConfirmationScreen( FragmentManager fragmentManager , String orderid ) {
 
         ConfirmationScreen confirmationScreen = new ConfirmationScreen();
-        Bundle bundle = new Bundle();
-        bundle.putString(KEY_ORDERID,orderid);
-        confirmationScreen.setArguments(bundle);
+//        Bundle bundle = new Bundle();
+//        bundle.putString(KEY_ORDERID,orderid);
+//        confirmationScreen.setArguments(bundle);
 
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         transaction.replace(R.id.fragments_container, confirmationScreen).commit();

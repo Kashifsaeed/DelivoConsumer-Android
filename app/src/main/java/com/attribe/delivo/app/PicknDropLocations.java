@@ -9,7 +9,9 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
 import android.location.*;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
@@ -34,7 +36,6 @@ import fragments.CallUs;
 import fragments.MyOrders;
 import fragments.Settings;
 import fragments.UserAuthentication;
-import models.DeleveryOrderItem;
 import models.NewOrder;
 import models.User;
 import models.response.ResponseNewOrder;
@@ -103,11 +104,18 @@ public class PicknDropLocations extends AppCompatActivity implements OnMapReadyC
 
     private void initViews(Bundle savedInstanceState) {
 
+        if (Build.VERSION.SDK_INT > 9) {
+            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+            StrictMode.setThreadPolicy(policy);
+        }
+
         toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(toolbar);
 
         containerLayout = (LinearLayout) findViewById(R.id.containerLayout);
         mapLayout = (LinearLayout) findViewById(R.id.mapLayout);
+
+        containerLayout.setVisibility(View.GONE);
 
         pickLocAddress = (CustomEditText)findViewById(R.id.pickAddress);
         pickLocAddress.setText("");
