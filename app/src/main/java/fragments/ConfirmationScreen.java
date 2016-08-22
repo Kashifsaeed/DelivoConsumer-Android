@@ -2,6 +2,7 @@ package fragments;
 
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.app.ProgressDialog;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.StrictMode;
@@ -27,6 +28,7 @@ public class ConfirmationScreen extends Fragment {
     private View view;
     private String orderID ="";
     private Button confirmButton;
+    private ProgressDialog progressDialog;
 
 //    public ConfirmationScreen() {
 //        // Required empty public constructor
@@ -97,11 +99,15 @@ public class ConfirmationScreen extends Fragment {
             final UpdatOrderStatus updatOrderStatus=new UpdatOrderStatus();
             updatOrderStatus.setStatus("902");
 
+            showProgress("Confirming your order ....");
             OrderBAL.confirmOrder(updatOrderStatus,DevicePreferences.getInstance().getResponseNewOrder().getData().getOrderid(),
                                   new OrderConfirmListener() {
+
                 @Override
                 public void OnOrderConfirmed() {
-                    Toast.makeText(getActivity(), "" + updatOrderStatus.getStatus(), Toast.LENGTH_SHORT).show();
+
+                    hideProgress();
+                    Toast.makeText(getActivity(), "" + updatOrderStatus.getStatus() + ", your order is confirmed", Toast.LENGTH_SHORT).show();
 
                     NavigationUtils.showRiderDetailScreen(getFragmentManager());
                 }
@@ -113,4 +119,10 @@ public class ConfirmationScreen extends Fragment {
             });
         }
     }
+
+    private void showProgress(String message) {
+        progressDialog= ProgressDialog.show(getActivity(),"",message,false);
+    }
+
+    private void hideProgress(){progressDialog.dismiss();}
 }

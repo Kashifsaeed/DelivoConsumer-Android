@@ -29,7 +29,8 @@
         <activity
                 android:name=".PicknDropLocations"
                 android:label="@string/Main_Screen_Title"
-                android:theme="@style/AppTheme">
+                android:theme="@style/AppTheme"
+                android:windowSoftInputMode="stateVisible">
         </activity>
         <!--<activity-->
                 <!--android:name=".MainActivity"-->
