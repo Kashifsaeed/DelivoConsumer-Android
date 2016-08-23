@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        xmlns:mapbox="http://schemas.android.com/apk/res-auto"
+
+        tools:context="com.attribe.delivo.app.MapBox"
+       android:orientation="vertical"
+android:weightSum="2">
+    <com.mapbox.mapboxsdk.maps.MapView
+            android:id="@+id/mapView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+             mapbox:center_latitude="24.857697"
+          mapbox:center_longitude="67.045983"
+         mapbox:style_url="mapbox://styles/mapbox/streets-v9"
+
+            mapbox:zoom="12"
+    android:layout_weight="1.5"/>
+
+    <Button android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/getLocation"
+            android:layout_weight="0.5"
+            android:text="PickLocation"
+    />
+
+    <!--mapbox:style_url="mapbox://styles/mapbox/light-v9"-->
+    <!--mapbox:style_url="mapbox://styles/mapbox/streets-v9"-->
+    <!--mapbox:center_latitude="24.857697"-->
+    <!--mapbox:center_longitude="67.045983"-->
+    <!--mapbox:style_url="mapbox://styles/mapbox/streets-v9"-->
+
+
+</LinearLayout>

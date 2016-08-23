@@ -1,10 +1,7 @@
 package network;
 
 import models.*;
-import models.response.ConsumerOrders;
-import models.response.GenerateTokenResponse;
-import models.response.ResponseConfirmOrder;
-import models.response.ResponseNewOrder;
+import models.response.*;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.http.*;
@@ -47,5 +44,6 @@ public interface ServicesInterface {
 //    void getUserOrders(Callback<ArrayList<ConsumerOrders>> callback);
     @GET("deleveryorder")
     Call<ConsumerOrders> getUserOrders();
+
 
 }
