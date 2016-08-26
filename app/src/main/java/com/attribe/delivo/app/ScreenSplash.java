@@ -33,7 +33,7 @@ public class ScreenSplash extends Activity {
                 } catch (Exception e) {
                     System.out.println("EXc=" + e);
                 } finally {
-                    startActivity(new Intent(getApplicationContext(), PicknDropLocations.class));
+                    startActivity(new Intent(getApplicationContext(), MapBox.class));
                     finish();
                 }
             }

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+    <android.support.v7.widget.RecyclerView
+            android:id="@+id/listSearches"
+            android:layout_width="match_parent"
+            android:layout_height="500dp"
+            android:padding="2dp"
+            android:scrollbars="vertical"
+            android:alpha="0.6"/>
+
+
+    <Button android:id="@+id/Searchbtn"
+            android:layout_width="match_parent" android:layout_height="wrap_content"
+    android:text="SEARCH"/>
+
+
+        </LinearLayout>

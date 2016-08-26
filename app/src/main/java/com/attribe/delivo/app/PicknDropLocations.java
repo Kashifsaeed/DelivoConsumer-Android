@@ -23,6 +23,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.*;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.*;
 import android.widget.Toolbar;
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
@@ -122,6 +123,7 @@ public class PicknDropLocations extends AppCompatActivity implements OnMapReadyC
         pickLocAddress.setOnClickListener(new PickSearchFieldListner());
 
         dropLocAddress = (CustomEditText)findViewById(R.id.dropAddress);
+        dropLocAddress.requestFocus();
         dropLocAddress.setText("");
         dropLocAddress.setOnClickListener(new DropSearchFieldListner());
 
@@ -205,6 +207,15 @@ public class PicknDropLocations extends AppCompatActivity implements OnMapReadyC
 
     private void hideProgress(){progressDialog.dismiss();}
 
+    private void hideKeyboard(){
+        // Check if no view has focus:
+        View view = this.getCurrentFocus();
+        if (view != null) {
+            InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        }
+    }
+
     @Override
     protected void onResume() {
         mapView.onResume();
@@ -278,7 +289,8 @@ public class PicknDropLocations extends AppCompatActivity implements OnMapReadyC
                     showProgress("Getting Location ...");
                     map.addMarker(markerOptions);
                     hideProgress();
-                    pickLocAddress.setText(place.getAddress().toString());
+                    pickLocAddress.setText("" + place.getAddress().toString());
+                    makeZoom(place);
                     DevicePreferences.getInstance().setSourceLocationObject(place.getLatLng().latitude,place.getLatLng().longitude,place.getAddress().toString());
                 }
                 else{
@@ -289,7 +301,8 @@ public class PicknDropLocations extends AppCompatActivity implements OnMapReadyC
                           final Marker dropLocationMarker = map.addMarker(markerOptions);
                           dropLocationMarker.setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
                           hideProgress();
-                          dropLocAddress.setText(place.getAddress().toString());
+                          dropLocAddress.setText("" + place.getAddress().toString());
+                          makeZoom(place);
                           DevicePreferences.getInstance().setDestinationLocationObject(place.getLatLng().latitude, place.getLatLng().longitude, place.getAddress().toString());
                       }
                       else{
@@ -297,6 +310,22 @@ public class PicknDropLocations extends AppCompatActivity implements OnMapReadyC
                       }
                 }
             }
+        }
+    }
+
+    private void makeZoom(Place place) {
+
+        if (place.getLatLng() != null)
+        {
+            map.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(place.getLatLng().latitude , place.getLatLng().longitude ), 13));
+
+            CameraPosition cameraPosition = new CameraPosition.Builder()
+                    .target(new LatLng(place.getLatLng().latitude , place.getLatLng().longitude ))      // Sets the center of the map to location user
+                    .zoom(17)                   // Sets the zoom
+                    .bearing(90)                // Sets the orientation of the camera to east
+                    .tilt(40)                   // Sets the tilt of the camera to 30 degrees
+                    .build();                   // Creates a CameraPosition from the builder
+            map.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
         }
     }
 
@@ -427,6 +456,7 @@ public class PicknDropLocations extends AppCompatActivity implements OnMapReadyC
                 mapLayout.setVisibility(v.GONE);
                 containerLayout.setVisibility(v.VISIBLE);
                 NavigationUtils.placeOrderPanel(PicknDropLocations.this,getFragmentManager());
+                hideKeyboard();
             }
         }
     }

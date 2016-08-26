@@ -1,6 +1,7 @@
 package fragments;
 
 import android.app.Fragment;
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.view.LayoutInflater;
@@ -30,6 +31,7 @@ public class OrderMaking extends Fragment {
     private TextView order_pickAddress, order_dropAdress;
     private EditText orderDescription;
     private Button submitOrder;
+    private ProgressDialog progressDialog;
 
     List<NewOrder.DeleveryOrderItem> paramList;
     String order_description;
@@ -95,9 +97,12 @@ public class OrderMaking extends Fragment {
 
             if(DevicePreferences.getInstance().getUser()!=null){
 
+                showProgress("Submitting your order ....");
                 OrderBAL.createOrder(newOrder , new CreateOrderResponse() {
                     @Override
                     public void orderCreatedSuccessfully(ResponseNewOrder body) {
+
+                        hideProgress();
                         Toast.makeText(getActivity(), " "+body.getData().getStatus().toString()+" , "+"Order created successfully ....", Toast.LENGTH_SHORT).show();
                         DevicePreferences.getInstance().setNewOrderResponse(body);
 
@@ -127,4 +132,10 @@ public class OrderMaking extends Fragment {
             }
         }
     }
+
+    private void showProgress(String message) {
+        progressDialog= ProgressDialog.show(getActivity(),"",message,false);
+    }
+
+    private void hideProgress(){progressDialog.dismiss();}
 }

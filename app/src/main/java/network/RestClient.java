@@ -1,6 +1,7 @@
 package network;
 
 import models.User;
+import network.interfaces.GoogleApiInterface;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -19,6 +20,7 @@ public class RestClient {
 
     private static ServicesInterface authClient;
     private static ServicesInterface authRestClient;
+    private static GoogleApiInterface googleApiInterface;
 
     static {
         setupClient();
@@ -30,6 +32,38 @@ public class RestClient {
 
         setupAuthClient();
         setupRestClient();
+        setGoogleAPiclient();
+
+    }
+    private static void setGoogleAPiclient(){
+        HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
+        logging.setLevel(HttpLoggingInterceptor.Level.BODY);
+        OkHttpClient httpClient = new OkHttpClient.Builder()
+                .addInterceptor(new Interceptor() {
+                    @Override
+                    public Response intercept(Chain chain) throws IOException {
+                        Request request = chain.request();
+                        Request newRequest;
+                        newRequest = request.newBuilder()
+                               // .addHeader("Authorization", "bearer " + User.getInstance().getUserToken().getAccess_token())
+                                .build();
+                        return chain.proceed(newRequest);
+                    }
+                })
+                .addInterceptor(logging)
+//                .connectTimeout(ApplicationConstant.TIMEOUT, TimeUnit.MILLISECONDS)
+                //.authenticator()
+               // .authenticator(new RestAuthenticator())
+                .build();
+
+        Retrofit retrofit = new Retrofit.Builder().
+               // baseUrl(EndPoints.STAGE_URL_10).
+                addConverterFactory(GsonConverterFactory.create()).
+                client(httpClient).
+                build();
+
+        googleApiInterface = retrofit.create(GoogleApiInterface.class);
+
 
     }
 
@@ -90,12 +124,19 @@ public class RestClient {
 
 
 
+
+
     public static ServicesInterface getAuthAdapter(){
         return authClient;
     }
     public static ServicesInterface getAuthRestAdapter(){
         return authRestClient;
     }
+
+    public static GoogleApiInterface getGoogleApiInterface(){
+        return googleApiInterface;
+    }
+
 }
 
 
