@@ -9,7 +9,7 @@
             android:id="@+id/dropAddress"
             android:hint="Add drop off location"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="60dp"
             android:elevation="5dp"
             android:drawableRight="@drawable/places_ic_search"
             android:imeOptions="actionDone" />

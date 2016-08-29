@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.location.*;
 import android.os.Build;
@@ -22,6 +23,9 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.*;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.style.ForegroundColorSpan;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.*;
@@ -83,11 +87,11 @@ public class PicknDropLocations extends AppCompatActivity implements OnMapReadyC
     private ProgressDialog progressDialog;
 
     int[] delivoImages = new int[]{
-            R.drawable.home,
-            R.drawable.order_d,
-            R.drawable.setting_d,
-            R.drawable.call_us,
-            R.drawable.signout
+            R.mipmap.home,
+            R.mipmap.orderlist,
+            R.mipmap.call_us,
+            R.mipmap.settings,
+            R.mipmap.sign_out
     };
 
     @Override
@@ -188,6 +192,9 @@ public class PicknDropLocations extends AppCompatActivity implements OnMapReadyC
         drawerLayout.setDrawerListener(mDrawerToggle);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
+        Spannable text = new SpannableString(getSupportActionBar().getTitle());
+        text.setSpan(new ForegroundColorSpan(Color.WHITE), 0, text.length(), Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+        getSupportActionBar().setTitle(text);
         mDrawerToggle.syncState();
     }
 
@@ -512,19 +519,18 @@ public class PicknDropLocations extends AppCompatActivity implements OnMapReadyC
 
                 case 2:
 
-                    Settings fragment_settings = new Settings();
-                    fragmentManager = getFragmentManager();
-                    mapLayout.setVisibility(LinearLayout.GONE);
-                    fragmentManager.beginTransaction().replace(R.id.fragments_container, fragment_settings).commit();
-                    setDrawerclosed();
-                    break;
-
-                case 3:
-
                     CallUs fragment_callUs = new CallUs();
                     fragmentManager = getFragmentManager();
                     mapLayout.setVisibility(LinearLayout.GONE);
                     fragmentManager.beginTransaction().replace(R.id.fragments_container, fragment_callUs).commit();
+                    setDrawerclosed();
+                    break;
+
+                case 3:
+                    Settings fragment_settings = new Settings();
+                    fragmentManager = getFragmentManager();
+                    mapLayout.setVisibility(LinearLayout.GONE);
+                    fragmentManager.beginTransaction().replace(R.id.fragments_container, fragment_settings).commit();
                     setDrawerclosed();
                     break;
 

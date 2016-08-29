@@ -31,11 +31,11 @@
 
         <item>Home</item>
         <item>My Orders</item>
-        <item>Settings</item>
         <item>Call Us</item>
+        <item>Settings</item>
         <item>Sign Out</item>
 
     </string-array>
 
-    <string name="Main_Screen_Title">Pick and Drop Locations</string>
+    <string name="Main_Screen_Title">DELIVO</string>
 </resources>
