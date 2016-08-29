@@ -31,17 +31,31 @@
 
     </LinearLayout>
 
+
+    <!--Default Screen layout starts-->
     <LinearLayout
             android:id="@+id/mapLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+    android:weightSum="2">
 
-        <RelativeLayout android:layout_width="match_parent" android:layout_height="300dp">
 
-            <com.google.android.gms.maps.MapView android:id="@+id/mapview"
-                                                 android:layout_width="match_parent"
-                                                 android:layout_height="300dp" />
+     <!--Maps View Area Starts Here-->
+        <RelativeLayout
+
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1.5"
+                android:elevation="2dp">
+
+            <com.google.android.gms.maps.MapView
+                    android:id="@+id/mapview"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+            />
+            <!--android:layout_height="300dp"-->
 
             <FrameLayout
                     android:layout_width="40dp"
@@ -59,14 +73,25 @@
 
         </RelativeLayout>
 
+        <!--Maps View Area Ends Here-->
 
 
+<!--Pick And Drop Location Edittext  Area Starts Here-->
+<FrameLayout android:layout_width="match_parent"
+             android:layout_height="0dp"
+             android:layout_weight="0.5"
+             android:animateLayoutChanges="true"
+>
 
         <include layout="@layout/pick_location"/>
 
         <include layout="@layout/drop_location"/>
+</FrameLayout>
+        <!--Pick And Drop Location Edittext  Area Ends Here-->
 
     </LinearLayout>
+        <!--Default Screen layout Ends-->
+
 
         <!-- Listview to display slider menu -->
         <ListView
