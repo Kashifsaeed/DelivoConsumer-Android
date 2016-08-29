@@ -39,4 +39,5 @@
 
     <string name="Main_Screen_Title">Pick and Drop Locations</string>
     <string name="title_activity_test">TestActivity</string>
+    <string name="title_activity_place_search">PlaceSearch</string>
 </resources>

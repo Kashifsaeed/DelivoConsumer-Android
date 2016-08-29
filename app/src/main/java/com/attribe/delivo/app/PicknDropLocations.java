@@ -22,6 +22,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.*;
+import android.view.DragEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.*;
@@ -51,7 +52,7 @@ import java.util.List;
 import java.util.Locale;
 
 
-public class PicknDropLocations extends AppCompatActivity implements OnMapReadyCallback{
+public class PicknDropLocations extends AppCompatActivity implements OnMapReadyCallback, GoogleMap.OnMarkerDragListener {
 
     private android.support.v7.widget.Toolbar toolbar;
     private CharSequence drawerTitle;
@@ -74,8 +75,8 @@ public class PicknDropLocations extends AppCompatActivity implements OnMapReadyC
     private CustomEditText dropLocAddress;
     private Button showDropLocBtn;
     private Button delivoBtn;
-    private View pickLoc ;
-    private View dropLoc ;
+    private View pickLoc;
+    private View dropLoc;
     private LinearLayout containerLayout;
     private LinearLayout mapLayout;
     private LatLng userLocation = new LatLng(LAT_KARACHI, LNG_KARACHI);
@@ -118,33 +119,51 @@ public class PicknDropLocations extends AppCompatActivity implements OnMapReadyC
 
         containerLayout.setVisibility(View.GONE);
 
-        pickLocAddress = (CustomEditText)findViewById(R.id.pickAddress);
+        pickLocAddress = (CustomEditText) findViewById(R.id.pickAddress);
         pickLocAddress.setText("");
         pickLocAddress.setOnClickListener(new PickSearchFieldListner());
 
-        dropLocAddress = (CustomEditText)findViewById(R.id.dropAddress);
+        dropLocAddress = (CustomEditText) findViewById(R.id.dropAddress);
         dropLocAddress.requestFocus();
         dropLocAddress.setText("");
         dropLocAddress.setOnClickListener(new DropSearchFieldListner());
 
         // Gets the MapView from the XML layout and creates it
-        mapView = (MapView)findViewById(R.id.mapview);
+        mapView = (MapView) findViewById(R.id.mapview);
         mapView.onCreate(savedInstanceState);
 
         // Gets to GoogleMap from the MapView and does initialization stuff
         mapView.getMapAsync(this);
-        map=mapView.getMap();
 
+
+        map = mapView.getMap();
+
+
+        map.setOnMarkerDragListener(this);
+
+        map.setOnCameraChangeListener(new GoogleMap.OnCameraChangeListener() {
+            @Override
+            public void onCameraChange(CameraPosition cameraPosition) {
+
+                LatLng target = cameraPosition.target;
+
+                try {
+                    pickLocAddress.setText(makeAddress(target));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
         onPastPermissionCheck(map);
         map.setOnMapClickListener(new MapClickListner());
 
-        showDropLocBtn = (Button)findViewById(R.id.showDropLoc);
+        showDropLocBtn = (Button) findViewById(R.id.showDropLoc);
         showDropLocBtn.setOnClickListener(new DropLocListner());
 
         pickLoc = findViewById(R.id.layout_pickLocation);
         dropLoc = findViewById(R.id.layout_dropLocation);
 
-        delivoBtn = (Button)findViewById(R.id.buttonDelivo);
+        delivoBtn = (Button) findViewById(R.id.buttonDelivo);
         delivoBtn.setOnClickListener(new DelivoListner());
 
     }
@@ -154,6 +173,16 @@ public class PicknDropLocations extends AppCompatActivity implements OnMapReadyC
         LocationManager locationManager = (LocationManager) getSystemService(context.LOCATION_SERVICE);
         Criteria criteria = new Criteria();
 
+        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
         Location location = locationManager.getLastKnownLocation(locationManager.getBestProvider(criteria, false));
         if (location != null)
         {
@@ -351,6 +380,22 @@ public class PicknDropLocations extends AppCompatActivity implements OnMapReadyC
         }
     }
 
+    @Override
+    public void onMarkerDragStart(Marker marker) {
+
+    }
+
+    @Override
+    public void onMarkerDrag(Marker marker) {
+
+    }
+
+    @Override
+    public void onMarkerDragEnd(Marker marker) {
+
+
+    }
+
     private class MapClickListner implements GoogleMap.OnMapClickListener {
         @Override
         public void onMapClick(LatLng latLng) {
@@ -388,7 +433,7 @@ public class PicknDropLocations extends AppCompatActivity implements OnMapReadyC
         String location = null ;
 
         geocoder = new Geocoder(this, Locale.getDefault());
-        addresses = geocoder.getFromLocation(latLng.latitude, latLng.longitude, 1); // Here 1 represent max location result to returned, by documents it recommended 1 to 5
+        addresses = geocoder.getFromLocation(latLng.latitude, latLng.longitude, 5); // Here 1 represent max location result to returned, by documents it recommended 1 to 5
 
         if (addresses.isEmpty()) {
                 location="Waiting for Location";
