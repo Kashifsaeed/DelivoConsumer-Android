@@ -27,6 +27,7 @@ import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
 import android.view.View;
+import android.view.animation.*;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.*;
 import android.widget.Toolbar;
@@ -55,7 +56,7 @@ import java.util.List;
 import java.util.Locale;
 
 
-public class PicknDropLocations extends AppCompatActivity implements OnMapReadyCallback{
+public class PicknDropLocations extends AppCompatActivity implements OnMapReadyCallback {
 
     private android.support.v7.widget.Toolbar toolbar;
     private CharSequence drawerTitle;
@@ -77,9 +78,13 @@ public class PicknDropLocations extends AppCompatActivity implements OnMapReadyC
     private CustomEditText pickLocAddress;
     private CustomEditText dropLocAddress;
     private Button showDropLocBtn;
+    private EditText colllaspe_expand;
+    private View hiddenPanel;
+   // private ImageView showDropLocBtn;
+
     private Button delivoBtn;
-    private View pickLoc ;
-    private View dropLoc ;
+    private View pickLoc;
+    private View dropLoc;
     private LinearLayout containerLayout;
     private LinearLayout mapLayout;
     private LatLng userLocation = new LatLng(LAT_KARACHI, LNG_KARACHI);
@@ -97,7 +102,9 @@ public class PicknDropLocations extends AppCompatActivity implements OnMapReadyC
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_pickn_drop_locations);
+       // setContentView(R.layout.activity_pickn_drop_locations);
+          setContentView(R.layout.pickaddress_activity);
+
         User.getInstance(DevicePreferences.getInstance().init(this).getUser());
 
         initViews(savedInstanceState);
@@ -113,6 +120,9 @@ public class PicknDropLocations extends AppCompatActivity implements OnMapReadyC
             StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
             StrictMode.setThreadPolicy(policy);
         }
+       // hiddenPanel=findViewById(R.id.hiddenlayout);
+        colllaspe_expand= (EditText) findViewById(R.id.expandorcollaspe);
+        expandOrCollapse(colllaspe_expand,"collapse");
 
         toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(toolbar);
@@ -122,35 +132,64 @@ public class PicknDropLocations extends AppCompatActivity implements OnMapReadyC
 
         containerLayout.setVisibility(View.GONE);
 
-        pickLocAddress = (CustomEditText)findViewById(R.id.pickAddress);
+        pickLocAddress = (CustomEditText) findViewById(R.id.pickAddress);
         pickLocAddress.setText("");
         pickLocAddress.setOnClickListener(new PickSearchFieldListner());
 
-        dropLocAddress = (CustomEditText)findViewById(R.id.dropAddress);
+        dropLocAddress = (CustomEditText) findViewById(R.id.dropAddress);
         dropLocAddress.requestFocus();
         dropLocAddress.setText("");
         dropLocAddress.setOnClickListener(new DropSearchFieldListner());
 
         // Gets the MapView from the XML layout and creates it
-        mapView = (MapView)findViewById(R.id.mapview);
+        mapView = (MapView) findViewById(R.id.mapview);
         mapView.onCreate(savedInstanceState);
 
         // Gets to GoogleMap from the MapView and does initialization stuff
         mapView.getMapAsync(this);
-        map=mapView.getMap();
+        map = mapView.getMap();
 
         onPastPermissionCheck(map);
-        map.setOnMapClickListener(new MapClickListner());
 
-        showDropLocBtn = (Button)findViewById(R.id.showDropLoc);
+
+        //map.setOnMapClickListener(new MapClickListner());
+
+        showDropLocBtn = (Button) findViewById(R.id.showDropLoc);
         showDropLocBtn.setOnClickListener(new DropLocListner());
 
         pickLoc = findViewById(R.id.layout_pickLocation);
         dropLoc = findViewById(R.id.layout_dropLocation);
 
-        delivoBtn = (Button)findViewById(R.id.buttonDelivo);
+        delivoBtn = (Button) findViewById(R.id.buttonDelivo);
         delivoBtn.setOnClickListener(new DelivoListner());
 
+    }
+    public static void expand(final View v) {
+        v.measure(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        final int targetHeight = v.getMeasuredHeight();
+
+        // Older versions of android (pre API 21) cancel animations for views with a height of 0.
+        v.getLayoutParams().height = 1;
+        v.setVisibility(View.VISIBLE);
+        Animation a = new Animation()
+        {
+            @Override
+            protected void applyTransformation(float interpolatedTime, Transformation t) {
+                v.getLayoutParams().height = interpolatedTime == 1
+                        ? LinearLayout.LayoutParams.WRAP_CONTENT
+                        : (int)(targetHeight * interpolatedTime);
+                v.requestLayout();
+            }
+
+            @Override
+            public boolean willChangeBounds() {
+                return true;
+            }
+        };
+
+        // 1dp/ms
+        a.setDuration((int)(targetHeight / v.getContext().getResources().getDisplayMetrics().density));
+        v.startAnimation(a);
     }
 
     private void currentLocationCameraZoom(Context context) {
@@ -158,9 +197,18 @@ public class PicknDropLocations extends AppCompatActivity implements OnMapReadyC
         LocationManager locationManager = (LocationManager) getSystemService(context.LOCATION_SERVICE);
         Criteria criteria = new Criteria();
 
+        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
         Location location = locationManager.getLastKnownLocation(locationManager.getBestProvider(criteria, false));
-        if (location != null)
-        {
+        if (location != null) {
             map.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(location.getLatitude(), location.getLongitude()), 13));
 
             CameraPosition cameraPosition = new CameraPosition.Builder()
@@ -187,8 +235,8 @@ public class PicknDropLocations extends AppCompatActivity implements OnMapReadyC
 
 
     private void drawer_Toggle_Handling(Bundle savedInstanceState) {
-        ActionBarDrawerToggle mDrawerToggle = new ActionBarDrawerToggle(this,  drawerLayout, toolbar,
-                                                                        R.string.Main_Screen_Title, R.string.Main_Screen_Title);
+        ActionBarDrawerToggle mDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar,
+                R.string.Main_Screen_Title, R.string.Main_Screen_Title);
         drawerLayout.setDrawerListener(mDrawerToggle);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
@@ -201,24 +249,26 @@ public class PicknDropLocations extends AppCompatActivity implements OnMapReadyC
 
     private void onPastPermissionCheck(GoogleMap googleMap) {
 
-        if(checkPastPermission()==true){
+        if (checkPastPermission() == true) {
             map.setMyLocationEnabled(true);
-        } else{
+        } else {
             showdialougeRequestpermission();
         }
     }
 
     private void showProgress(String message) {
-        progressDialog= ProgressDialog.show(PicknDropLocations.this,"",message,false);
+        progressDialog = ProgressDialog.show(PicknDropLocations.this, "", message, false);
     }
 
-    private void hideProgress(){progressDialog.dismiss();}
+    private void hideProgress() {
+        progressDialog.dismiss();
+    }
 
-    private void hideKeyboard(){
+    private void hideKeyboard() {
         // Check if no view has focus:
         View view = this.getCurrentFocus();
         if (view != null) {
-            InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
         }
     }
@@ -243,7 +293,7 @@ public class PicknDropLocations extends AppCompatActivity implements OnMapReadyC
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        map=googleMap;
+        map = googleMap;
         //map.setMyLocationEnabled(true);
 
 //        // location and zoom of the MapView
@@ -265,6 +315,16 @@ public class PicknDropLocations extends AppCompatActivity implements OnMapReadyC
 
                     // permission was granted, yay! Do the
                     // contacts-related task you need to do.
+                    if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                        // TODO: Consider calling
+                        //    ActivityCompat#requestPermissions
+                        // here to request the missing permissions, and then overriding
+                        //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                        //                                          int[] grantResults)
+                        // to handle the case where the user grants the permission. See the documentation
+                        // for ActivityCompat#requestPermissions for more details.
+                        return;
+                    }
                     map.setMyLocationEnabled(true);
                     Toast.makeText(PicknDropLocations.this,"Permission Granted !",Toast.LENGTH_SHORT).show();
 
@@ -445,9 +505,13 @@ public class PicknDropLocations extends AppCompatActivity implements OnMapReadyC
     private class DropLocListner implements View.OnClickListener {
         @Override
         public void onClick(View v) {
+            //slideUpDown();
+           // colllaspe_expand.setVisibility(View.VISIBLE);
+           // expand(colllaspe_expand);
+            expandOrCollapse(colllaspe_expand,"expand");
 
-            pickLoc.setVisibility(View.GONE);
-            dropLoc.setVisibility(View.VISIBLE);
+//            pickLoc.setVisibility(View.GONE);
+//            dropLoc.setVisibility(View.VISIBLE);
         }
     }
 
@@ -481,6 +545,62 @@ public class PicknDropLocations extends AppCompatActivity implements OnMapReadyC
         super.onStop();
         DevicePreferences.getInstance().init(this);
         DevicePreferences.getInstance().setUser();
+    }
+    public void expandOrCollapse(final View v,String exp_or_colpse) {
+        TranslateAnimation anim = null;
+        if(exp_or_colpse.equals("expand"))
+        {
+            anim = new TranslateAnimation(0.0f, 0.0f, -v.getHeight(), 0.0f);
+            v.setVisibility(View.VISIBLE);
+        }
+        else{
+            anim = new TranslateAnimation(0.0f, 0.0f, 0.0f, -v.getHeight());
+            Animation.AnimationListener collapselistener= new Animation.AnimationListener() {
+                @Override
+                public void onAnimationStart(Animation animation) {
+                }
+
+                @Override
+                public void onAnimationRepeat(Animation animation) {
+                }
+
+                @Override
+                public void onAnimationEnd(Animation animation) {
+                    v.setVisibility(View.GONE);
+                }
+            };
+
+            anim.setAnimationListener(collapselistener);
+        }
+
+        // To Collapse
+        //
+
+        anim.setDuration(300);
+        anim.setInterpolator(new AccelerateInterpolator(0.5f));
+        v.startAnimation(anim);
+    }
+    private boolean isPanelShown() {
+
+        return hiddenPanel.getVisibility() == View.VISIBLE;
+    }
+    public void slideUpDown() {
+        if (!isPanelShown()) {
+            // Show the panel
+            Animation bottomUp = AnimationUtils.loadAnimation(this,
+                    R.anim.bottom_up);
+
+            hiddenPanel.startAnimation(bottomUp);
+            hiddenPanel.setVisibility(View.VISIBLE);
+        }
+        else {
+            // Hide the Panel
+            Animation bottomDown = AnimationUtils.loadAnimation(this,
+                    R.anim.bottom_down);
+
+            hiddenPanel.startAnimation(bottomDown);
+            hiddenPanel.setVisibility(View.GONE);
+        }
     }
 
     private class SlideMenuClickListener implements android.widget.AdapterView.OnItemClickListener {

@@ -2,22 +2,63 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:id="@+id/layout_pickLocation"
               android:orientation="vertical"
-              style="@style/pick_location">
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_margin="2dp"
+>
+    <Button
+            android:id="@+id/showDropLoc"
+            android:text="Pick Up"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:background="@drawable/round_btn"
+            android:textColor="@color/white"
+            android:layout_gravity="center"
+            android:padding="5dp"
+
+
+    />
+    <!--<de.hdodenhof.circleimageview.CircleImageView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:src="@drawable/rider_bike"-->
+            <!--android:id="@+id/showDropLoc"-->
+            <!--android:layout_centerHorizontal="true"-->
+            <!--android:layout_gravity="center"/>-->
+
+    <!--<TextView android:layout_width="120dp"-->
+              <!--android:layout_height="wrap_content"-->
+              <!--android:text="Pick up location"-->
+              <!--android:textColor="@color/indicator_color"-->
+              <!--android:layout_gravity="center" android:gravity="center_horizontal"-->
+              <!--android:layout_marginTop="5dp"/>-->
 
     <utils.CustomEditText
             android:id="@+id/pickAddress"
             android:hint="Pick up address"
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:layout_weight="25"
+
             android:elevation="5dp"
             android:drawableRight="@drawable/places_ic_search"
             android:imeOptions="actionDone"
-            />
-    <Button
-            android:id="@+id/showDropLoc"
-            android:text="Add Drop Location"
-            android:elevation="4dp"
-            style="@style/Button"
-            />
+           android:layout_margin="5dp" />
+
+
+    <!--<EditText-->
+
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:id="@+id/expandorcollaspe"-->
+            <!--android:hint="Enter Detail Address"-->
+
+
+
+    <!--/>-->
+
+
+
+
+
+
 </LinearLayout>
