@@ -3,6 +3,7 @@ package com.attribe.delivo.app;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.location.*;
+import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -10,33 +11,38 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.animation.AccelerateInterpolator;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
-import android.widget.Toast;
+import android.widget.*;
 
 import com.google.android.gms.maps.*;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.sothree.slidinguppanel.SlidingUpPanelLayout;
-import com.sothree.slidinguppanel.SlidingUpPanelLayout.SimplePanelSlideListener;
+import utils.CustomMapView;
+import utils.LocationBAL;
+import utils.LocationReceiveListener;
+import utils.MapFrameLayout;
 
 import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
 
-import static com.sothree.slidinguppanel.library.R.styleable.SlidingUpPanelLayout;
-
-public class CustomPickLocation extends AppCompatActivity implements OnMapReadyCallback {
+public class CustomPickLocation extends AppCompatActivity implements OnMapReadyCallback,
+        CustomMapView.MapTouchListener
+       {
     private static final String TAG = "DemoActivity";
-    private static final int PERMISSION_REQUEST_CODE = 400;
-    private MapView mapView;
+           private static final String MotionTag = "MotionDetect";
+
+
+           private static final int PERMISSION_REQUEST_CODE = 400;
+    private CustomMapView mapView;
     private GoogleMap mMap;
     private TextView transparentview,picklocationname;
+    private Button mButton;
     private RelativeLayout mainlayout;
+    public MapFrameLayout mTouchView;
 
     private com.sothree.slidinguppanel.SlidingUpPanelLayout mLayout;
     private LinearLayout dragView;
@@ -44,11 +50,16 @@ public class CustomPickLocation extends AppCompatActivity implements OnMapReadyC
     Geocoder geocoder;
     List<Address> addresses;
     private CameraPosition cp;
+   private GestureDetector detectorCompat;
+    private LatLng cameraPickLocation;
+    private boolean mMapIsTouched;
+           private ProgressBar mBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_custom_pick_location);
+
         initMap(savedInstanceState);
         initViews();
 
@@ -60,15 +71,22 @@ public class CustomPickLocation extends AppCompatActivity implements OnMapReadyC
     private void initViews() {//initialize views
 
         toolbar = (Toolbar) findViewById(R.id.main_toolbar);
+        //mButton= (Button) findViewById(R.id.mButton);
         picklocationname= (TextView) findViewById(R.id.picklocname);
         mainlayout= (RelativeLayout) findViewById(R.id.mainlayout);
-        // toolbar.setCollapsible(true);
         setSupportActionBar(toolbar);
         dragView = (LinearLayout) findViewById(R.id.dragView);
         mLayout = (SlidingUpPanelLayout) findViewById(R.id.sliding_layout);
-        mLayout.addPanelSlideListener(new SlidePanelListner());
+        mBar= (ProgressBar) findViewById(R.id.progressLocation);
+
+
+
         mLayout.setDragView(dragView);//This is for Collaspe or expand sliding panel using click
-        //mainlayout.setOnTouchListener(new MapTouchListner());
+
+
+
+
+
 
 
     }
@@ -77,28 +95,16 @@ public class CustomPickLocation extends AppCompatActivity implements OnMapReadyC
     private void initMap(Bundle savedInstance) {
         onPastPermissionCheck();
 
-        mapView = (MapView) findViewById(R.id.mymapview);
+        mapView = (CustomMapView) findViewById(R.id.mymapview);
+
+
+        mapView.setMapTouchListener(CustomPickLocation.this);
+
+
         mapView.onCreate(savedInstance);
         mapView.getMapAsync(this);
-        mMap = mapView.getMap();
 
 
-        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
-            return;
-        }
-        mMap.setMyLocationEnabled(true);
-        //mMap.a
-
-
-
-        //currentLocationCameraZoom(this);
 
     }
 
@@ -132,6 +138,15 @@ public class CustomPickLocation extends AppCompatActivity implements OnMapReadyC
         }
     }
 
+
+   private void zoomlocation(LatLng mlocation){
+       mMap.moveCamera( CameraUpdateFactory.newLatLngZoom(new LatLng(mlocation.latitude,mlocation.longitude) , 16) );
+
+
+
+
+
+   }
     private void currentLocationCameraZoom(Context context) {
         try {
 
@@ -152,7 +167,7 @@ public class CustomPickLocation extends AppCompatActivity implements OnMapReadyC
             Location location = locationManager.getLastKnownLocation(locationManager.getBestProvider(criteria, false));
             if (location != null) {
                 // mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(location.getLatitude(), location.getLongitude()), 16));
-                mMap.moveCamera( CameraUpdateFactory.newLatLngZoom(new LatLng(location.getLatitude(),location.getLatitude()) , 14.0f) );
+                mMap.moveCamera( CameraUpdateFactory.newLatLngZoom(new LatLng(location.getLatitude(),location.getLatitude()) , 3.0f) );
 
             }
         } catch (Exception e) {
@@ -180,7 +195,28 @@ public class CustomPickLocation extends AppCompatActivity implements OnMapReadyC
         return location;
     }
 
-    //=========================================Activity callbacks ==================================================//
+           private void hidePanel(){
+               if (mLayout.getPanelState() != SlidingUpPanelLayout.PanelState.HIDDEN) {
+                   mLayout.setPanelState(SlidingUpPanelLayout.PanelState.HIDDEN);
+
+               }
+           }
+           private void collapsePanel() {
+               mLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
+               // mLayout.setVisibility(View.INVISIBLE);
+           }
+
+           private void expandPanel() {
+
+               mLayout.setPanelState(SlidingUpPanelLayout.PanelState.EXPANDED);
+           }
+           private void mapGestureEnabled(boolean gestureEnabled)
+           {
+               mMap.getUiSettings().setAllGesturesEnabled(gestureEnabled);
+           }
+
+
+           //=========================================Activity callbacks ==================================================//
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
@@ -195,10 +231,28 @@ public class CustomPickLocation extends AppCompatActivity implements OnMapReadyC
             return;
         }
         mMap.setMyLocationEnabled(true);
-        currentLocationCameraZoom(this);
-        mMap.setOnCameraChangeListener(new MyCameraPosition());
 
-     //   mMap.set
+       // currentLocationCameraZoom(this);
+
+        mMap.setOnCameraChangeListener(new MyCameraPosition());
+        mMap.setOnCameraIdleListener(new MyCameraStop());
+       mMap.setOnMyLocationButtonClickListener(new GoogleMap.OnMyLocationButtonClickListener() {
+           @Override
+           public boolean onMyLocationButtonClick() {
+               LocationBAL mlocation=new LocationBAL(getApplicationContext());
+               mlocation.getLocation(getApplicationContext(), new LocationReceiveListener() {
+                   @Override
+                   public void onLocationReceive(LatLng geocodes) {
+                      // Toast.makeText(getApplicationContext(),""+geocodes.latitude+geocodes.longitude,Toast.LENGTH_SHORT).show();
+                       zoomlocation(geocodes);
+
+                   }
+               });
+               return true;
+           }
+       });
+        //mapGestureEnabled(true);
+
 
 
 
@@ -206,7 +260,14 @@ public class CustomPickLocation extends AppCompatActivity implements OnMapReadyC
 
     }
 
-    @Override
+   @Override
+   public boolean onTouchEvent(MotionEvent event) {
+       Log.d("","Touched");
+       return true;
+
+   }
+
+           @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
 //        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
@@ -240,7 +301,6 @@ public class CustomPickLocation extends AppCompatActivity implements OnMapReadyC
     protected void onResume() {
         super.onResume();
         mapView.onResume();
-        //currentLocationCameraZoom(this);
     }
 
     @Override
@@ -248,67 +308,148 @@ public class CustomPickLocation extends AppCompatActivity implements OnMapReadyC
         super.onDestroy();
         mapView.onDestroy();
     }
-
-    @Override
-    public void onLowMemory() {
+           @Override
+           public void onLowMemory() {
         super.onLowMemory();
         mapView.onLowMemory();
     }
 
 
-    //==============================================Local Views Listners ====================================================//
-
-    private class SlidePanelListner implements com.sothree.slidinguppanel.SlidingUpPanelLayout.PanelSlideListener {
-
-
-        @Override
-        public void onPanelSlide(View panel, float slideOffset) {
-            Log.i(TAG, "onPanelSlide, offset " + slideOffset);
-
-        }
-
-        @Override
-        public void onPanelStateChanged(View panel, SlidingUpPanelLayout.PanelState previousState, SlidingUpPanelLayout.PanelState newState) {
-            Log.i(TAG, "onPanelStateChanged " + newState);
-
-        }
-
-
-    }
 
 
 
-    private class MyTouchListner implements View.OnTouchListener {
-        @Override
-        public boolean onTouch(View view, MotionEvent motionEvent) {
+           @Override
+           public void OnActionDown(float pressure) {
 
-            if (mLayout.getPanelState() != com.sothree.slidinguppanel.SlidingUpPanelLayout.PanelState.COLLAPSED)
-            {
 
-                //toolbar.setVisibility(View.GONE);
-                return true;
+           }
+
+           @Override
+           public void OnActionDown() {
+
+           }
+
+           @Override
+           public void OnActionUp() {
+
+
+           }
+
+           @Override
+           public void OnActionMOve() {
+               hidePanel();
+               //mLayout.getChildAt(1).setVisibility(View.GONE);
+
+
+
             }
 
-            return false;
-        }
-    }
+           @Override
+           public void onScroll() {
 
+           }
+
+
+
+           //==============================================Local Views Listners ====================================================//
 
     private class MyCameraPosition implements GoogleMap.OnCameraChangeListener {
         @Override
         public void onCameraChange(CameraPosition cameraPosition) {
-            //Toast.makeText(getApplicationContext(),""+cameraPosition.target.latitude+cameraPosition.target.longitude,Toast.LENGTH_LONG).show();
-            LatLng picklocation=new LatLng(cameraPosition.target.latitude,cameraPosition.target.longitude);
-            try {
-               String mLocation= makeAddress(picklocation);
-                picklocationname.setText(mLocation.toString());
-                mLayout.setPanelState(com.sothree.slidinguppanel.SlidingUpPanelLayout.PanelState.EXPANDED);
 
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+
+            cameraPickLocation =new LatLng(cameraPosition.target.latitude,cameraPosition.target.longitude);
+
+        }
+    }
+
+
+
+
+    private class MyCameraStop implements GoogleMap.OnCameraIdleListener {
+        @Override
+        public void onCameraIdle() {
+
+            collapsePanel();
+
+            new ReverseGeocodingTask(getBaseContext()).execute(cameraPickLocation.latitude,cameraPickLocation.longitude);
+//            try {
+//                picklocationname.setText(""+makeAddress(cameraPickLocation));
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
 
 
         }
     }
+           private class ReverseGeocodingTask extends AsyncTask<Double, Void, String> {
+               Context mContext;
+               ProgressBar bar;
+
+               public void setBar(ProgressBar bar) {
+                   this.bar = bar;
+               }
+
+
+
+
+
+               public ReverseGeocodingTask(Context context){
+                   super();
+                   mContext = context;
+               }
+
+               @Override
+               protected void onProgressUpdate(Void... values) {
+                   super.onProgressUpdate(values);
+                   //picklocationname.setText("Loading.......");
+               }
+
+               @Override
+               protected String doInBackground(Double... params) {
+                   Geocoder geocoder = new Geocoder(mContext);
+                   double latitude = params[0].doubleValue();
+                   double longitude = params[1].doubleValue();
+
+                   List<Address> addresses = null;
+                   String addressText="";
+
+                   try {
+                       addresses = geocoder.getFromLocation(latitude, longitude,1);
+                   } catch (IOException e) {
+                       e.printStackTrace();
+                   }
+
+                   if(addresses != null && addresses.size() > 0 ){
+                       Address address = addresses.get(0);
+//                       %s",
+
+//                       addressText = String.format("%s, %s, %s",
+////                               address.getMaxAddressLineIndex() > 0 ? address.getAddressLine(0) : "Location Not Found",
+////                               address.getLocality());
+//                              address.getMaxAddressLineIndex() ? "Location Not Found" :
+//                                      address.getFeatureName() ,
+//                                      address.getLocality(),
+//                                      address.getAdminArea());
+                               //address.getCountryName());
+                       addressText = address.getAddressLine(0) + ", "
+                               + address.getLocality() + ", "
+                               + address.getAdminArea();
+
+                   }
+
+                   return addressText;
+               }
+
+               @Override
+               protected void onPostExecute(String addressText) {
+                   // Setting address of the touched Position
+
+                   picklocationname.setText(""+addressText);
+               }
+           }
+
+
+
+
 }

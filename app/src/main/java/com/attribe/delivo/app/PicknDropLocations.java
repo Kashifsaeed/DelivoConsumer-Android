@@ -31,6 +31,8 @@ import android.view.animation.*;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.*;
 import android.widget.Toolbar;
+
+
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
 import com.google.android.gms.location.places.AutocompleteFilter;
@@ -147,7 +149,7 @@ public class PicknDropLocations extends AppCompatActivity implements OnMapReadyC
 
         // Gets to GoogleMap from the MapView and does initialization stuff
         mapView.getMapAsync(this);
-        map = mapView.getMap();
+       // map = mapView.getMap();
 
         onPastPermissionCheck(map);
 
