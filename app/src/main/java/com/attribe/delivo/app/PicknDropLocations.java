@@ -59,6 +59,7 @@ import java.util.Locale;
 
 
 public class PicknDropLocations extends AppCompatActivity implements OnMapReadyCallback {
+public class PicknDropLocations extends AppCompatActivity implements OnMapReadyCallback, GoogleMap.OnMarkerDragListener {
 
     private android.support.v7.widget.Toolbar toolbar;
     private CharSequence drawerTitle;
@@ -149,8 +150,26 @@ public class PicknDropLocations extends AppCompatActivity implements OnMapReadyC
 
         // Gets to GoogleMap from the MapView and does initialization stuff
         mapView.getMapAsync(this);
-       // map = mapView.getMap();
 
+
+        map = mapView.getMap();
+
+
+        map.setOnMarkerDragListener(this);
+
+        map.setOnCameraChangeListener(new GoogleMap.OnCameraChangeListener() {
+            @Override
+            public void onCameraChange(CameraPosition cameraPosition) {
+
+                LatLng target = cameraPosition.target;
+
+                try {
+                    pickLocAddress.setText(makeAddress(target));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
         onPastPermissionCheck(map);
 
 
@@ -420,6 +439,22 @@ public class PicknDropLocations extends AppCompatActivity implements OnMapReadyC
         }
     }
 
+    @Override
+    public void onMarkerDragStart(Marker marker) {
+
+    }
+
+    @Override
+    public void onMarkerDrag(Marker marker) {
+
+    }
+
+    @Override
+    public void onMarkerDragEnd(Marker marker) {
+
+
+    }
+
     private class MapClickListner implements GoogleMap.OnMapClickListener {
         @Override
         public void onMapClick(LatLng latLng) {
@@ -457,7 +492,7 @@ public class PicknDropLocations extends AppCompatActivity implements OnMapReadyC
         String location = null ;
 
         geocoder = new Geocoder(this, Locale.getDefault());
-        addresses = geocoder.getFromLocation(latLng.latitude, latLng.longitude, 1); // Here 1 represent max location result to returned, by documents it recommended 1 to 5
+        addresses = geocoder.getFromLocation(latLng.latitude, latLng.longitude, 5); // Here 1 represent max location result to returned, by documents it recommended 1 to 5
 
         if (addresses.isEmpty()) {
                 location="Waiting for Location";
@@ -641,18 +676,19 @@ public class PicknDropLocations extends AppCompatActivity implements OnMapReadyC
 
                 case 2:
 
-                    CallUs fragment_callUs = new CallUs();
-                    fragmentManager = getFragmentManager();
-                    mapLayout.setVisibility(LinearLayout.GONE);
-                    fragmentManager.beginTransaction().replace(R.id.fragments_container, fragment_callUs).commit();
-                    setDrawerclosed();
-                    break;
-
-                case 3:
                     Settings fragment_settings = new Settings();
                     fragmentManager = getFragmentManager();
                     mapLayout.setVisibility(LinearLayout.GONE);
                     fragmentManager.beginTransaction().replace(R.id.fragments_container, fragment_settings).commit();
+                    setDrawerclosed();
+                    break;
+
+                case 3:
+
+                    CallUs fragment_callUs = new CallUs();
+                    fragmentManager = getFragmentManager();
+                    mapLayout.setVisibility(LinearLayout.GONE);
+                    fragmentManager.beginTransaction().replace(R.id.fragments_container, fragment_callUs).commit();
                     setDrawerclosed();
                     break;
 

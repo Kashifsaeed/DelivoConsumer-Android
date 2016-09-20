@@ -7,8 +7,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import com.attribe.delivo.app.R;
+import models.response.GoogleAPiByText;
 import models.response.GoogleApi;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -17,23 +19,27 @@ import java.util.List;
 public class GoogleSearchesAdapter extends RecyclerView.Adapter<GoogleSearchesAdapter.MyViewHolder>{
 
     Context mContext;
-    private List<GoogleApi> searchesList;
+    //private List<GoogleApi> searchesList;
+    private List<GoogleAPiByText.Result> searchesList=new ArrayList<GoogleAPiByText.Result>();
+
     OnItemClickListner orderItemClickListner;
 
-    public GoogleSearchesAdapter(Context mContext, List<GoogleApi> searchesList) {
+    public GoogleSearchesAdapter(Context mContext, List<GoogleAPiByText.Result> searchesList) {
         this.mContext = mContext;
         this.searchesList = searchesList;
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        public TextView placesView;
+        public TextView placesView,formatedaddress;
 
         public MyViewHolder(View view) {
             super(view);
 
 //            orderItemCount = (TextView) view.findViewById(R.id.orderCount);
             placesView = (TextView) view.findViewById(R.id.placesView);
+            formatedaddress = (TextView) view.findViewById(R.id.formatedadress);
+
             view.setOnClickListener(this);
         }
 
@@ -66,7 +72,8 @@ public class GoogleSearchesAdapter extends RecyclerView.Adapter<GoogleSearchesAd
     public void onBindViewHolder(MyViewHolder holder, int position) {
 
 
-        holder.placesView.setText(""+searchesList.get(position).getResults().get(position).getName());
+        holder.placesView.setText(""+searchesList.get(position).getName());
+        holder.formatedaddress.setText(""+searchesList.get(position).getFormatted_address());
 
     }
 

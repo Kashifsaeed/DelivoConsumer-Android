@@ -50,7 +50,7 @@ public class GoogleAPiByText {
 
 
     public class Result{
-        private String formattedAddress;
+        private String formatted_address;
 
         private Geometry geometry;
 
@@ -72,12 +72,12 @@ public class GoogleAPiByText {
 
         private OpeningHours openingHours;
 
-        public String getFormattedAddress() {
-            return formattedAddress;
+        public String getFormatted_address() {
+            return formatted_address;
         }
 
-        public void setFormattedAddress(String formattedAddress) {
-            this.formattedAddress = formattedAddress;
+        public void setFormatted_address(String formatted_address) {
+            this.formatted_address = formatted_address;
         }
 
         public Geometry getGeometry() {

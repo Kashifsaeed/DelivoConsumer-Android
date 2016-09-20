@@ -16,7 +16,7 @@ import java.io.IOException;
  * Created by attribe on 8/23/16.
  */
 public class GoogleClient {
-    private static GoogleEndpoints googleclient;
+    private static GoogleApiInterface googleclient;
 
 
     static {
@@ -36,12 +36,12 @@ public class GoogleClient {
 
 
         Retrofit retrofit = new Retrofit.Builder().
-                baseUrl(EndPoints.GoogleApi_url).
+                baseUrl(EndPoints.Google_base_url).
                 addConverterFactory(GsonConverterFactory.create()).
                 //client(httpClient).
                 build();
 
-        googleclient = retrofit.create(GoogleEndpoints.class);
+        googleclient = retrofit.create(GoogleApiInterface.class);
     }
 
 
@@ -50,7 +50,7 @@ public class GoogleClient {
 
 
 
-    public static GoogleEndpoints googleEndclient(){
+    public static GoogleApiInterface googleEndclient(){
 
       //  return googleEndclient();
         return googleclient;

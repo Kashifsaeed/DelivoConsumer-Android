@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.sothree.slidinguppanel.SlidingUpPanelLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:sothree="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/dropsliding_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="bottom"
+        sothree:umanoScrollableView="@+id/list"
+        sothree:umanoDragView="@+id/dropdragView"
+        sothree:umanoFadeColor="@android:color/transparent"
+        sothree:umanoOverlay="true"
+        sothree:umanoPanelHeight="100dp"
+        android:animateLayoutChanges="true"
+        sothree:umanoShadowHeight="0.5dp"
+        >
+    <RelativeLayout android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+
+                    android:id="@+id/mainlayout"
+
+
+    >
+        <android.support.v7.widget.Toolbar
+                xmlns:sothree="http://schemas.android.com/apk/res-auto"
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                android:id="@+id/main_toolbar"
+                android:layout_height="?attr/actionBarSize"
+                android:background="?attr/colorPrimary"
+                android:elevation="4dp"
+                android:layout_width="match_parent"
+                android:titleTextColor="@color/white"/>
+
+
+
+        <RelativeLayout android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_below="@+id/main_toolbar"
+        android:clickable="false">
+
+            <utils.CustomMapView android:layout_width="match_parent"
+                                 android:layout_height="match_parent"
+                                 android:id="@+id/dropmapview"
+                                 class="utils.CustomMapFragment"
+                                 android:clickable="false"
+                                 android:focusable="false"
+            />
+            <!--android:clickable="true"-->
+
+            <!--<com.google.android.gms.maps.MapView-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+
+            <!--android:layout_below="@+id/mButton"/>-->
+
+            <!--android:layout_weight="2"-->
+
+
+
+            <!--<View-->
+            <!--android:id="@+id/mapCover"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:background="@android:color/transparent"-->
+            <!--/>-->
+            <!--Static marker on Center-->
+            <!--<FrameLayout-->
+                    <!--android:layout_width="40dp"-->
+                    <!--android:layout_height="40dp"-->
+                    <!--android:layout_gravity="center"-->
+                    <!--android:layout_centerInParent="true">-->
+
+
+                <!--<ImageView-->
+                        <!--android:id="@+id/static_marker"-->
+                        <!--android:layout_marginTop="10dp"-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="match_parent"-->
+                        <!--android:src="@drawable/ic_marker"-->
+                <!--/>-->
+
+
+            <!--</FrameLayout>-->
+        </RelativeLayout>
+    </RelativeLayout>
+
+
+    <!-- SLIDING LAYOUT -->
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:background="#ffffff"
+            android:orientation="vertical"
+
+
+            android:id="@+id/dropdragView"
+            android:clickable="true"
+            android:focusable="false"
+
+
+    >
+
+        <LinearLayout android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+                      android:orientation="vertical">
+
+
+            <include layout="@layout/droplocation_visible_panel"/>
+            <include layout="@layout/drop_location_hidden_panel"/>
+        </LinearLayout>
+
+    </LinearLayout>
+    </com.sothree.slidinguppanel.SlidingUpPanelLayout>
