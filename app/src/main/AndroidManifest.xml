@@ -18,7 +18,8 @@
     <uses-feature
             android:glEsVersion="0x00020000"
             android:required="true"/>
-    <!--android:name=".MainApp"-->
+
+    <!-- android:name=".MainApp" -->
     <application
             android:allowBackup="true"
             android:icon="@mipmap/ic_launcher"
@@ -52,20 +53,60 @@
         <activity
                 android:name=".ScreenSplash"
                 android:label="@string/title_activity_screen_splash">
-
-        </activity>
-        <activity android:name=".PickAddressActivity">
-
-        </activity>
-        <activity android:name=".TestAnim">
-
-        </activity>
-        <activity android:name="com.attribe.delivo.app.CustomPickLocation">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
+        </activity>
+        <activity android:name=".PickAddressActivity">
+        </activity>
+        <activity android:name=".TestAnim">
+        </activity>
+        <activity
+                android:name=".CustomPickLocation"
+                android:windowSoftInputMode="stateHidden"
+        android:label="Pick Location">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </activity>
+        <activity
+                android:name=".PlaceSearch"
+                android:label="Search Places"
+                android:windowSoftInputMode="stateHidden">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </activity>
+        <activity android:name=".CustomDropLocation"
+                 android:label="Drop Location">
+        </activity>
+        <activity android:name=".CustomAutocomplete">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </activity>
+        <activity android:name=".MainScreen">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </activity>
+        <activity android:name=".ConsumerLogin">
+        </activity>
+        <activity android:name=".ConsumerSignUp">
+        </activity>
+        <activity android:name=".OrderCreating">
+        </activity>
+        <activity android:name=".slideLogoTesting">
         </activity>
     </application>
 

@@ -32,7 +32,7 @@ public class RestClient {
 
         setupAuthClient();
         setupRestClient();
-        setGoogleAPiclient();
+        //setGoogleAPiclient();
 
     }
     private static void setGoogleAPiclient(){
@@ -86,7 +86,7 @@ public class RestClient {
                 .addInterceptor(logging)
 //                .connectTimeout(ApplicationConstant.TIMEOUT, TimeUnit.MILLISECONDS)
                 //.authenticator()
-                .authenticator(new RestAuthenticator())
+                //.authenticator(new RestAuthenticator())
                 .build();
 
         Retrofit retrofit = new Retrofit.Builder().
@@ -114,7 +114,8 @@ public class RestClient {
         }).addInterceptor(logging).build();
 
         Retrofit retrofit = new Retrofit.Builder().
-                baseUrl(EndPoints.STAGE_URL_BASE).
+                //baseUrl(EndPoints.STAGE_URL_BASE).
+                baseUrl(EndPoints.STAGE_URL_10).
                 addConverterFactory(GsonConverterFactory.create()).
                 client(httpClient).
                 build();

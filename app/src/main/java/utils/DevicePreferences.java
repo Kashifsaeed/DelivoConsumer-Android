@@ -91,6 +91,15 @@ public class DevicePreferences {
         editor.putString(KEY_USER,user);
         editor.commit();
     }
+    public void setdelivoUser(User user){
+        SharedPreferences.Editor editor = prefs.edit();
+
+        Gson gson = new Gson();
+        String muser = gson.toJson(user);
+
+        editor.putString(KEY_USER,muser);
+        editor.commit();
+    }
 
     public User getUser(){
         Gson gson = new Gson();

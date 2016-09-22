@@ -1,12 +1,16 @@
 package adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 import com.attribe.delivo.app.R;
+import models.response.AutoCompleteResponse;
 import models.response.GoogleAPiByText;
 import models.response.GoogleApi;
 
@@ -20,11 +24,12 @@ public class GoogleSearchesAdapter extends RecyclerView.Adapter<GoogleSearchesAd
 
     Context mContext;
     //private List<GoogleApi> searchesList;
-    private List<GoogleAPiByText.Result> searchesList=new ArrayList<GoogleAPiByText.Result>();
+    //private List<GoogleAPiByText.Result> searchesList=new ArrayList<GoogleAPiByText.Result>();
+    private List<AutoCompleteResponse.Prediction> searchesList=new ArrayList<AutoCompleteResponse.Prediction>();
 
     OnItemClickListner orderItemClickListner;
-
-    public GoogleSearchesAdapter(Context mContext, List<GoogleAPiByText.Result> searchesList) {
+    public GoogleSearchesAdapter(Context mContext, List<AutoCompleteResponse.Prediction> searchesList){
+   // public GoogleSearchesAdapter(Context mContext, List<GoogleAPiByText.Result> searchesList) {
         this.mContext = mContext;
         this.searchesList = searchesList;
     }
@@ -32,11 +37,13 @@ public class GoogleSearchesAdapter extends RecyclerView.Adapter<GoogleSearchesAd
     public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         public TextView placesView,formatedaddress;
+        public RelativeLayout rowItemlayout;
 
         public MyViewHolder(View view) {
             super(view);
 
 //            orderItemCount = (TextView) view.findViewById(R.id.orderCount);
+            rowItemlayout= (RelativeLayout) view.findViewById(R.id.rowLayout);
             placesView = (TextView) view.findViewById(R.id.placesView);
             formatedaddress = (TextView) view.findViewById(R.id.formatedadress);
 
@@ -72,8 +79,14 @@ public class GoogleSearchesAdapter extends RecyclerView.Adapter<GoogleSearchesAd
     public void onBindViewHolder(MyViewHolder holder, int position) {
 
 
-        holder.placesView.setText(""+searchesList.get(position).getName());
-        holder.formatedaddress.setText(""+searchesList.get(position).getFormatted_address());
+//        holder.placesView.setText(""+searchesList.get(position).getName());
+//        holder.formatedaddress.setText(""+searchesList.get(position).getFormatted_address());
+          holder.placesView.setText(""+searchesList.get(position).getDescription());
+       // holder.formatedaddress.setText(""+searchesList.get(position).getFormatted_address());
+
+
+
+
 
     }
 

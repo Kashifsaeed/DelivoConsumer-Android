@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -20,6 +21,7 @@ import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 import models.response.AutoCompleteResponse;
 import models.response.GoogleAPiByText;
 import models.response.PlaceDetailsResponse;
+import utils.DevicePreferences;
 
 import java.util.ArrayList;
 
@@ -27,10 +29,12 @@ public class CustomDropLocation extends AppCompatActivity implements OnMapReadyC
     private MapView dmapview;
     private GoogleMap mMap;
     private TextView picklocationText, droplocknameText;
+    private Button proceedDelivo;
     private LinearLayout dragingRegion;
     private String pickAdd;
-    private LatLng pickLatlng;
+    private LatLng pickLatlng,droplatlng;
     public static int DropLocation_ResultsCode = 201;
+
     private ArrayList<Marker> pickDropMarkers = new ArrayList<Marker>();
 
 
@@ -44,8 +48,11 @@ public class CustomDropLocation extends AppCompatActivity implements OnMapReadyC
         initViews();
     }
 
-    private void initViews() {
+
+//========================================== Helper Methods ============================================================//
+    private void initViews() {//initialize Views
         getIntentValues();
+        proceedDelivo= (Button) findViewById(R.id.proceedDelivo);
         slidinglayout = (SlidingUpPanelLayout) findViewById(R.id.dropsliding_layout);
         dragingRegion = (LinearLayout) findViewById(R.id.dropdragView);
         picklocationText = (TextView) findViewById(R.id.pickconfrmname);
@@ -53,6 +60,7 @@ public class CustomDropLocation extends AppCompatActivity implements OnMapReadyC
         picklocationText.setText("" + pickAdd);
         slidinglayout.setPanelState(SlidingUpPanelLayout.PanelState.EXPANDED);
         slidinglayout.setDragView(dragingRegion);
+        proceedDelivo.setOnClickListener(new PoceedOrderCreation());
         droplocknameText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -99,13 +107,39 @@ public class CustomDropLocation extends AppCompatActivity implements OnMapReadyC
     }
 
     private void zoomlocation(LatLng mlocation) {
-        //mMap.moveCamera( CameraUpdateFactory.newLatLngZoom(new LatLng(mlocation.latitude,mlocation.longitude) , 12));
-        // mMap.addMarker(new MarkerOptions().position(mlocation).title("PickAddress"));
-//     cr
+
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(mlocation.latitude, mlocation.longitude), 10));
 
 
     }
+    private ArrayList<Marker> createMarker(LatLng mMarkerpick, LatLng mMarkerdrop) {
+        ArrayList<Marker> pickdrop_Marker = new ArrayList<Marker>();
+        Marker mp = mMap.addMarker(new MarkerOptions()
+                .position(mMarkerpick)
+                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
+        pickdrop_Marker.add(mp);
+
+        Marker md = mMap.addMarker(new MarkerOptions()
+                .position(mMarkerdrop)
+                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
+        pickdrop_Marker.add(md);
+
+
+        return pickdrop_Marker;
+
+
+    }
+    private void zoomToAllMarkers(LatLng pick_ltln, LatLng drop_ltlng) {
+
+        LatLngBounds.Builder builder = new LatLngBounds.Builder();
+        builder.include(pick_ltln);
+        builder.include(drop_ltlng);
+        LatLngBounds bounds = builder.build();
+        //mMap.animateCamera(CameraUpdateFactory.newLatLngBounds(bounds, 11));
+        mMap.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds, 40));
+    }
+
+    //========================================= Activity Callbacks ===================================================//
 
     @Override
     public void onLowMemory() {
@@ -140,50 +174,26 @@ public class CustomDropLocation extends AppCompatActivity implements OnMapReadyC
             return;
         }
         mMap.setMyLocationEnabled(true);
-        // mMap.getUiSettings().setAllGesturesEnabled(false);
-        // zoomlocation(pickLatlng);
-
-    }
-
-    private ArrayList<Marker> createMarker(LatLng mMarkerpick, LatLng mMarkerdrop) {
-        ArrayList<Marker> pickdrop_Marker = new ArrayList<Marker>();
-        Marker mp = mMap.addMarker(new MarkerOptions()
-                .position(mMarkerpick)
-                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
-        pickdrop_Marker.add(mp);
-
-        Marker md = mMap.addMarker(new MarkerOptions()
-                .position(mMarkerdrop)
-                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
-        pickdrop_Marker.add(md);
-
-
-        return pickdrop_Marker;
 
 
     }
 
-    private void zoomToAllMarkers(LatLng pick_ltln, LatLng drop_ltlng) {
 
-        LatLngBounds.Builder builder = new LatLngBounds.Builder();
-        builder.include(pick_ltln);
-        builder.include(drop_ltlng);
-        LatLngBounds bounds = builder.build();
-        //mMap.animateCamera(CameraUpdateFactory.newLatLngBounds(bounds, 11));
-        mMap.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds, 40));
-    }
+
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == DropLocation_ResultsCode && resultCode == RESULT_OK && data != null) {
-          //    ToDo:set map zoom level after getting pick n drop lat longs
             PlaceDetailsResponse.Result place = (PlaceDetailsResponse.Result) data.getSerializableExtra("SearchPlace");
 
 //            GoogleAPiByText.Result place = (GoogleAPiByText.Result) data.getSerializableExtra("SearchPlace");
             //droplocknameText.setText(place.getName() + place.getFormatted_address());
             droplocknameText.setText(""+place.getFormatted_address());
-            LatLng droplatlng = new LatLng(place.getGeometry().getLocation().getLat(), place.getGeometry().getLocation().getLng());
+           // LatLng droplatlng = new LatLng(place.getGeometry().getLocation().getLat(), place.getGeometry().getLocation().getLng());
+        droplatlng = new LatLng(place.getGeometry().getLocation().getLat(), place.getGeometry().getLocation().getLng());
+
             mMap.clear();
             createMarker(pickLatlng, droplatlng);
             zoomlocation(droplatlng);
@@ -202,6 +212,28 @@ public class CustomDropLocation extends AppCompatActivity implements OnMapReadyC
             mMap.setMyLocationEnabled(false);
 
 
+
+        }
+    }
+
+    //========================================= Buttons Listners =============================================================//
+
+    private class PoceedOrderCreation implements View.OnClickListener {
+        @Override
+        public void onClick(View view) {
+
+
+//            DevicePreferences.getInstance().setDestinationLocationObject(droplatlng.latitude,droplatlng.longitude, droplocknameText.getText().toString());
+//            DevicePreferences.getInstance().setSourceLocationObject(pickLatlng.latitude,pickLatlng.longitude,pickAdd);
+
+            Intent intent =new Intent(CustomDropLocation.this,OrderCreating.class);
+            Bundle order_bundle=new Bundle();
+            order_bundle.putString("pickAddress",pickAdd);
+            order_bundle.putParcelable("pickLatLng",pickLatlng);
+            order_bundle.putString("dropAddress",droplocknameText.getText().toString());
+            order_bundle.putParcelable("dropLatLng",droplatlng);
+            intent.putExtra("Orderinfo",order_bundle);
+            startActivity(intent);
 
         }
     }

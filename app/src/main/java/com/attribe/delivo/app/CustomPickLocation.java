@@ -1,6 +1,7 @@
 package com.attribe.delivo.app;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.*;
 import android.os.AsyncTask;
@@ -20,16 +21,18 @@ import com.google.android.gms.maps.*;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.sothree.slidinguppanel.SlidingUpPanelLayout;
+import models.response.AutoCompleteResponse;
+import models.response.GoogleAPiByText;
+import models.response.PlaceDetailsResponse;
 import utils.CustomMapView;
 import utils.LocationBAL;
 import utils.LocationReceiveListener;
-import utils.MapFrameLayout;
 
 import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
 
-public class CustomPickLocation extends AppCompatActivity implements OnMapReadyCallback,
+public class CustomPickLocation extends AppCompatActivity implements  OnMapReadyCallback,
         CustomMapView.MapTouchListener
        {
     private static final String TAG = "DemoActivity";
@@ -42,7 +45,12 @@ public class CustomPickLocation extends AppCompatActivity implements OnMapReadyC
     private TextView transparentview,picklocationname;
     private Button mButton;
     private RelativeLayout mainlayout;
-    public MapFrameLayout mTouchView;
+    private FrameLayout dragframe;
+           private Button pickDelivoBtn;
+           View mapcover;
+
+   // public MapFrameLayout mTouchView;
+
 
     private com.sothree.slidinguppanel.SlidingUpPanelLayout mLayout;
     private LinearLayout dragView;
@@ -54,6 +62,9 @@ public class CustomPickLocation extends AppCompatActivity implements OnMapReadyC
     private LatLng cameraPickLocation;
     private boolean mMapIsTouched;
            private ProgressBar mBar;
+           private ImageView searchClick;
+           public static int PickLocation_RequestCode =200;
+    private LatLng GEOCDES_NY=new LatLng(40.711555, -74.008257);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,16 +83,27 @@ public class CustomPickLocation extends AppCompatActivity implements OnMapReadyC
 
         toolbar = (Toolbar) findViewById(R.id.main_toolbar);
         //mButton= (Button) findViewById(R.id.mButton);
+        pickDelivoBtn= (Button) findViewById(R.id.proceedDelivo);
+        dragframe= (FrameLayout) findViewById(R.id.drag_region);
+
         picklocationname= (TextView) findViewById(R.id.picklocname);
         mainlayout= (RelativeLayout) findViewById(R.id.mainlayout);
         setSupportActionBar(toolbar);
         dragView = (LinearLayout) findViewById(R.id.dragView);
         mLayout = (SlidingUpPanelLayout) findViewById(R.id.sliding_layout);
-        mBar= (ProgressBar) findViewById(R.id.progressLocation);
+       // mBar= (ProgressBar) findViewById(R.id.progressLocation);
+        searchClick= (ImageView) findViewById(R.id.searchPlaces);
+        searchClick.setOnClickListener(new FindNearPlaces());
+
+         //todo :check drag region
+       // mLayout.setDragView(dragView);//This is for Collaspe or expand sliding panel using click
+        mLayout.setDragView(dragframe);
+        //dragframe.setDragView
 
 
 
-        mLayout.setDragView(dragView);//This is for Collaspe or expand sliding panel using click
+        pickDelivoBtn.setOnClickListener(new ProceedDelivoListner());
+
 
 
 
@@ -147,32 +169,17 @@ public class CustomPickLocation extends AppCompatActivity implements OnMapReadyC
 
 
    }
-    private void currentLocationCameraZoom(Context context) {
-        try {
+    private void getLocation(){
 
+        LocationBAL location=new LocationBAL(getApplicationContext());
+        location.getLocation(getApplicationContext(), new LocationReceiveListener() {
+            @Override
+            public void onLocationReceive(LatLng geocodes) {
 
-            LocationManager locationManager = (LocationManager) getSystemService(context.LOCATION_SERVICE);
-            Criteria criteria = new Criteria();
-
-            if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                // TODO: Consider calling
-                //    ActivityCompat#requestPermissions
-                // here to request the missing permissions, and then overriding
-                //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-                //                                          int[] grantResults)
-                // to handle the case where the user grants the permission. See the documentation
-                // for ActivityCompat#requestPermissions for more details.
-                return;
-            }
-            Location location = locationManager.getLastKnownLocation(locationManager.getBestProvider(criteria, false));
-            if (location != null) {
-                // mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(location.getLatitude(), location.getLongitude()), 16));
-                mMap.moveCamera( CameraUpdateFactory.newLatLngZoom(new LatLng(location.getLatitude(),location.getLatitude()) , 3.0f) );
+                zoomlocation(geocodes);
 
             }
-        } catch (Exception e) {
-            e.toString();
-        }
+        });
     }
     private String makeAddress(LatLng latLng) throws IOException {
         String location = null ;
@@ -220,6 +227,8 @@ public class CustomPickLocation extends AppCompatActivity implements OnMapReadyC
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
+        getLocation();
+
         if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             // TODO: Consider calling
             //    ActivityCompat#requestPermissions
@@ -236,21 +245,7 @@ public class CustomPickLocation extends AppCompatActivity implements OnMapReadyC
 
         mMap.setOnCameraChangeListener(new MyCameraPosition());
         mMap.setOnCameraIdleListener(new MyCameraStop());
-       mMap.setOnMyLocationButtonClickListener(new GoogleMap.OnMyLocationButtonClickListener() {
-           @Override
-           public boolean onMyLocationButtonClick() {
-               LocationBAL mlocation=new LocationBAL(getApplicationContext());
-               mlocation.getLocation(getApplicationContext(), new LocationReceiveListener() {
-                   @Override
-                   public void onLocationReceive(LatLng geocodes) {
-                      // Toast.makeText(getApplicationContext(),""+geocodes.latitude+geocodes.longitude,Toast.LENGTH_SHORT).show();
-                       zoomlocation(geocodes);
 
-                   }
-               });
-               return true;
-           }
-       });
         //mapGestureEnabled(true);
 
 
@@ -266,6 +261,26 @@ public class CustomPickLocation extends AppCompatActivity implements OnMapReadyC
        return true;
 
    }
+
+           @Override
+           protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+               super.onActivityResult(requestCode, resultCode, data);
+               if(requestCode== PickLocation_RequestCode && resultCode==RESULT_OK && data!=null){
+
+
+                   //GoogleAPiByText.Result place= (GoogleAPiByText.Result) data.getSerializableExtra("SearchPlace");
+               // AutoCompleteResponse.Prediction place= (AutoCompleteResponse.Prediction) data.getSerializableExtra("SearchPlace");
+
+                  PlaceDetailsResponse.Result place= (PlaceDetailsResponse.Result) data.getSerializableExtra("SearchPlace");
+                   LatLng mlatlng=new LatLng(place.getGeometry().getLocation().getLat(),place.getGeometry().getLocation().getLng());
+                   zoomlocation(mlatlng);
+
+                   picklocationname.setText(""+place.getFormatted_address().toString());
+                   //expandPanel();
+
+
+               }
+           }
 
            @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
@@ -337,8 +352,10 @@ public class CustomPickLocation extends AppCompatActivity implements OnMapReadyC
 
            @Override
            public void OnActionMOve() {
-               hidePanel();
+               //todo:set hide panel on touch
+               //hidePanel();
                //mLayout.getChildAt(1).setVisibility(View.GONE);
+
 
 
 
@@ -422,21 +439,13 @@ public class CustomPickLocation extends AppCompatActivity implements OnMapReadyC
 
                    if(addresses != null && addresses.size() > 0 ){
                        Address address = addresses.get(0);
-//                       %s",
-
-//                       addressText = String.format("%s, %s, %s",
-////                               address.getMaxAddressLineIndex() > 0 ? address.getAddressLine(0) : "Location Not Found",
-////                               address.getLocality());
-//                              address.getMaxAddressLineIndex() ? "Location Not Found" :
-//                                      address.getFeatureName() ,
-//                                      address.getLocality(),
-//                                      address.getAdminArea());
-                               //address.getCountryName());
-                       addressText = address.getAddressLine(0) + ", "
+//
+                                addressText = address.getAddressLine(0) + ", "
                                + address.getLocality() + ", "
                                + address.getAdminArea();
 
                    }
+                   else {addressText="Waiting...";}
 
                    return addressText;
                }
@@ -450,6 +459,30 @@ public class CustomPickLocation extends AppCompatActivity implements OnMapReadyC
            }
 
 
+           private class FindNearPlaces implements View.OnClickListener {
+               @Override
+               public void onClick(View view) {
+                   Intent intent=new Intent(CustomPickLocation.this,PlaceSearch.class);
+                   intent.putExtra("Query",picklocationname.getText().toString());
+                   intent.putExtra("PickFlag",true);
+                   startActivityForResult(intent, PickLocation_RequestCode);
+                   //startActivity(intent);
 
+               }
+           }
 
-}
+           private class ProceedDelivoListner implements View.OnClickListener {
+               @Override
+               public void onClick(View view) {
+                   //startActivity(new Intent(CustomPickLocation.this,CustomDropLocation.class));
+                   if(!picklocationname.getText().toString().equals("")) {
+                       Intent intent = new Intent(CustomPickLocation.this, CustomDropLocation.class);
+                       intent.putExtra("pickLocation", picklocationname.getText().toString());
+                       intent.putExtra("pickLatitude",cameraPickLocation.latitude);
+                       intent.putExtra("pickLongitude",cameraPickLocation.longitude);
+                       startActivity(intent);
+                   }
+
+               }
+           }
+       }

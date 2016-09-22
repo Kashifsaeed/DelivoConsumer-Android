@@ -1,5 +1,6 @@
 package network.bals;
 
+import android.widget.Toast;
 import models.NewUser;
 import models.User;
 import network.RestClient;
@@ -43,6 +44,7 @@ public class SignupBAL {
 
                             @Override
                             public void OnLoggedInFailed() {
+
                                 signupUserResponse.OnError();
                             }
                         });
@@ -60,6 +62,69 @@ public class SignupBAL {
 
             }
         });
+
+    }
+
+    public static void userSignUp(NewUser user, final SignupUserResponse signupUserResponse){
+        RestClient.getAuthAdapter().createUser(user).enqueue(new Callback<User>() {
+            @Override
+            public void onResponse(Call<User> call, Response<User> response) {
+                if(response.isSuccessful()){
+                    if(response.body()!=null)
+                    {
+                        //if meta data is success
+                        if(response.body().getMeta().getSuccess()==true && response.body().getData()!=null) {
+
+                            signupUserResponse.OnUserCreated(response.body());
+
+
+
+//                        User.getInstance(response.body());
+//                        DevicePreferences.getInstance().setUser();
+                        }
+                        //if meta data is unsuccess
+                        if(response.body().getMeta().getSuccess()==false && response.body().getMeta().getCode()==3001){
+
+                            signupUserResponse.OnuserAlreadyexits();
+                        }
+
+                    }
+
+
+
+                }
+                if(response.errorBody()!=null){
+                    signupUserResponse.OnError();
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<User> call, Throwable t) {
+
+
+            }
+        });
+
+
+
+
+    }
+    private void loginFirst(String username,String password)
+    {
+       LoginBAL.userLogin(username, password, new LoginUserResponse() {
+           @Override
+           public void OnLoggedIn()
+           {
+
+           }
+
+           @Override
+           public void OnLoggedInFailed() {
+
+           }
+       });
+
 
     }
 }

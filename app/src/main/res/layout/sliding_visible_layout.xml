@@ -1,64 +1,73 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="70dp"
+        android:layout_height="80dp"
         android:orientation="horizontal"
-
         android:background="@drawable/layout_rounded"
+
 
 
         xmlns:android="http://schemas.android.com/apk/res/android">
 
+
+     <LinearLayout android:layout_width="match_parent"
+                   android:layout_height="match_parent"
+     android:orientation="vertical">
+         <FrameLayout android:layout_width="200dp"
+                      android:layout_height="30dp"
+         android:layout_gravity="center"
+         android:id="@+id/drag_region">
+         <ImageView android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/pull_icon"
+                    android:scaleType="fitCenter"
+                    android:layout_gravity="center_horizontal"/>
+
+         </FrameLayout>
+
     <LinearLayout android:layout_width="match_parent"
                   android:layout_height="match_parent"
                   android:orientation="horizontal"
-
                   android:gravity="center"
                   android:layout_margin="10dp"
-                  android:paddingLeft="10dp" android:paddingRight="10dp">
-        <ProgressBar android:layout_width="wrap_content"
-                     android:layout_height="wrap_content"
-                     style="?android:attr/progressBarStyleSmall"
-                     android:id="@+id/progressLocation"
-        />
+                  android:paddingLeft="10dp"
+                  android:paddingRight="10dp"
+                  android:weightSum="1">
+        <!--<ProgressBar android:layout_width="wrap_content"-->
+                     <!--android:layout_height="wrap_content"-->
+                     <!--style="?android:attr/progressBarStyleSmall"-->
+                     <!--android:id="@+id/progressLocation"-->
+        <!--/>-->
 
 
 
 
     <TextView
             android:id="@+id/picklocname"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="40dp"
-
+            android:layout_weight="0.8"
             android:textSize="14sp"
             android:gravity="center_vertical"
             android:background="@color/white"
             android:drawableLeft="@drawable/pickfinder"
-            android:drawableRight="@drawable/places_ic_search"
             android:layout_margin="2dp"
-            android:drawablePadding="5dp"
+            android:hint="Pick Delivo Location"
+            android:drawablePadding="10dp"
+            android:inputType="textMultiLine|textNoSuggestions"
 
-
-            android:hint="Your Pick Location"
     />
-    <!--android:paddingLeft="10dp"-->
+        <!--android:drawablePadding="5dp"-->
+        <!--android:drawableRight="@drawable/places_ic_search"-->
+        <ImageView android:layout_width="0dp"
+                   android:layout_height="30dp"
+        android:layout_weight="0.1"
+        android:background="@drawable/places_ic_search"
+        android:id="@+id/searchPlaces"/>
 
-    <!--<Button-->
-            <!--android:id="@+id/follow"-->
-            <!--android:layout_width="0dp"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:textSize="14sp"-->
 
-
-            <!--android:layout_weight="0.5"-->
-
-            <!--android:text="Pickup"-->
     <!--/>-->
     </LinearLayout>
-    <!--android:gravity="center_vertical"-->
-    <!--|right-->
-    <!--android:padding="10dp"-->
-    <!--android:paddingRight="10dp"-->
-    <!--android:paddingLeft="10dp"-->
+     </LinearLayout>
 
 </RelativeLayout>

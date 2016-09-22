@@ -1,11 +1,12 @@
 package models.response;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by attribe on 9/16/16.
  */
-public class AutoCompleteResponse {
+public class AutoCompleteResponse implements Serializable {
     public List<Prediction> predictions;
     public String status;
 
@@ -28,7 +29,7 @@ public class AutoCompleteResponse {
 
 
 
-    public class Prediction
+    public class Prediction implements Serializable
     {
         public String id;
         public List<MatchedSubstring> matched_substrings;
@@ -96,7 +97,7 @@ public class AutoCompleteResponse {
 
 
     }
-    public class Term
+    public class Term implements Serializable
     {
         public int offset;
         public String value;
@@ -118,7 +119,7 @@ public class AutoCompleteResponse {
 
 
     }
-    public class MatchedSubstring
+    public class MatchedSubstring implements Serializable
     {
         public int length;
         public int offset;

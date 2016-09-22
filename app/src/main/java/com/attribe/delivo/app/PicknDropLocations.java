@@ -58,7 +58,6 @@ import java.util.List;
 import java.util.Locale;
 
 
-public class PicknDropLocations extends AppCompatActivity implements OnMapReadyCallback {
 public class PicknDropLocations extends AppCompatActivity implements OnMapReadyCallback, GoogleMap.OnMarkerDragListener {
 
     private android.support.v7.widget.Toolbar toolbar;
@@ -83,7 +82,7 @@ public class PicknDropLocations extends AppCompatActivity implements OnMapReadyC
     private Button showDropLocBtn;
     private EditText colllaspe_expand;
     private View hiddenPanel;
-   // private ImageView showDropLocBtn;
+    // private ImageView showDropLocBtn;
 
     private Button delivoBtn;
     private View pickLoc;
@@ -105,8 +104,8 @@ public class PicknDropLocations extends AppCompatActivity implements OnMapReadyC
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-       // setContentView(R.layout.activity_pickn_drop_locations);
-          setContentView(R.layout.pickaddress_activity);
+        // setContentView(R.layout.activity_pickn_drop_locations);
+        setContentView(R.layout.pickaddress_activity);
 
         User.getInstance(DevicePreferences.getInstance().init(this).getUser());
 
@@ -123,9 +122,9 @@ public class PicknDropLocations extends AppCompatActivity implements OnMapReadyC
             StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
             StrictMode.setThreadPolicy(policy);
         }
-       // hiddenPanel=findViewById(R.id.hiddenlayout);
-        colllaspe_expand= (EditText) findViewById(R.id.expandorcollaspe);
-        expandOrCollapse(colllaspe_expand,"collapse");
+        // hiddenPanel=findViewById(R.id.hiddenlayout);
+        colllaspe_expand = (EditText) findViewById(R.id.expandorcollaspe);
+        expandOrCollapse(colllaspe_expand, "collapse");
 
         toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(toolbar);
@@ -152,7 +151,7 @@ public class PicknDropLocations extends AppCompatActivity implements OnMapReadyC
         mapView.getMapAsync(this);
 
 
-        map = mapView.getMap();
+
 
 
         map.setOnMarkerDragListener(this);
@@ -185,20 +184,20 @@ public class PicknDropLocations extends AppCompatActivity implements OnMapReadyC
         delivoBtn.setOnClickListener(new DelivoListner());
 
     }
-    public static void expand(final View v) {
+
+    public void expand(final View v) {
         v.measure(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         final int targetHeight = v.getMeasuredHeight();
 
         // Older versions of android (pre API 21) cancel animations for views with a height of 0.
         v.getLayoutParams().height = 1;
         v.setVisibility(View.VISIBLE);
-        Animation a = new Animation()
-        {
+        Animation a = new Animation() {
             @Override
             protected void applyTransformation(float interpolatedTime, Transformation t) {
                 v.getLayoutParams().height = interpolatedTime == 1
                         ? LinearLayout.LayoutParams.WRAP_CONTENT
-                        : (int)(targetHeight * interpolatedTime);
+                        : (int) (targetHeight * interpolatedTime);
                 v.requestLayout();
             }
 
@@ -209,7 +208,7 @@ public class PicknDropLocations extends AppCompatActivity implements OnMapReadyC
         };
 
         // 1dp/ms
-        a.setDuration((int)(targetHeight / v.getContext().getResources().getDisplayMetrics().density));
+        a.setDuration((int) (targetHeight / v.getContext().getResources().getDisplayMetrics().density));
         v.startAnimation(a);
     }
 
@@ -347,14 +346,14 @@ public class PicknDropLocations extends AppCompatActivity implements OnMapReadyC
                         return;
                     }
                     map.setMyLocationEnabled(true);
-                    Toast.makeText(PicknDropLocations.this,"Permission Granted !",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(PicknDropLocations.this, "Permission Granted !", Toast.LENGTH_SHORT).show();
 
 
                 } else {
 
                     // permission denied, boo! Disable the
                     // functionality that depends on this permission.
-                    Toast.makeText(PicknDropLocations.this,"Permission not Granted !",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(PicknDropLocations.this, "Permission not Granted !", Toast.LENGTH_SHORT).show();
                 }
 
 
@@ -371,7 +370,7 @@ public class PicknDropLocations extends AppCompatActivity implements OnMapReadyC
             if (resultCode == RESULT_OK) {
                 Place place = PlaceAutocomplete.getPlace(this, data);
 
-                if(pickLocAddress.getText().toString().isEmpty()){
+                if (pickLocAddress.getText().toString().isEmpty()) {
                     map.clear();
                     markerOptions.position(place.getLatLng());
                     showProgress("Getting Location ...");
@@ -379,23 +378,21 @@ public class PicknDropLocations extends AppCompatActivity implements OnMapReadyC
                     hideProgress();
                     pickLocAddress.setText("" + place.getAddress().toString());
                     makeZoom(place);
-                    DevicePreferences.getInstance().setSourceLocationObject(place.getLatLng().latitude,place.getLatLng().longitude,place.getAddress().toString());
-                }
-                else{
-                      if(dropLocAddress.getText().toString().isEmpty()) {
+                    DevicePreferences.getInstance().setSourceLocationObject(place.getLatLng().latitude, place.getLatLng().longitude, place.getAddress().toString());
+                } else {
+                    if (dropLocAddress.getText().toString().isEmpty()) {
 
-                          markerOptions.position(place.getLatLng());
-                          showProgress("Getting Location ...");
-                          final Marker dropLocationMarker = map.addMarker(markerOptions);
-                          dropLocationMarker.setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
-                          hideProgress();
-                          dropLocAddress.setText("" + place.getAddress().toString());
-                          makeZoom(place);
-                          DevicePreferences.getInstance().setDestinationLocationObject(place.getLatLng().latitude, place.getLatLng().longitude, place.getAddress().toString());
-                      }
-                      else{
-                          Toast.makeText(PicknDropLocations.this,"Location already placed !",Toast.LENGTH_SHORT).show();
-                      }
+                        markerOptions.position(place.getLatLng());
+                        showProgress("Getting Location ...");
+                        final Marker dropLocationMarker = map.addMarker(markerOptions);
+                        dropLocationMarker.setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
+                        hideProgress();
+                        dropLocAddress.setText("" + place.getAddress().toString());
+                        makeZoom(place);
+                        DevicePreferences.getInstance().setDestinationLocationObject(place.getLatLng().latitude, place.getLatLng().longitude, place.getAddress().toString());
+                    } else {
+                        Toast.makeText(PicknDropLocations.this, "Location already placed !", Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
         }
@@ -403,12 +400,11 @@ public class PicknDropLocations extends AppCompatActivity implements OnMapReadyC
 
     private void makeZoom(Place place) {
 
-        if (place.getLatLng() != null)
-        {
-            map.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(place.getLatLng().latitude , place.getLatLng().longitude ), 13));
+        if (place.getLatLng() != null) {
+            map.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(place.getLatLng().latitude, place.getLatLng().longitude), 13));
 
             CameraPosition cameraPosition = new CameraPosition.Builder()
-                    .target(new LatLng(place.getLatLng().latitude , place.getLatLng().longitude ))      // Sets the center of the map to location user
+                    .target(new LatLng(place.getLatLng().latitude, place.getLatLng().longitude))      // Sets the center of the map to location user
                     .zoom(17)                   // Sets the zoom
                     .bearing(90)                // Sets the orientation of the camera to east
                     .tilt(40)                   // Sets the tilt of the camera to 30 degrees
@@ -417,18 +413,17 @@ public class PicknDropLocations extends AppCompatActivity implements OnMapReadyC
         }
     }
 
-    private void showdialougeRequestpermission(){
+    private void showdialougeRequestpermission() {
 
-        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED)
-        {
+        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             final String[] permissions = new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION};
             ActivityCompat.requestPermissions(this, permissions, PERMISSION_REQUEST_CODE);
         }
     }
 
-    private boolean checkPastPermission(){
+    private boolean checkPastPermission() {
         int result = ContextCompat.checkSelfPermission(PicknDropLocations.this, android.Manifest.permission.ACCESS_FINE_LOCATION);
-        if (result == PackageManager.PERMISSION_GRANTED){
+        if (result == PackageManager.PERMISSION_GRANTED) {
 
             return true;
 
@@ -462,43 +457,40 @@ public class PicknDropLocations extends AppCompatActivity implements OnMapReadyC
 
 
             try {
-                if(pickLocAddress.getText().toString().isEmpty()){
+                if (pickLocAddress.getText().toString().isEmpty()) {
                     map.clear();
                     markerOptions.position(latLng);
                     showProgress("Getting Location ...");
                     map.addMarker(markerOptions);
                     hideProgress();
                     pickLocAddress.setText("" + makeAddress(latLng).toString());
-                    DevicePreferences.getInstance().setSourceLocationObject(latLng.latitude,latLng.longitude,pickLocAddress.getText().toString());
-                }
-                else{
+                    DevicePreferences.getInstance().setSourceLocationObject(latLng.latitude, latLng.longitude, pickLocAddress.getText().toString());
+                } else {
                     markerOptions.position(latLng);
                     showProgress("Getting Location ...");
                     final Marker dropLocationMarker = map.addMarker(markerOptions);
                     dropLocationMarker.setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
                     hideProgress();
                     dropLocAddress.setText("" + makeAddress(latLng).toString());
-                    DevicePreferences.getInstance().setDestinationLocationObject(latLng.latitude,latLng.longitude,dropLocAddress.getText().toString());
+                    DevicePreferences.getInstance().setDestinationLocationObject(latLng.latitude, latLng.longitude, dropLocAddress.getText().toString());
                 }
 
-            }
-            catch (IOException e) {
+            } catch (IOException e) {
                 e.printStackTrace();
             }
         }
     }
 
     private String makeAddress(LatLng latLng) throws IOException {
-        String location = null ;
+        String location = null;
 
         geocoder = new Geocoder(this, Locale.getDefault());
         addresses = geocoder.getFromLocation(latLng.latitude, latLng.longitude, 5); // Here 1 represent max location result to returned, by documents it recommended 1 to 5
 
         if (addresses.isEmpty()) {
-                location="Waiting for Location";
-                }
-        else{
-            if(addresses.size() > 0){
+            location = "Waiting for Location";
+        } else {
+            if (addresses.size() > 0) {
                 location = addresses.get(0).getFeatureName() + ", "
                         + addresses.get(0).getLocality() + ", "
                         + addresses.get(0).getAdminArea() + ", "
@@ -512,17 +504,16 @@ public class PicknDropLocations extends AppCompatActivity implements OnMapReadyC
     private void showSearchField() {
         try {
             AutocompleteFilter typeFilter = new AutocompleteFilter.Builder()
-                                               .setTypeFilter(AutocompleteFilter.TYPE_FILTER_REGIONS)
-                                               .build();
+                    .setTypeFilter(AutocompleteFilter.TYPE_FILTER_REGIONS)
+                    .build();
 
             Intent intent = new PlaceAutocomplete.IntentBuilder(PlaceAutocomplete.MODE_OVERLAY)
-                                                 .setBoundsBias(new LatLngBounds(new LatLng(24.751980, 66.660957),
-                                                  new LatLng(25.270311, 67.468452)))
-                                                 .setFilter(typeFilter)
-                                                 .build(PicknDropLocations.this);
+                    .setBoundsBias(new LatLngBounds(new LatLng(24.751980, 66.660957),
+                            new LatLng(25.270311, 67.468452)))
+                    .setFilter(typeFilter)
+                    .build(PicknDropLocations.this);
             startActivityForResult(intent, PLACE_AUTOCOMPLETE_REQUEST_CODE);
-        }
-          catch (GooglePlayServicesRepairableException e) {
+        } catch (GooglePlayServicesRepairableException e) {
             // TODO: Handle the error.
         } catch (GooglePlayServicesNotAvailableException e) {
             // TODO: Handle the error.
@@ -531,21 +522,25 @@ public class PicknDropLocations extends AppCompatActivity implements OnMapReadyC
 
     private class PickSearchFieldListner implements View.OnClickListener {
         @Override
-        public void onClick(View v) { showSearchField(); }
+        public void onClick(View v) {
+            showSearchField();
+        }
     }
 
     private class DropSearchFieldListner implements View.OnClickListener {
         @Override
-        public void onClick(View v) { showSearchField(); }
+        public void onClick(View v) {
+            showSearchField();
+        }
     }
 
     private class DropLocListner implements View.OnClickListener {
         @Override
         public void onClick(View v) {
             //slideUpDown();
-           // colllaspe_expand.setVisibility(View.VISIBLE);
-           // expand(colllaspe_expand);
-            expandOrCollapse(colllaspe_expand,"expand");
+            // colllaspe_expand.setVisibility(View.VISIBLE);
+            // expand(colllaspe_expand);
+            expandOrCollapse(colllaspe_expand, "expand");
 
 //            pickLoc.setVisibility(View.GONE);
 //            dropLoc.setVisibility(View.VISIBLE);
@@ -556,14 +551,12 @@ public class PicknDropLocations extends AppCompatActivity implements OnMapReadyC
         @Override
         public void onClick(final View v) {
 
-            if(dropLocAddress.getText().toString().isEmpty()){
-                Toast.makeText(PicknDropLocations.this,getResources().getString(R.string.drop_address_empty), Toast.LENGTH_SHORT).show();
-            }
-
-            else{
+            if (dropLocAddress.getText().toString().isEmpty()) {
+                Toast.makeText(PicknDropLocations.this, getResources().getString(R.string.drop_address_empty), Toast.LENGTH_SHORT).show();
+            } else {
                 mapLayout.setVisibility(v.GONE);
                 containerLayout.setVisibility(v.VISIBLE);
-                NavigationUtils.placeOrderPanel(PicknDropLocations.this,getFragmentManager());
+                NavigationUtils.placeOrderPanel(PicknDropLocations.this, getFragmentManager());
                 hideKeyboard();
             }
         }
@@ -583,16 +576,15 @@ public class PicknDropLocations extends AppCompatActivity implements OnMapReadyC
         DevicePreferences.getInstance().init(this);
         DevicePreferences.getInstance().setUser();
     }
-    public void expandOrCollapse(final View v,String exp_or_colpse) {
+
+    public void expandOrCollapse(final View v, String exp_or_colpse) {
         TranslateAnimation anim = null;
-        if(exp_or_colpse.equals("expand"))
-        {
+        if (exp_or_colpse.equals("expand")) {
             anim = new TranslateAnimation(0.0f, 0.0f, -v.getHeight(), 0.0f);
             v.setVisibility(View.VISIBLE);
-        }
-        else{
+        } else {
             anim = new TranslateAnimation(0.0f, 0.0f, 0.0f, -v.getHeight());
-            Animation.AnimationListener collapselistener= new Animation.AnimationListener() {
+            Animation.AnimationListener collapselistener = new Animation.AnimationListener() {
                 @Override
                 public void onAnimationStart(Animation animation) {
                 }
@@ -617,10 +609,12 @@ public class PicknDropLocations extends AppCompatActivity implements OnMapReadyC
         anim.setInterpolator(new AccelerateInterpolator(0.5f));
         v.startAnimation(anim);
     }
+
     private boolean isPanelShown() {
 
         return hiddenPanel.getVisibility() == View.VISIBLE;
     }
+
     public void slideUpDown() {
         if (!isPanelShown()) {
             // Show the panel
@@ -629,8 +623,7 @@ public class PicknDropLocations extends AppCompatActivity implements OnMapReadyC
 
             hiddenPanel.startAnimation(bottomUp);
             hiddenPanel.setVisibility(View.VISIBLE);
-        }
-        else {
+        } else {
             // Hide the Panel
             Animation bottomDown = AnimationUtils.loadAnimation(this,
                     R.anim.bottom_down);
@@ -654,12 +647,11 @@ public class PicknDropLocations extends AppCompatActivity implements OnMapReadyC
                     sp = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
                     sp.getBoolean(PREF_USER_LEARNED_DRAWER, false);
 
-                    intent = new Intent(getApplicationContext(),PicknDropLocations.class);
+                    intent = new Intent(getApplicationContext(), PicknDropLocations.class);
 
-                    if(getApplicationContext() instanceof PicknDropLocations ){
+                    if (getApplicationContext() instanceof PicknDropLocations) {
                         setDrawerclosed();
-                    }
-                    else{
+                    } else {
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(intent);
                     }

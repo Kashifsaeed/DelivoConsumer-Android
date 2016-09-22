@@ -9,6 +9,7 @@ import android.support.v4.app.ActivityCompat;
 import android.widget.Toast;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.model.LatLng;
 
@@ -21,8 +22,10 @@ public class LocationBAL implements GoogleApiClient.ConnectionCallbacks, GoogleA
     private GoogleApiClient mGoogleApiClient;
     private Context context;
     private Location mLastLocation;
+    private LocationRequest mRequest;
 
     public LocationBAL(Context context) {
+
         this.context = context;
     }
 
@@ -34,6 +37,7 @@ public class LocationBAL implements GoogleApiClient.ConnectionCallbacks, GoogleA
                     .addOnConnectionFailedListener(this)
                     .addApi(LocationServices.API)
                     .build();
+                     setRequest();
         }
 
         gps = new LocationTracker(context);
@@ -55,6 +59,13 @@ public class LocationBAL implements GoogleApiClient.ConnectionCallbacks, GoogleA
             gps.showSettingsAlert();
         }
 
+    }
+
+    private void setRequest() {
+        mRequest = LocationRequest.create()
+                .setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY);
+//                .setInterval(60 * 1000)        // 60 seconds, in milliseconds
+//                .setFastestInterval(30 * 1000);
     }
 
     @Override

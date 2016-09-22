@@ -34,7 +34,8 @@ public class CustomAutocomplete extends AppCompatActivity {
     }
     private void getAutocompleteplaces(String input){
         String key= MyConstants.Googlekey2;
-        GoogleClient.googleEndclient().getplacepridiction(input,key).enqueue(new Callback<AutoCompleteResponse>() {
+        String types="geocode|establishment";
+        GoogleClient.googleEndclient().getplacepridiction(input,types,key).enqueue(new Callback<AutoCompleteResponse>() {
             @Override
             public void onResponse(Call<AutoCompleteResponse> call, Response<AutoCompleteResponse> response) {
                 if(response.isSuccessful()){

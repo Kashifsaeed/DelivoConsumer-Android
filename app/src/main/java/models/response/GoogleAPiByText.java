@@ -1,12 +1,13 @@
 package models.response;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by attribe on 8/24/16.
  */
-public class GoogleAPiByText {
+public class GoogleAPiByText implements Serializable {
     private List<Object> htmlAttributions = new ArrayList<Object>();
 
     private String nextPageToken;
@@ -49,7 +50,7 @@ public class GoogleAPiByText {
     }
 
 
-    public class Result{
+    public class Result implements Serializable{
         private String formatted_address;
 
         private Geometry geometry;
@@ -170,7 +171,7 @@ public class GoogleAPiByText {
 
 
     }
-    public class Geometry{
+    public class Geometry implements Serializable{
 
 
         private Location location;
@@ -218,7 +219,7 @@ public class GoogleAPiByText {
         }
 
 
-  public class Viewport{
+  public class Viewport implements Serializable{
 
 
       private Northeast northeast;
@@ -264,7 +265,7 @@ public class GoogleAPiByText {
       public void setSouthwest(Southwest southwest) {
           this.southwest = southwest;
       }
-      public class Southwest{
+      public class Southwest implements Serializable{
 
           private Double lat;
 
@@ -312,7 +313,7 @@ public class GoogleAPiByText {
 
 
       }
-      public class Northeast{
+      public class Northeast implements Serializable{
 
           private Double lat;
 
@@ -364,7 +365,7 @@ public class GoogleAPiByText {
   }
 
 
-   public class Location{
+   public class Location implements Serializable{
 
        private Double lat;
 
@@ -416,7 +417,7 @@ public class GoogleAPiByText {
 
     }
 
-    public class Photo{
+    public class Photo implements Serializable{
 
 
         private Integer height;

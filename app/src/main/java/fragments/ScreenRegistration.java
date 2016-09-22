@@ -13,6 +13,7 @@ import android.widget.EditText;
 import com.attribe.delivo.app.NavigationUtils;
 import com.attribe.delivo.app.R;
 import models.NewUser;
+import models.User;
 import network.bals.SignupBAL;
 import network.interfaces.SignupUserResponse;
 
@@ -92,8 +93,14 @@ public class ScreenRegistration extends Fragment {
                     }
 
                     @Override
-                    public void OnUserCreated() {
-                        hideProgress();
+                    public void OnUserCreated(User data) {
+
+                    }
+
+
+                    @Override
+                    public void OnuserAlreadyexits() {
+
                     }
 
 
