@@ -102,6 +102,11 @@ public class UserAuthentication extends Fragment {
                     public void OnLoggedInFailed() {
                         Toast.makeText(getActivity(), "Sorry user is not present , You have to register first ", Toast.LENGTH_LONG).show();
                     }
+
+                    @Override
+                    public void onLoginError() {
+
+                    }
                 });
 
                 }

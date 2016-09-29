@@ -11,7 +11,7 @@
         sothree:umanoDragView="@+id/dropdragView"
         sothree:umanoFadeColor="@android:color/transparent"
         sothree:umanoOverlay="true"
-        sothree:umanoPanelHeight="100dp"
+        sothree:umanoPanelHeight="160dp"
         android:animateLayoutChanges="true"
         sothree:umanoShadowHeight="0.5dp"
         >
@@ -32,6 +32,10 @@
                 android:elevation="4dp"
                 android:layout_width="match_parent"
                 android:titleTextColor="@color/white"/>
+        <!--<include layout="@layout/toolbar"-->
+        <!--android:id="@+id/droptoolbar"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"/>-->
 
 
 
@@ -90,7 +94,7 @@
     <!-- SLIDING LAYOUT -->
     <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_height="160dp"
             android:background="#ffffff"
             android:orientation="vertical"
 
@@ -107,7 +111,8 @@
                       android:orientation="vertical">
 
 
-            <include layout="@layout/droplocation_visible_panel"/>
+            <!--<include layout="@layout/droplocation_visible_panel"/>-->
+            <include layout="@layout/new_droplocation_visiblelayout"/>
             <include layout="@layout/drop_location_hidden_panel"/>
         </LinearLayout>
 

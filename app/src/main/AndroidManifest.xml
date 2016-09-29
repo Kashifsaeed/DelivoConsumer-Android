@@ -65,8 +65,8 @@
         </activity>
         <activity
                 android:name=".CustomPickLocation"
-                android:windowSoftInputMode="stateHidden"
-        android:label="Pick Location">
+                android:label="Pick Location"
+                android:windowSoftInputMode="stateHidden">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
@@ -83,8 +83,9 @@
                 <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
         </activity>
-        <activity android:name=".CustomDropLocation"
-                 android:label="Drop Location">
+        <activity
+                android:name=".CustomDropLocation"
+                android:label="Drop Location">
         </activity>
         <activity android:name=".CustomAutocomplete">
             <intent-filter>
@@ -107,6 +108,13 @@
         <activity android:name=".OrderCreating">
         </activity>
         <activity android:name=".slideLogoTesting">
+        </activity>
+        <activity android:name=".BaseActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
         </activity>
     </application>
 

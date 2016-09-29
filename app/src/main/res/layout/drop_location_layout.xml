@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/dropsliding_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+
+
+
+        android:orientation="vertical"
+        android:weightSum="100"
+>
+    <LinearLayout android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:orientation="vertical"
+                    android:layout_weight="70"
+                    android:id="@+id/mainlayout"
+
+
+    >
+        <!--<android.support.v7.widget.Toolbar-->
+                <!--xmlns:sothree="http://schemas.android.com/apk/res-auto"-->
+                <!--xmlns:android="http://schemas.android.com/apk/res/android"-->
+                <!--android:id="@+id/main_toolbar"-->
+                <!--android:layout_height="?attr/actionBarSize"-->
+                <!--android:background="?attr/colorPrimary"-->
+                <!--android:elevation="4dp"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:titleTextColor="@color/white"/>-->
+        <include layout="@layout/toolbar"/>
+        <!--android:id="@+id/droptoolbar"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"/>-->
+
+
+
+        <RelativeLayout android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_below="@+id/main_toolbar"
+                        android:clickable="false">
+
+            <utils.CustomMapView android:layout_width="match_parent"
+                                 android:layout_height="match_parent"
+                                 android:id="@+id/dropmapview"
+                                 class="utils.CustomMapFragment"
+                                 android:clickable="false"
+                                 android:focusable="false"
+            />
+
+
+
+
+        </RelativeLayout>
+    </LinearLayout>
+
+
+    <!-- SLIDING LAYOUT -->
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:background="#ffffff"
+            android:orientation="vertical"
+
+
+            android:id="@+id/dropdragView"
+            android:clickable="true"
+            android:focusable="false"
+            android:layout_weight="30"
+
+
+    >
+
+        <LinearLayout android:layout_width="match_parent"
+                      android:layout_height="match_parent"
+                      android:orientation="vertical"
+      >
+
+
+            <!--<include layout="@layout/droplocation_visible_panel"/>-->
+            <include layout="@layout/new_droplocation_visiblelayout"
+                     android:layout_height="match_parent"
+                     android:layout_width="match_parent"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+</LinearLayout>

@@ -47,6 +47,11 @@ public class SignupBAL {
 
                                 signupUserResponse.OnError();
                             }
+
+                            @Override
+                            public void onLoginError() {
+
+                            }
                         });
 
 
@@ -121,6 +126,11 @@ public class SignupBAL {
 
            @Override
            public void OnLoggedInFailed() {
+
+           }
+
+           @Override
+           public void onLoginError() {
 
            }
        });

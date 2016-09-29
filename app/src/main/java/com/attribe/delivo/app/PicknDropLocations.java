@@ -248,7 +248,7 @@ public class PicknDropLocations extends AppCompatActivity implements OnMapReadyC
 
 //        mTitle = drawerTitle = getSupportActionBar().getTitle();
 
-        adapter = new NavDrawerAdapter(getApplicationContext(), delivoImages, navMenuTitles);
+        //adapter = new NavDrawerAdapter(getApplicationContext(), delivoImages, navMenuTitles);
         drawerList.setAdapter(adapter);
         drawerList.setOnItemClickListener(new SlideMenuClickListener());
     }

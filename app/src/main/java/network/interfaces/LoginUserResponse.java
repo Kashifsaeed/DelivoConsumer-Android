@@ -9,5 +9,6 @@ public interface LoginUserResponse {
 
     void OnLoggedIn();
     void OnLoggedInFailed();
+    void onLoginError();
    // void OnSuccessLogin(GenerateTokenResponse tokenResponse);
 }

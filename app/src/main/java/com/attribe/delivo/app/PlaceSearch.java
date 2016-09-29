@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -38,6 +39,7 @@ public class PlaceSearch extends Activity {
     private String searchQuery;
     private boolean pickLocationScr,droplocationScr;
     private Timer timer;
+    private Toolbar toolbar;
 
 
     @Override
@@ -60,6 +62,8 @@ public class PlaceSearch extends Activity {
 
     private void initViews() {
         getIntentValues();
+        toolbar= (Toolbar) findViewById(R.id.my_toolbar);
+        inittoolbar(toolbar);
         searchedittext= (CustomEditText) findViewById(R.id.searchaddress);
         mylist= (RecyclerView) findViewById(R.id.SearchList);
         frameLayout_visible= (FrameLayout) findViewById(R.id.searchstatusframe);
@@ -72,6 +76,14 @@ public class PlaceSearch extends Activity {
             //getPlacesByTextSearch(searchQuery);
             getAutocompleteplaces(searchQuery+"+karachi");
         }
+    }
+    private void inittoolbar(Toolbar toolbar)
+    {
+        toolbar.setTitle("Search Location");
+        toolbar.setTitleTextColor(getResources().getColor(R.color.white));
+        toolbar.setNavigationIcon(R.drawable.ic_back_arrow);
+
+
     }
 
 
@@ -124,24 +136,7 @@ public class PlaceSearch extends Activity {
                                 getPlaceDetails(place.place_id);
 
 
-//                                Intent intent = new Intent();
-//                                if(pickLocationScr) {
-////                                    Intent intent = new Intent();
-////                                    intent.putExtra("SearchPlace", (Serializable) place_details);
-////                                    setResult(CustomPickLocation.RESULT_OK, intent);
-////                                    pickLocationScr=false;
-////                                    finish();
 //
-//
-//
-//                            }
-//                                else
-//                                {
-////                                    intent.putExtra("SearchPlace", (Serializable) place_details);
-////                                    setResult(CustomDropLocation.RESULT_OK, intent);
-////                                    finish();
-//
-//                                }
                             }
                         });
 

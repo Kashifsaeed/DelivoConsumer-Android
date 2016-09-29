@@ -1,5 +1,6 @@
 package network.bals;
 
+import android.widget.Toast;
 import models.User;
 import models.response.GenerateTokenResponse;
 import network.RestClient;
@@ -69,13 +70,15 @@ public class LoginBAL {
                 }
                 if(response.errorBody()!=null){
 
-                    loginUserResponse.OnLoggedInFailed();
+                    loginUserResponse.onLoginError();
 
                 }
             }
 
             @Override
             public void onFailure(Call<GenerateTokenResponse> call, Throwable t) {
+
+                loginUserResponse.OnLoggedInFailed();
 
             }
         });

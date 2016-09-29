@@ -17,8 +17,9 @@ import com.attribe.delivo.app.R;
 public class NavDrawerAdapter extends BaseAdapter {
 
     private Context context;
-    private String[] drawerItemList;
-    private int[] delivoImages;
+    private String[] drawerItemList={"Home","My Orders","Profile Settings","SignOut"};
+    private int[] delivoImages={android.R.drawable.star_on,android.R.drawable.star_on,android.R.drawable.star_on,android.R.drawable.star_on,android.R.drawable.star_on,android.R.drawable.star_on};
+    ;
 
 
     public NavDrawerAdapter(Context context, int[] delivoImages, String[] drawerItemList) {
@@ -26,6 +27,7 @@ public class NavDrawerAdapter extends BaseAdapter {
         this.delivoImages = delivoImages;
         this.drawerItemList = drawerItemList;
     }
+
 
     @Override
     public int getCount() {
@@ -51,11 +53,11 @@ public class NavDrawerAdapter extends BaseAdapter {
 
         if(convertView == null){
             LayoutInflater mInflater = (LayoutInflater) context.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
-            convertView = mInflater.inflate(R.layout.drawer_list_item, null);
+            convertView = mInflater.inflate(R.layout.nav_drawer_list_item, null);
 
             viewHolder = new ViewHolder();
-            viewHolder.iv = (ImageView)convertView.findViewById(R.id.ivDrawer);
-            viewHolder.tv = (TextView)convertView.findViewById(R.id.tvTitle);
+            viewHolder.iv = (ImageView)convertView.findViewById(R.id.rowIcon);
+            viewHolder.tv = (TextView)convertView.findViewById(R.id.rowText);
 
             convertView.setTag(viewHolder);
         }

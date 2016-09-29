@@ -19,7 +19,12 @@ public interface ServicesInterface {
     Call<ResponseNewOrder> createOrder(@Body NewOrder newOrder);
 
     @FormUrlEncoded
-    @POST("http://server.attribes.com:8080/delvo-api/oauth/token")
+//    @POST("http://server.attribes.com:8080/delvo-api/oauth/token")
+//    Call<GenerateTokenResponse> login(@Field("grant_type") String grant_type,
+//                                      @Field("username") String username,
+//                                      @Field("password") String password,
+//                                      @Field("scope") String scope);
+    @POST("oauth/token")
     Call<GenerateTokenResponse> login(@Field("grant_type") String grant_type,
                                       @Field("username") String username,
                                       @Field("password") String password,
@@ -31,7 +36,7 @@ public interface ServicesInterface {
                                         @Field("refresh_token") String refresh_token,
                                         @Field("scope") String scope);
 
-    @POST("guest")
+    @POST(EndPoints.STAGE_URL_10+"guest")
     Call<User> createUser(@Body NewUser user);
 
     @PUT("deleveryorder/confirm/{orderid}")

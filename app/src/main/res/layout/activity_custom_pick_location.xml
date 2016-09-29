@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <com.sothree.slidinguppanel.SlidingUpPanelLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
@@ -11,20 +10,12 @@
         sothree:umanoScrollableView="@+id/list"
         sothree:umanoDragView="@+id/dragView"
         sothree:umanoFadeColor="@android:color/transparent"
-        sothree:umanoOverlay="true"
-        sothree:umanoPanelHeight="80dp"
+        sothree:umanoPanelHeight="110dp"
         android:animateLayoutChanges="true"
-        sothree:umanoShadowHeight="0.5dp"
-
-
-
-
-
-
-
-
-
+        sothree:umanoOverlay="true"
+        sothree:umanoShadowHeight="0dp"
 >
+
 
     <!--this property is used for strech main content-->
     <!--sothree:umanoParallaxOffset="100dp"-->
@@ -45,16 +36,22 @@
 
 
     >
-        <android.support.v7.widget.Toolbar
-        xmlns:sothree="http://schemas.android.com/apk/res-auto"
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/main_toolbar"
-        android:layout_height="?attr/actionBarSize"
-        android:background="?attr/colorPrimary"
-        android:elevation="4dp"
-        android:layout_width="match_parent"
-        android:titleTextColor="@color/white"
-        />
+        <include layout="@layout/toolbar"
+                 android:id="@+id/main_toolbar"
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content"/>
+        <!--<android.support.v7.widget.Toolbar-->
+                <!--xmlns:sothree="http://schemas.android.com/apk/res-auto"-->
+                <!--xmlns:android="http://schemas.android.com/apk/res/android"-->
+                <!--android:id="@+id/main_toolbar"-->
+                <!--android:layout_height="?attr/actionBarSize"-->
+                <!--android:background="?attr/colorPrimary"-->
+                <!--android:elevation="4dp"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:titleTextColor="@color/white"-->
+                <!---->
+        <!--/>-->
+
 
 
 
@@ -69,29 +66,12 @@
                          android:clickable="true"
                 android:focusable="false"
     />
-    <!--<View-->
-            <!--android:id="@+id/mapCover"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="match_parent"-->
-            <!--android:background="@android:color/transparent"/>-->
-    <!--android:clickable="true"-->
 
-        <!--<com.google.android.gms.maps.MapView-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="match_parent"-->
-
-        <!--android:layout_below="@+id/mButton"/>-->
-
-            <!--android:layout_weight="2"-->
+    <!--Frame layout of marker-->
 
 
 
-        <!--<View-->
-                <!--android:id="@+id/mapCover"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="match_parent"-->
-                <!--android:background="@android:color/transparent"-->
-                <!--/>-->
+</RelativeLayout>
         <FrameLayout
                 android:layout_width="40dp"
                 android:layout_height="40dp"
@@ -101,7 +81,7 @@
 
             <ImageView
                     android:id="@+id/static_marker"
-            android:layout_marginTop="10dp"
+                    android:layout_marginTop="10dp"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:src="@drawable/ic_marker"
@@ -109,14 +89,14 @@
 
 
         </FrameLayout>
-</RelativeLayout>
+
     </RelativeLayout>
 
 
     <!-- SLIDING LAYOUT -->
     <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="190dp"
+            android:layout_height="110dp"
             android:background="#ffffff"
             android:orientation="vertical"
 
@@ -133,8 +113,9 @@
                     android:orientation="vertical">
 
 
-        <include layout="@layout/sliding_visible_layout"/>
-        <include layout="@layout/sliding_hidden_layout"/>
+        <!--<include layout="@layout/sliding_visible_layout"/>-->
+            <include layout="@layout/visibile_area_picklocation_layout"/>
+            <include layout="@layout/sliding_hidden_layout"/>
         </LinearLayout>
 
     </LinearLayout>
