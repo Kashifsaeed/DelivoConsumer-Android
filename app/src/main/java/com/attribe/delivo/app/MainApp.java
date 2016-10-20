@@ -12,6 +12,11 @@ import org.acra.sender.HttpSender;
  */
 
 @ReportsCrashes(
+//        formUri = "https://delivo1.cloudant.com/acra-delivo/_design/acra-storage/_update/report",
+//        reportType = HttpSender.Type.JSON,
+//        httpMethod = HttpSender.Method.POST,
+//        formUriBasicAuthLogin = "ancestintothertyrrempare",
+//        formUriBasicAuthPassword = "a11a7e97060c8dc356d19a12d424e4481f7909d1",
         formUri = "https://mk123.cloudant.com/acra-kbj/_design/acra-storage/_update/report",
         reportType = HttpSender.Type.JSON,
         httpMethod = HttpSender.Method.POST,

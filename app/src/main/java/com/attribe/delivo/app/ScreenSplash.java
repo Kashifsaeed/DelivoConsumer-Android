@@ -1,60 +1,78 @@
 package com.attribe.delivo.app;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import network.bals.LoginBAL;
 import network.interfaces.LoginUserResponse;
-import screens.ProgressView;
 import utils.DevicePreferences;
-import utils.Progress;
 
 
 public class ScreenSplash extends Activity {
 
-    private Progress progress;
+    final int SPLASH_TIME_OUT = 3000;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.screen_splash);
         DevicePreferences.getInstance().init(this);
-
-        progress = NavigationUtils.getProgress(false);
-        progress.show(getFragmentManager(),"");
-
-        //login();
-        NavigationUtils.startMainActivity(ScreenSplash.this);
+        runSplash();
 
 
     }
+    private void runSplash(){
+        new Handler().postDelayed(new Runnable() {
 
-    private void login() {
-        if(DevicePreferences.getInstance().getUser()!=null){
+            /*
+             * Showing splash screen with a timer. This will be useful when you
+             * want to show case your app logo / company
+             */
+            @Override
+            public void run() {
 
-            //refresh token &
-            //login the user
+                Intent i;
 
-            LoginBAL.login(DevicePreferences.getInstance().getUser(), new LoginUserResponse() {
-                @Override
-                public void OnLoggedIn() {
-                    progress.dismiss();
-                    NavigationUtils.startMainActivity(ScreenSplash.this);
+                if (DevicePreferences.getInstance().getUser()!=null)
+
+                {
+                    i = new Intent(ScreenSplash.this,CustomPickLocation.class);
                 }
-
-                @Override
-                public void OnLoggedInFailed() {
-
+                else
+                {
+                    i = new Intent(ScreenSplash.this, MainScreen.class);
                 }
-            });
+                startActivity(i);
+                finish();
 
-        }
+            }
+        }, SPLASH_TIME_OUT);
 
-        else{
-
-            NavigationUtils.startMainActivity(ScreenSplash.this);
-
-        }
     }
+    private void runThread(){
 
+        Thread welcomeThread = new Thread() {
+            int wait = 0;
 
+            @Override
+            public void run() {
+                try {
+                    super.run();
+                    while (wait < SPLASH_TIME_OUT) {
+                        sleep(100);
+                        wait += 100;
+                    }
+                } catch (Exception e) {
+                    System.out.println("EXc=" + e);
+                } finally {
+                    // startActivity(new Intent(getApplicationContext(), MapBox.class));
+                    finish();
+                }
+            }
+        };
+        welcomeThread.start();
+
+    }
 }

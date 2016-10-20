@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/dropsliding_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+
+
+
+        android:orientation="vertical"
+        android:weightSum="100"
+>
+
+    <LinearLayout android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:orientation="vertical"
+                    android:layout_weight="70"
+                    android:id="@+id/mainlayout"
+
+
+    >
+
+        <!--<include layout="@layout/toolbar"/>-->
+
+
+
+
+        <RelativeLayout android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_below="@+id/main_toolbar"
+                        android:clickable="false">
+
+            <utils.CustomMapView android:layout_width="match_parent"
+                                 android:layout_height="match_parent"
+                                 android:id="@+id/dropmapview"
+                                 class="utils.CustomMapFragment"
+                                 android:clickable="false"
+                                 android:focusable="false"
+            />
+            <!--Frame layout of marker-->
+            <FrameLayout
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center"
+                    android:layout_centerInParent="true"
+            android:id="@+id/marker_frame">
+
+
+
+                <ImageView
+                        android:id="@+id/static_marker"
+                        android:layout_marginTop="10dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/ic_marker"
+                />
+
+
+            </FrameLayout>
+
+
+
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+
+
+    <!-- SLIDING LAYOUT -->
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:background="#ffffff"
+            android:orientation="vertical"
+
+
+            android:id="@+id/dropdragView"
+            android:clickable="true"
+            android:focusable="false"
+            android:layout_weight="30"
+
+
+    >
+
+        <LinearLayout android:layout_width="match_parent"
+                      android:layout_height="match_parent"
+                      android:orientation="vertical"
+      >
+
+
+            <!--<include layout="@layout/droplocation_visible_panel"/>-->
+            <include layout="@layout/new_droplocation_visiblelayout"
+                     android:layout_height="match_parent"
+                     android:layout_width="match_parent"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+</LinearLayout>

@@ -21,6 +21,7 @@ public class CustomEditText extends EditText{
     private int actionY;
 
     public CustomEditText(Context context, AttributeSet attrs) {
+
         super(context, attrs);
     }
 

@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+
+        android:id="@+id/sliding_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+
+>
+        <LinearLayout
+                android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+     >
+            <include layout="@layout/toolbar"
+                     android:id="@+id/main_toolbar"
+                     android:layout_width="match_parent"
+                     android:layout_height="wrap_content"/>
+
+
+
+            <android.support.v4.widget.DrawerLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/drawer_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fitsSystemWindows="true"
+            >
+
+        <!-- MAIN CONTENT -->
+        <LinearLayout android:layout_width="match_parent"
+                      android:layout_height="match_parent"
+                      android:orientation="vertical"
+                      android:weightSum="100"
+        >
+
+
+
+
+        <RelativeLayout android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:orientation="vertical"
+                        android:id="@+id/mainlayout"
+                        android:layout_weight="80"
+
+
+
+        >
+
+            <RelativeLayout android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                          >
+
+                <utils.CustomMapView android:layout_width="match_parent"
+                                     android:layout_height="match_parent"
+                                     android:id="@+id/mymapview"
+                                     class="utils.CustomMapFragment"
+                                     android:clickable="true"
+                                     android:focusable="false"
+                />
+            </RelativeLayout>
+            <!--Frame layout of marker-->
+            <FrameLayout
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center"
+                    android:layout_centerInParent="true">
+
+
+                <ImageView
+                        android:id="@+id/static_marker"
+                        android:layout_marginTop="10dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/ic_marker"
+                />
+
+
+            </FrameLayout>
+
+        </RelativeLayout>
+
+
+        <!-- SLIDING LAYOUT -->
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:background="#ffffff"
+                android:orientation="vertical"
+
+
+                android:id="@+id/dragView"
+                android:clickable="true"
+                android:focusable="false"
+                android:layout_weight="20"
+
+
+        >
+
+            <LinearLayout android:layout_width="match_parent"
+                          android:layout_height="wrap_content"
+                          android:orientation="vertical">
+
+
+                <!--<include layout="@layout/sliding_visible_layout"/>-->
+                <include layout="@layout/visibile_area_picklocation_layout"
+                         android:layout_height="match_parent"
+                         android:layout_width="match_parent"/>
+                <!--<include layout="@layout/sliding_hidden_layout"/>-->
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+        <!--</LinearLayout>-->
+        </LinearLayout>
+        <ListView
+
+
+        android:id="@+id/left_drawer"
+        android:layout_width="240dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="right"
+        android:choiceMode="singleChoice"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="0dp"
+        android:background="#ffff"
+
+        />
+
+    </android.support.v4.widget.DrawerLayout>
+
+</LinearLayout>
+</RelativeLayout>

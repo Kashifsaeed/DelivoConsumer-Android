@@ -1,9 +1,8 @@
 package network.bals;
 
+import android.widget.Toast;
 import models.NewUser;
 import models.User;
-import models.response.GenerateTokenResponse;
-import models.response.ResponseGuestSignup;
 import network.RestClient;
 import network.interfaces.LoginUserResponse;
 import network.interfaces.SignupUserResponse;
@@ -19,18 +18,19 @@ public class SignupBAL {
 
     public static void createUser(NewUser user, final SignupUserResponse signupUserResponse) {
 
-        Call<User> newUser = RestClient.getAdapter().createUser(user);
+        Call<User> newUser = RestClient.getAuthRestAdapter().createUser(user);
 
         newUser.enqueue(new Callback<User>() {
             @Override
-            public void onResponse(Call<User> call, Response<User> response) {
+            public void onResponse(Call<User> call, final Response<User> response) {
 
                 if(response.isSuccessful()){
 
 
                     if(response.body() != null){
 
-                        DevicePreferences.getInstance().setUser(response);
+                        User.getInstance(response.body());
+                        DevicePreferences.getInstance().setUser();
 
                         //user has been created successfully,persist this user's info
 
@@ -44,7 +44,13 @@ public class SignupBAL {
 
                             @Override
                             public void OnLoggedInFailed() {
+
                                 signupUserResponse.OnError();
+                            }
+
+                            @Override
+                            public void onLoginError() {
+
                             }
                         });
 
@@ -61,6 +67,74 @@ public class SignupBAL {
 
             }
         });
+
+    }
+
+    public static void userSignUp(NewUser user, final SignupUserResponse signupUserResponse){
+        RestClient.getAuthAdapter().createUser(user).enqueue(new Callback<User>() {
+            @Override
+            public void onResponse(Call<User> call, Response<User> response) {
+                if(response.isSuccessful()){
+                    if(response.body()!=null)
+                    {
+                        //if meta data is success
+                        if(response.body().getMeta().getSuccess()==true && response.body().getData()!=null) {
+
+                            signupUserResponse.OnUserCreated(response.body());
+
+
+
+//                        User.getInstance(response.body());
+//                        DevicePreferences.getInstance().setUser();
+                        }
+                        //if meta data is unsuccess
+                        if(response.body().getMeta().getSuccess()==false && response.body().getMeta().getCode()==3001){
+
+                            signupUserResponse.OnuserAlreadyexits();
+                        }
+
+                    }
+
+
+
+                }
+                if(response.errorBody()!=null){
+                    signupUserResponse.OnError();
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<User> call, Throwable t) {
+
+
+            }
+        });
+
+
+
+
+    }
+    private void loginFirst(String username,String password)
+    {
+       LoginBAL.userLogin(username, password, new LoginUserResponse() {
+           @Override
+           public void OnLoggedIn()
+           {
+
+           }
+
+           @Override
+           public void OnLoggedInFailed() {
+
+           }
+
+           @Override
+           public void onLoginError() {
+
+           }
+       });
+
 
     }
 }

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+        <!--rectangle-->
+        <!--"#6E6E6E"-->
+<!--<shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="oval"-->
+       <!--&gt;-->
+    <!--<solid android:color="#03C3D4"/> &lt;!&ndash; this one is ths color of the Rounded Button &ndash;&gt;-->
+    <!--<corners-->
+            <!--android:radius="20dp"/>-->
+
+<!--</shape>-->
+
+
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape android:shape="oval">
+            <stroke android:color="#1E90FF" android:width="2dp" />
+            <solid android:color="#87CEEB"/>
+            <size android:width="75dp" android:height="75dp"/>
+        </shape>
+    </item>
+</selector>

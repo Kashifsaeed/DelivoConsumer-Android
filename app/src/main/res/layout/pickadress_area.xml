@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:id="@+id/pickAddress_area"
+              android:orientation="vertical"
+              style="@style/pick_location">
+
+    <utils.CustomEditText
+            android:id="@+id/pickAddress"
+            android:hint="Pick up address"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_weight="25"
+            android:elevation="5dp"
+            android:drawableRight="@drawable/places_ic_search"
+            android:imeOptions="actionDone"
+    />
+    <Button
+            android:id="@+id/buttonDelivo"
+            android:text="Delivo"
+            android:elevation="4dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textColor="@color/white"
+
+
+            android:background="@drawable/round_btn"
+    />
+    <!--<at.markushi.ui.CircleButton-->
+            <!--android:id="@+id/showDropLoc"-->
+            <!--android:layout_width="75dip"-->
+            <!--android:layout_height="75dip"-->
+            <!--android:src="@drawable/rider_bike"-->
+
+            <!--app:cb_color="@color/white"-->
+
+            <!--app:cb_pressedRingWidth="8dip"-->
+            <!--android:layout_gravity="center"/>-->
+    <!--app:cb_color="#99CC00"-->
+</LinearLayout>

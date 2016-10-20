@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="160dp"
+        android:orientation="horizontal"
+
+        android:background="@drawable/layout_rounded"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+>
+
+
+
+    <!--Main Panel Of Drop Screen-->
+    <LinearLayout android:layout_width="match_parent"
+                  android:layout_height="match_parent"
+                  android:orientation="vertical"
+                  android:weightSum="3"
+
+
+    >
+
+
+        <!--Pick Address Info layout-->
+        <LinearLayout android:layout_width="match_parent"
+                      android:layout_height="0dp"
+                      android:orientation="horizontal"
+                      android:layout_weight="1"
+
+                      android:gravity="center"
+                      android:background="@drawable/layout_rounded"
+                      android:weightSum="1"
+      >
+            <TextView
+                    android:id="@+id/pickconfrmname"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:textSize="14sp"
+                    android:gravity="center_vertical"
+                    android:background="@color/white"
+                    android:drawableLeft="@drawable/pickfinder"
+                    android:layout_margin="2dp"
+                    android:hint="Pick Delivo Address"
+                    android:drawablePadding="5dp"
+                    android:inputType="textMultiLine"
+                    android:layout_weight="0.8"
+            />
+            <TextView android:layout_width="0dp"
+                      android:layout_height="40dp"
+                      android:text="change pick"
+                      android:layout_weight="0.2"
+                      android:gravity="center_vertical"
+                      android:clickable="true"
+                      android:layout_margin="2dp"
+                      android:textColor="@color/primary"
+                      android:id="@+id/change_pick_txtv"/>
+
+
+
+
+        </LinearLayout>
+
+
+
+        <LinearLayout android:layout_width="match_parent"
+                      android:layout_height="0dp"
+                      android:orientation="horizontal"
+                      android:gravity="center"
+                      android:layout_weight="1"
+                      android:background="@drawable/layout_rounded">
+
+
+
+
+            <TextView
+                    android:id="@+id/droplockname"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="0.8"
+                    android:textSize="14sp"
+                    android:gravity="center_vertical"
+                    android:background="@color/white"
+                    android:drawableLeft="@drawable/ic_marker_pin"
+                    android:layout_margin="2dp"
+                    android:hint="DropOFF Location"
+                    android:drawableRight="@drawable/places_ic_search"
+                    android:drawablePadding="2dp"
+                    android:inputType="textMultiLine"
+
+            />
+
+
+
+            <!--/>-->
+        </LinearLayout>
+        <!--<LinearLayout android:layout_width="match_parent" -->
+                      <!--android:layout_height="0dp"-->
+                      <!--android:layout_weight="1.5"-->
+                     <!---->
+        <!--android:weightSum="1">-->
+        <Button android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:background="@drawable/round_corners_btns"
+                android:text="Go Delivo"
+                android:gravity="center"
+                android:layout_gravity=""
+                android:id="@+id/confirm_location_btn"
+
+        android:textColor="@color/white"/>
+        <!--android:layout_margin="5dp"-->
+        <!--</LinearLayout>-->
+    </LinearLayout>
+
+
+</RelativeLayout>

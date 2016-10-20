@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="110dp"
+        android:orientation="horizontal"
+        android:background="@drawable/layout_rounded"
+        xmlns:android="http://schemas.android.com/apk/res/android">
+    <LinearLayout android:layout_width="match_parent"
+                  android:layout_height="match_parent"
+                  android:orientation="vertical"
+                  android:weightSum="100">
+
+
+        <LinearLayout android:layout_width="match_parent"
+                      android:layout_height="0dp"
+                      android:orientation="horizontal"
+                      android:layout_margin="5dp"
+                      android:gravity="center_vertical"
+                      android:layout_weight="50"
+
+
+        >
+            <!--<ProgressBar android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--style="?android:attr/progressBarStyleSmall"-->
+            <!--android:id="@+id/progressLocation"-->
+            <!--/>-->
+
+
+
+
+            <TextView
+                    android:id="@+id/picklocname"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="0.8"
+                    android:textSize="14sp"
+                    android:gravity="center_vertical"
+                    android:background="@color/white"
+                    android:drawableLeft="@drawable/pickfinder"
+                    android:layout_margin="2dp"
+                    android:hint="Pick Delivo Location"
+                    android:drawablePadding="10dp"
+                    android:inputType="textMultiLine|textNoSuggestions"
+
+            />
+            <!--android:drawablePadding="5dp"-->
+            <!--android:drawableRight="@drawable/places_ic_search"-->
+            <ImageView android:layout_width="0dp"
+                       android:layout_height="40dp"
+                       android:layout_weight="0.1"
+                       android:background="@drawable/ic_search"
+                       android:id="@+id/searchPlaces"/>
+
+
+
+            <!--/>-->
+        </LinearLayout>
+        <Button android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="50"
+                android:text="Proceed"
+                android:background="@color/indicator_color"
+                android:textColor="@color/white"
+                android:id="@+id/confirm_location_btn"
+        android:elevation="1dp"/>
+        <!--android:background="@drawable/round_corners_btns"-->
+
+        <!--android:layout_margin="5dp"-->
+
+    </LinearLayout>
+
+</RelativeLayout>

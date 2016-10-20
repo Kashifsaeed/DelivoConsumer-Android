@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" >
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+        <!--<TextView-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="What is your Order ...???"-->
+                <!--android:layout_marginTop="50dp"-->
+                <!--android:layout_marginLeft="20dp"-->
+                <!--android:layout_marginRight="20dp"-->
+                <!--android:textSize="25sp"-->
+                <!--android:textStyle="bold"-->
+                <!--android:textColor="@color/indicator_color"/>-->
+
+       <RelativeLayout
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:layout_marginTop="40dp">
+
+           <TextView
+                   android:id="@+id/tvPickAdr"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:text="Pick Location :"
+                   android:layout_marginLeft="20dp"
+                   android:textSize="18sp"
+                   android:textStyle="bold"/>
+
+          <TextView
+                  android:id="@+id/tvPickAdrDetail"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:text="North Karachi"
+                  android:layout_toRightOf="@+id/tvPickAdr"
+                  android:layout_marginLeft="10dp"
+                  android:textSize="18sp"
+                  android:maxLines = "2"
+                  android:scrollbars = "vertical"/>
+       </RelativeLayout>
+
+        <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp">
+           <TextView
+                   android:id="@+id/tvDropAdr"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:text="Drop Location :"
+                   android:layout_marginLeft="20dp"
+                   android:textSize="18sp"
+                   android:textStyle="bold"/>
+
+           <TextView
+                   android:id="@+id/tvDropAdrDetail"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:text="Shahrah e Faisal"
+                   android:layout_toRightOf="@+id/tvDropAdr"
+                   android:layout_marginLeft="10dp"
+                   android:textSize="18sp"
+                   android:maxLines = "2"
+                   android:scrollbars = "vertical"/>
+
+       </RelativeLayout>
+
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Place Order :"
+                android:textSize="25dp"
+                android:textStyle="bold"
+                android:layout_marginTop="40dp"
+                android:layout_marginLeft="20dp"
+                android:textColor="@color/indicator_color"/>
+
+        <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="180dp"
+                android:background="@drawable/rounded_frame"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:padding="7dp">
+
+            <EditText
+                    android:id="@+id/et_order_description_area"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:hint="Place your order here ..."
+                    android:gravity="top|left"
+                    android:background="@android:color/transparent"/>
+
+        </FrameLayout>
+
+        <Button android:id="@+id/placeOrderBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="SUBMIT"
+                android:textSize="15sp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                style="@style/Button"/>
+    </LinearLayout>
+
+</ScrollView>
