@@ -85,7 +85,9 @@
         </activity>
         <activity
                 android:name=".CustomDropLocation"
-                android:label="Drop Location">
+                android:label="Drop Location"
+                android:windowSoftInputMode="stateHidden"
+        >
         </activity>
         <activity android:name=".CustomAutocomplete">
             <intent-filter>
@@ -105,16 +107,13 @@
         </activity>
         <activity android:name=".ConsumerSignUp">
         </activity>
-        <activity android:name=".OrderCreating">
+        <activity android:name=".OrderCreating"
+                  android:windowSoftInputMode="stateHidden">
         </activity>
         <activity android:name=".slideLogoTesting">
         </activity>
         <activity android:name=".BaseActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
 
-                <category android:name="android.intent.category.DEFAULT"/>
-            </intent-filter>
         </activity>
     </application>
 

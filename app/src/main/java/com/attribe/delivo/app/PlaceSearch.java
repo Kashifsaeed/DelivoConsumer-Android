@@ -82,6 +82,13 @@ public class PlaceSearch extends Activity {
         toolbar.setTitle("Search Location");
         toolbar.setTitleTextColor(getResources().getColor(R.color.white));
         toolbar.setNavigationIcon(R.drawable.ic_back_arrow);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view)
+            {
+              finish();
+            }
+        });
 
 
     }
@@ -346,7 +353,7 @@ public class PlaceSearch extends Activity {
                     PlaceSearch.this.runOnUiThread(new TimerTask() {
                         @Override
                         public void run() {
-                            if (text.length() >= 3) {
+                            if (text.length() >= 5) {
                                // getPlacesByTextSearch(searchedittext.getText().toString().trim() + " in karachi");
                                getAutocompleteplaces(searchedittext.getText().toString()+"+karachi");
 
@@ -368,6 +375,11 @@ public class PlaceSearch extends Activity {
 
 
         }
+    }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        //this.overridePendingTransition(R.anim.transition_left_in, R.anim.transition_left_out);
     }
 
 

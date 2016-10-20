@@ -28,10 +28,11 @@
 
                       android:gravity="center"
                       android:background="@drawable/layout_rounded"
+                      android:weightSum="1"
       >
             <TextView
                     android:id="@+id/pickconfrmname"
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
                     android:layout_height="40dp"
                     android:textSize="14sp"
                     android:gravity="center_vertical"
@@ -41,7 +42,17 @@
                     android:hint="Pick Delivo Address"
                     android:drawablePadding="5dp"
                     android:inputType="textMultiLine"
+                    android:layout_weight="0.8"
             />
+            <TextView android:layout_width="0dp"
+                      android:layout_height="40dp"
+                      android:text="change pick"
+                      android:layout_weight="0.2"
+                      android:gravity="center_vertical"
+                      android:clickable="true"
+                      android:layout_margin="2dp"
+                      android:textColor="@color/primary"
+                      android:id="@+id/change_pick_txtv"/>
 
 
 

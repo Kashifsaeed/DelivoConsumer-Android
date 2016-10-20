@@ -30,12 +30,14 @@ import models.response.PlaceDetailsResponse;
 import utils.CustomMapView;
 import utils.LocationBAL;
 import utils.LocationReceiveListener;
+import utils.ReverseGeoLocationTask;
 
 import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
+import java.util.concurrent.ExecutionException;
 
-public class CustomPickLocation extends AppCompatActivity implements  OnMapReadyCallback,
+public class CustomPickLocation extends BaseActivity implements OnMapReadyCallback,
         CustomMapView.MapTouchListener {
     private static final String TAG = "DemoActivity";
     private static final String MotionTag = "MotionDetect";
@@ -52,7 +54,7 @@ public class CustomPickLocation extends AppCompatActivity implements  OnMapReady
     View mapcover;
     //private com.sothree.slidinguppanel.SlidingUpPanelLayout mLayout;
     private LinearLayout dragView;
-    private Toolbar toolbar;
+    //private Toolbar toolbar;
     Geocoder geocoder;
     List<Address> addresses;
     private CameraPosition cp;
@@ -63,13 +65,9 @@ public class CustomPickLocation extends AppCompatActivity implements  OnMapReady
     private ImageView searchClick;
     public static int PickLocation_RequestCode = 200;
     private LatLng GEOCDES_NY = new LatLng(40.711555, -74.008257);
-
     public DrawerLayout drawerLayout;
     public ListView drawerList;
-    public String[] layers = {"My Rides", "My Orders", "Signout"};
-    ;
     private ActionBarDrawerToggle drawerToggle;
-    ArrayAdapter<String> adapter;
     DrawerListAdapter navDrawerAdapter;
 
     @Override
@@ -77,7 +75,8 @@ public class CustomPickLocation extends AppCompatActivity implements  OnMapReady
         super.onCreate(savedInstanceState);
         //setContentView(R.layout.activity_custom_pick_location);
         // setContentView(R.layout.pick_location_layout);
-        setContentView(R.layout.picklocation_with_drawer);
+//        setContentView(R.layout.picklocation_with_drawer);
+        getLayoutInflater().inflate(R.layout.pick_location_layout, frameLayout);
 
         initMap(savedInstanceState);
         initViews();
@@ -89,48 +88,20 @@ public class CustomPickLocation extends AppCompatActivity implements  OnMapReady
 
     private void initViews() {//initialize views
         this.overridePendingTransition(R.anim.transition_left_in, R.anim.transition_left_out);
-        toolbar = (Toolbar) findViewById(R.id.my_toolbar);
+        // toolbar = (Toolbar) findViewById(R.id.my_toolbar);
+        inittoolbar(toolbar);
         pickDelivoBtn = (Button) findViewById(R.id.confirm_location_btn);
         picklocationname = (TextView) findViewById(R.id.picklocname);
         mainlayout = (RelativeLayout) findViewById(R.id.mainlayout);
-        setSupportActionBar(toolbar);
+
         dragView = (LinearLayout) findViewById(R.id.dragView);
         searchClick = (ImageView) findViewById(R.id.searchPlaces);
         searchClick.setOnClickListener(new FindNearPlaces());
         pickDelivoBtn.setOnClickListener(new ProceedDelivoListner());
-        drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawerList = (ListView) findViewById(R.id.left_drawer);
-        navDrawerAdapter = new DrawerListAdapter();
-        createDrawer();
 
 
     }
 
-    private void createDrawer() {
-        setSupportActionBar(toolbar);
-
-        final ActionBar actionBar = getSupportActionBar();
-
-        if (actionBar != null) {
-            //actionBar.setDisplayHomeAsUpEnabled(true);
-            drawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.hello_world, R.string.hello_world) {
-                public void onDrawerClosed(View view) {
-                    //getActionBar().setTitle(R.string.app_name);
-                    invalidateOptionsMenu();
-                }
-
-                public void onDrawerOpened(View drawerView) {
-                    //  getActionBar().setTitle("Menu");
-                    invalidateOptionsMenu();
-                    drawerList.setAdapter(navDrawerAdapter);
-                }
-            };
-            //drawerToggle.setDrawerIndicatorEnabled(true);
-            drawerLayout.setDrawerListener(drawerToggle);
-            //drawerToggle.syncState();
-//
-        }
-    }
 
     private void inittoolbar(Toolbar toolbar) {
         setSupportActionBar(toolbar);
@@ -152,6 +123,7 @@ public class CustomPickLocation extends AppCompatActivity implements  OnMapReady
 
         mapView.onCreate(savedInstance);
         mapView.getMapAsync(this);
+
 
 
     }
@@ -206,25 +178,7 @@ public class CustomPickLocation extends AppCompatActivity implements  OnMapReady
         });
     }
 
-    private String makeAddress(LatLng latLng) throws IOException {
-        String location = null;
 
-        geocoder = new Geocoder(this, Locale.getDefault());
-        addresses = geocoder.getFromLocation(latLng.latitude, latLng.longitude, 1); // Here 1 represent max location result to returned, by documents it recommended 1 to 5
-
-        if (addresses.isEmpty()) {
-            location = "Waiting for Location";
-        } else {
-            if (addresses.size() > 0) {
-                location = addresses.get(0).getFeatureName() + ", "
-                        + addresses.get(0).getLocality() + ", "
-                        + addresses.get(0).getAdminArea() + ", "
-                        + addresses.get(0).getCountryName();
-
-            }
-        }
-        return location;
-    }
 
     private void expandPanel() {
 
@@ -254,6 +208,7 @@ public class CustomPickLocation extends AppCompatActivity implements  OnMapReady
         }
         mMap.setMyLocationEnabled(true);
 
+
         // currentLocationCameraZoom(this);
 
         mMap.setOnCameraChangeListener(new MyCameraPosition());
@@ -262,28 +217,6 @@ public class CustomPickLocation extends AppCompatActivity implements  OnMapReady
 
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.pick_menu, menu);
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-
-
-        if (item != null && item.getItemId() == R.id.menu_btn) {
-            if (drawerLayout.isDrawerOpen(Gravity.RIGHT)) {
-                drawerLayout.closeDrawer(Gravity.RIGHT);
-            } else {
-                drawerLayout.openDrawer(Gravity.RIGHT);
-            }
-        }
-        return false;
-
-
-    }
 
 
     @Override
@@ -428,7 +361,16 @@ public class CustomPickLocation extends AppCompatActivity implements  OnMapReady
         public void onCameraIdle() {
 
             //get geo address when camera stop
-            new ReverseGeocodingTask(getBaseContext()).execute(cameraPickLocation.latitude, cameraPickLocation.longitude);
+            try {
+                String pick_location= new ReverseGeoLocationTask(getBaseContext()).execute(cameraPickLocation.latitude, cameraPickLocation.longitude).get();
+                picklocationname.setText(""+pick_location);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            }
+
+             //new ReverseGeocodingTask(getBaseContext()).execute(cameraPickLocation.latitude, cameraPickLocation.longitude);
 
         }
     }
@@ -471,7 +413,7 @@ public class CustomPickLocation extends AppCompatActivity implements  OnMapReady
 
             if (addresses != null && addresses.size() > 0) {
                 Address address = addresses.get(0);
-//
+
                 addressText = address.getAddressLine(0) + ", "
                         + address.getLocality() + ", "
                         + address.getAdminArea();

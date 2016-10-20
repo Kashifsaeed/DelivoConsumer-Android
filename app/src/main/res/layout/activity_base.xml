@@ -4,6 +4,8 @@
               android:layout_width="match_parent"
               android:orientation="vertical"
 >
+    <include layout="@layout/toolbar"
+             android:id="@+id/mtoolbar"/>
 <android.support.v4.widget.DrawerLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/drawer_layout"
@@ -16,8 +18,7 @@
     <LinearLayout android:layout_width="match_parent"
                   android:layout_height="match_parent"
     android:orientation="vertical">
-    <include layout="@layout/toolbar"
-    android:id="@+id/mtoolbar"/>
+
     <FrameLayout
             android:id="@+id/content_frame"
             android:layout_width="match_parent"
@@ -32,7 +33,7 @@
               android:id="@+id/left_drawer"
               android:layout_width="240dp"
               android:layout_height="match_parent"
-              android:layout_gravity="start"
+              android:layout_gravity="right"
               android:choiceMode="singleChoice"
               android:divider="@android:color/transparent"
               android:dividerHeight="0dp"

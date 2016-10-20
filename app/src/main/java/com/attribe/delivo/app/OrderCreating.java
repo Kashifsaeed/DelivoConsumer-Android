@@ -3,8 +3,11 @@ package com.attribe.delivo.app;
 import android.app.ProgressDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.*;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.*;
+
 import com.google.android.gms.maps.model.LatLng;
 import models.NewOrder;
 import models.UpdatOrderStatus;
@@ -30,6 +33,7 @@ public class OrderCreating extends AppCompatActivity {
     ArrayList<NewOrder.DeleveryOrderItem> mdeliveryorderItems;
     private ProgressDialog mprogress;
     private FrameLayout orderconfirm_frame;
+    private Toolbar mtoolbar;
 
 
 
@@ -43,6 +47,8 @@ public class OrderCreating extends AppCompatActivity {
 
 
     private void initViews() {
+        mtoolbar= (android.support.v7.widget.Toolbar) findViewById(R.id.my_toolbar);
+        initToolbar(mtoolbar);
         orderconfirm_frame= (FrameLayout) findViewById(R.id.confirmorder_frame);
         txt_pickAddress_details = (TextView) findViewById(R.id.tvPickAdrDetail);
         txt_dropAddress_details = (TextView) findViewById(R.id.tvDropAdrDetail);
@@ -53,6 +59,23 @@ public class OrderCreating extends AppCompatActivity {
 
 
     }
+
+    private void initToolbar(android.support.v7.widget.Toolbar mytoolbar) {
+
+      //  setSupportActionBar(mytoolbar);
+        mytoolbar.setTitle("Place Order");
+        mytoolbar.setTitleTextColor(getResources().getColor(R.color.white));
+        mytoolbar.setNavigationIcon(R.drawable.ic_back_arrow);
+        mytoolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+    }
+
+
+
     private void getOrderIntent()
     {
         Bundle bundle=this.getIntent().getBundleExtra("Orderinfo");

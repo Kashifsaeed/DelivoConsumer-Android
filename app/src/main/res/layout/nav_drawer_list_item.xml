@@ -5,6 +5,7 @@
               android:background="@android:color/transparent"
               android:orientation="horizontal"
               android:gravity="center_vertical"
+              android:id="@+id/list_main_layout"
 >
 
 

@@ -3,11 +3,11 @@ package com.attribe.delivo.app;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.support.v4.app.ActivityCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -15,17 +15,19 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.*;
-import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 import models.response.PlaceDetailsResponse;
 import utils.LocationBAL;
 import utils.LocationReceiveListener;
+import utils.ReverseGeoLocationTask;
 
 import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
 
-public class CustomDropLocation extends AppCompatActivity implements OnMapReadyCallback {
+public class CustomDropLocation extends BaseActivity implements OnMapReadyCallback {
     private MapView dmapview;
     private GoogleMap mMap;
-    private TextView picklocationText, droplocknameText;
+    private TextView picklocationText, droplocknameText,change_picklocation;
+    private FrameLayout marker_frame;
     private Button goDelivo_btn;
     private LinearLayout dragingRegion;
     private String pickAdd;
@@ -33,7 +35,8 @@ public class CustomDropLocation extends AppCompatActivity implements OnMapReadyC
     public static int DropLocation_ResultsCode = 201;
 
     private ArrayList<Marker> pickDropMarkers = new ArrayList<Marker>();
-    private Toolbar droptoolbar;
+    private LatLng camera_dropLocation;
+   // private Toolbar droptoolbar;
 
 
    // private com.sothree.slidinguppanel.SlidingUpPanelLayout slidinglayout;
@@ -42,7 +45,8 @@ public class CustomDropLocation extends AppCompatActivity implements OnMapReadyC
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
        // setContentView(R.layout.activity_custom_drop_location);
-        setContentView(R.layout.drop_location_layout);
+//        setContentView(R.layout.drop_location_layout);
+        getLayoutInflater().inflate(R.layout.drop_location_layout,frameLayout);
 
         initMaps(savedInstanceState);
         initViews();
@@ -51,22 +55,22 @@ public class CustomDropLocation extends AppCompatActivity implements OnMapReadyC
 
 //========================================== Helper Methods ============================================================//
     private void initViews() {//initialize Views
-        if(getSupportActionBar()!=null) {
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            getSupportActionBar().setDisplayShowHomeEnabled(true);
-        }
+//
         getIntentValues();
-        droptoolbar= (Toolbar) findViewById(R.id.my_toolbar);
-        inittoolbar(droptoolbar);
+       // droptoolbar= (Toolbar) findViewById(R.id.my_toolbar);
+        inittoolbar(toolbar);//here we access parent class toolbar varialble
         goDelivo_btn = (Button) findViewById(R.id.confirm_location_btn);
+        marker_frame= (FrameLayout) findViewById(R.id.marker_frame);
         //slidinglayout = (SlidingUpPanelLayout) findViewById(R.id.dropsliding_layout);
         dragingRegion = (LinearLayout) findViewById(R.id.dropdragView);
         picklocationText = (TextView) findViewById(R.id.pickconfrmname);
         droplocknameText = (TextView) findViewById(R.id.droplockname);
+        change_picklocation= (TextView) findViewById(R.id.change_pick_txtv);
         picklocationText.setText("" + pickAdd);
 //        slidinglayout.setPanelState(SlidingUpPanelLayout.PanelState.EXPANDED);
 //        slidinglayout.setDragView(dragingRegion);
         goDelivo_btn.setOnClickListener(new PoceedOrderCreation());
+        change_picklocation.setOnClickListener(new NavPickLocationListner());
         droplocknameText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -90,14 +94,11 @@ public class CustomDropLocation extends AppCompatActivity implements OnMapReadyC
     }
     private void inittoolbar(Toolbar toolbar)
     {
-        toolbar.setTitle("Drop Location");
-        toolbar.setTitleTextColor(getResources().getColor(R.color.white));
-       // getSupportActionBar().setHomeButtonEnabled(true);
+         toolbar.setTitle("Drop Location");
+         toolbar.setTitleTextColor(getResources().getColor(R.color.white));
 
-        //setSupportActionBar(toolbar);
-
-       toolbar.setNavigationIcon(R.drawable.ic_back_arrow);
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+         toolbar.setNavigationIcon(R.drawable.ic_back_arrow);
+         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 finish();
@@ -116,8 +117,6 @@ public class CustomDropLocation extends AppCompatActivity implements OnMapReadyC
         double lon = intent.getDoubleExtra("pickLongitude", 0);
         pickLatlng = new LatLng(lat, lon);
 
-
-        // return getIntent().getExtras().getString("pickLocation").toString();
 
     }
 
@@ -215,16 +214,11 @@ public class CustomDropLocation extends AppCompatActivity implements OnMapReadyC
         mMap = googleMap;
         getMyLocation();
         if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
             return;
         }
         mMap.setMyLocationEnabled(true);
+        mMap.setOnCameraChangeListener(new DropCameraPosition());
+        mMap.setOnCameraIdleListener(new CameraStopListner());
 
 
     }
@@ -237,13 +231,11 @@ public class CustomDropLocation extends AppCompatActivity implements OnMapReadyC
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == DropLocation_ResultsCode && resultCode == RESULT_OK && data != null) {
+            //get search result response
+            marker_frame.setVisibility(View.INVISIBLE);
             PlaceDetailsResponse.Result place = (PlaceDetailsResponse.Result) data.getSerializableExtra("SearchPlace");
-
-//            GoogleAPiByText.Result place = (GoogleAPiByText.Result) data.getSerializableExtra("SearchPlace");
-            //droplocknameText.setText(place.getName() + place.getFormatted_address());
             droplocknameText.setText(""+place.getFormatted_address());
-           // LatLng droplatlng = new LatLng(place.getGeometry().getMyLocation().getLat(), place.getGeometry().getMyLocation().getLng());
-        droplatlng = new LatLng(place.getGeometry().getLocation().getLat(), place.getGeometry().getLocation().getLng());
+            droplatlng = new LatLng(place.getGeometry().getLocation().getLat(), place.getGeometry().getLocation().getLng());
 
             mMap.clear();
             createMarker(pickLatlng, droplatlng);
@@ -251,13 +243,6 @@ public class CustomDropLocation extends AppCompatActivity implements OnMapReadyC
 
             mMap.getUiSettings().setAllGesturesEnabled(false);
             if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                // TODO: Consider calling
-                //    ActivityCompat#requestPermissions
-                // here to request the missing permissions, and then overriding
-                //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-                //                                          int[] grantResults)
-                // to handle the case where the user grants the permission. See the documentation
-                // for ActivityCompat#requestPermissions for more details.
                 return;
             }
             mMap.setMyLocationEnabled(false);
@@ -289,4 +274,33 @@ public class CustomDropLocation extends AppCompatActivity implements OnMapReadyC
         }
     }
 
+    private class NavPickLocationListner implements View.OnClickListener {
+        @Override
+        public void onClick(View view) {
+
+            finish();
+        }
+    }
+
+    private class DropCameraPosition implements GoogleMap.OnCameraChangeListener {
+        @Override
+        public void onCameraChange(CameraPosition cameraPosition) {
+            droplatlng = new LatLng(cameraPosition.target.latitude, cameraPosition.target.longitude);
+        }
+    }
+
+    private class CameraStopListner implements GoogleMap.OnCameraIdleListener {
+        @Override
+        public void onCameraIdle() {
+            //get geo address when camera stop
+            try {
+                String pick_location= new ReverseGeoLocationTask(getBaseContext()).execute(droplatlng.latitude, droplatlng.longitude).get();
+                droplocknameText.setText(""+pick_location);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 }
