@@ -43,6 +43,7 @@ public class CustomPickLocation extends BaseActivity implements OnMapReadyCallba
     private static final String MotionTag = "MotionDetect";
 
 
+
     private static final int PERMISSION_REQUEST_CODE = 400;
     private CustomMapView mapView;
     private GoogleMap mMap;
