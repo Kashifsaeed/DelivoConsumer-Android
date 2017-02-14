@@ -6,7 +6,7 @@ buildscript {
     }
     dependencies {
 //        classpath 'com.android.tools.build:gradle:1.1.1'
-        classpath 'com.android.tools.build:gradle:2.1.0'
+        classpath 'com.android.tools.build:gradle:2.2.2'
         classpath 'com.google.gms:google-services:3.0.0'
     }
 }
@@ -80,4 +80,4 @@ dependencies {
     compile 'com.google.firebase:firebase-database:9.4.0'
 
 }
-//apply plugin: 'com.google.gms.google-services'
+apply plugin: 'com.google.gms.google-services'

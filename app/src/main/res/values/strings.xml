@@ -19,7 +19,7 @@
     <string name="cancel">Cancel</string>
     <string name="success">Success</string>
     <string name="rider_detail_head">Here are your rider details</string>
-    <string name="google_app_id">AIzaSyCGWoe8_S8QqeDm8OMUGSAp2atLfNU2QSY</string>
+    <string name="google_app_map_id">AIzaSyCGWoe8_S8QqeDm8OMUGSAp2atLfNU2QSY</string>
     <string name="pick_address_empty">Please specify pick address</string>
     <string name="drop_address_empty">Please specify drop address</string>
     <string name="drawer_open">Drawer open</string>

@@ -40,7 +40,7 @@
 
         <meta-data
                 android:name="com.google.android.geo.API_KEY"
-                android:value="@string/google_app_id"/>
+                android:value="@string/google_app_map_id"/>
 
         <activity
                 android:name=".ScreenSplash"
@@ -62,18 +62,14 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
-                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
         <activity
                 android:name=".PlaceSearch"
                 android:label="Search Places"
                 android:windowSoftInputMode="stateHidden">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
 
-                <category android:name="android.intent.category.DEFAULT"/>
-            </intent-filter>
         </activity>
         <activity
                 android:name=".CustomDropLocation"
@@ -81,18 +77,10 @@
                 android:windowSoftInputMode="stateHidden">
         </activity>
         <activity android:name=".CustomAutocomplete">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
 
-                <category android:name="android.intent.category.DEFAULT"/>
-            </intent-filter>
         </activity>
         <activity android:name=".MainScreen">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
 
-                <category android:name="android.intent.category.DEFAULT"/>
-            </intent-filter>
         </activity>
         <activity android:name=".ConsumerLogin">
         </activity>
@@ -107,11 +95,7 @@
         <activity android:name=".BaseActivity">
         </activity>
         <activity android:name=".TestFirebase">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
 
-                <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>
         </activity>
     </application>
 

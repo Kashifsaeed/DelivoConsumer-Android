@@ -1,7 +1,6 @@
 package com.attribe.delivo.app;
 
 import adapters.DrawerListAdapter;
-import adapters.NavDrawerAdapter;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -12,10 +11,8 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBar;
 
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -23,9 +20,9 @@ import android.view.*;
 import android.widget.*;
 
 import com.google.android.gms.maps.*;
-import com.google.android.gms.maps.model.CameraPosition;
-import com.google.android.gms.maps.model.LatLng;
-import com.sothree.slidinguppanel.SlidingUpPanelLayout;
+import com.google.android.gms.maps.model.*;
+import com.google.firebase.database.*;
+import models.AgentsLocation;
 import models.response.PlaceDetailsResponse;
 import utils.CustomMapView;
 import utils.LocationBAL;
@@ -33,14 +30,19 @@ import utils.LocationReceiveListener;
 import utils.ReverseGeoLocationTask;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 import java.util.concurrent.ExecutionException;
 
 public class CustomPickLocation extends BaseActivity implements OnMapReadyCallback,
         CustomMapView.MapTouchListener {
+    FirebaseDatabase mRoot=FirebaseDatabase.getInstance();
+    DatabaseReference mRef=mRoot.getReference("AgentsLocation");
     private static final String TAG = "DemoActivity";
     private static final String MotionTag = "MotionDetect";
+    private ArrayList<AgentsLocation> markersdata=new ArrayList<AgentsLocation>();
+    private Marker marker;
+    private ArrayList<Marker> markerArrayList=new ArrayList<Marker>();
 
 
 
@@ -81,6 +83,7 @@ public class CustomPickLocation extends BaseActivity implements OnMapReadyCallba
 
         initMap(savedInstanceState);
         initViews();
+      //  getAgentsLocation();
 
     }
 
@@ -178,7 +181,47 @@ public class CustomPickLocation extends BaseActivity implements OnMapReadyCallba
             }
         });
     }
+ private void getAgentsLocation()
+ {
+    mRef.addValueEventListener(new ValueEventListener() {
+        @Override
+        public void onDataChange(DataSnapshot dataSnapshot) {
 
+
+            for(DataSnapshot firebasedata:dataSnapshot.getChildren())
+            {
+                AgentsLocation agentsLocation=firebasedata.getValue(AgentsLocation.class);
+                markersdata.add(agentsLocation);
+
+            }
+
+           createMarkers(markersdata);
+        }
+
+        @Override
+        public void onCancelled(DatabaseError databaseError) {
+            if(databaseError!=null)
+            {
+
+                Toast.makeText(getApplicationContext(),"Firebase Error"+databaseError.getMessage(),Toast.LENGTH_SHORT).show();
+            }
+
+        }
+    });
+
+ }
+
+   private void createMarkers(ArrayList<AgentsLocation> agentsLocations)
+   {
+
+
+
+           for (int i = 0; i <= agentsLocations.size() - 1; i++) {
+             mMap.addMarker(new MarkerOptions().icon(BitmapDescriptorFactory.fromResource(R.drawable.rider_bike)).position(new LatLng(agentsLocations.get(i).getLat(),
+                       agentsLocations.get(i).getLng())));
+           }
+
+   }
 
 
     private void expandPanel() {
@@ -214,6 +257,13 @@ public class CustomPickLocation extends BaseActivity implements OnMapReadyCallba
 
         mMap.setOnCameraChangeListener(new MyCameraPosition());
         mMap.setOnCameraIdleListener(new MyCameraStop());
+//        if(marker!=null)
+//        {
+//            marker.remove();
+//        }
+        mMap.clear();
+
+        getAgentsLocation();
 
 
     }

@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.util.List;
 
 /**
- * Created by attribe on 9/29/16.
+ * Created by uzair on 9/29/16.
  */
 public class ReverseGeoLocationTask extends AsyncTask<Double, Void, String>
         {
@@ -36,7 +36,8 @@ public class ReverseGeoLocationTask extends AsyncTask<Double, Void, String>
 
                 try {
                     addresses = geocoder.getFromLocation(latitude, longitude, 1);
-                } catch (IOException e) {
+                } catch (IOException e)
+                {
                     e.printStackTrace();
                 }
 
@@ -47,7 +48,8 @@ public class ReverseGeoLocationTask extends AsyncTask<Double, Void, String>
                             + address.getLocality() + ", "
                             + address.getAdminArea();
 
-                } else {
+                } else
+                {
                     addressText = "Not Found...";
                 }
 
@@ -55,7 +57,8 @@ public class ReverseGeoLocationTask extends AsyncTask<Double, Void, String>
             }
 
             @Override
-            protected void onPostExecute(String s) {
+            protected void onPostExecute(String s)
+            {
                 super.onPostExecute(s);
             }
         }

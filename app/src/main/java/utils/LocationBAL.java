@@ -83,7 +83,8 @@ public class LocationBAL implements GoogleApiClient.ConnectionCallbacks, GoogleA
         }
         mLastLocation = LocationServices.FusedLocationApi.getLastLocation(
                 mGoogleApiClient);
-        if (mLastLocation != null) {
+        if (mLastLocation != null)
+        {
 
         }
 
@@ -95,7 +96,8 @@ public class LocationBAL implements GoogleApiClient.ConnectionCallbacks, GoogleA
     }
 
     @Override
-    public void onConnectionFailed(ConnectionResult connectionResult) {
+    public void onConnectionFailed(ConnectionResult connectionResult)
+    {
 
     }
 }

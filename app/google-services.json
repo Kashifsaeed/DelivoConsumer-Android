@@ -1,20 +1,27 @@
 {
   "project_info": {
-    "project_number": "820330206565",
-    "project_id": "delivo-3234a"
+    "project_number": "15367859857",
+    "firebase_url": "https://delivodriver.firebaseio.com",
+    "project_id": "delivodriver",
+    "storage_bucket": "delivodriver.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:820330206565:android:88888d6791d487ca",
+        "mobilesdk_app_id": "1:15367859857:android:3b7b48507c5befd0",
         "android_client_info": {
-          "package_name": "com.attribe.delivo.app"
+          "package_name": "com.attribes.delvoagent.app"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "15367859857-51n7odgjej8uhhfogk572sqev1aib1t7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
-          "current_key": "AIzaSyCGWoe8_S8QqeDm8OMUGSAp2atLfNU2QSY"
+          "current_key": "AIzaSyD8lgI0Di5vJphf2CixLdPkLsuo2hdqQ64"
         }
       ],
       "services": {
@@ -26,7 +33,38 @@
           "other_platform_oauth_client": []
         },
         "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:15367859857:android:88888d6791d487ca",
+        "android_client_info": {
+          "package_name": "com.attribe.delivo.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "15367859857-51n7odgjej8uhhfogk572sqev1aib1t7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD8lgI0Di5vJphf2CixLdPkLsuo2hdqQ64"
+        }
+      ],
+      "services": {
+        "analytics_service": {
           "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
         }
       }
     }
