@@ -9,12 +9,16 @@ public class EndPoints {
                                                 // http://stage.dmenu.co:8080/delvo-api/
 
 // public static final String STAGE_URL_BASE = "http://server.attribes.com:8080/delvo-api/";
-    public static final String STAGE_URL_BASE = "http://192.168.1.32:8080/delvo-api/";
+   // public static final String STAGE_URL_BASE = "http://192.168.1.32:8080/delvo-api/";
+    public static final String STAGE_URL_BASE = "http://178.62.30.18:3004/api/v1/";
+
+
     public static final String STAGE_URL_10 = STAGE_URL_BASE+"1.0/";
 
     public static String Google_base_url="https://maps.googleapis.com/";
 //    maps/
     public static String GoogleApi_url="https://maps.googleapis.com/maps/";
+
 
 
 }

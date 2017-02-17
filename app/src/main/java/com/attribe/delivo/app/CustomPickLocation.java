@@ -253,14 +253,10 @@ public class CustomPickLocation extends BaseActivity implements OnMapReadyCallba
         mMap.setMyLocationEnabled(true);
 
 
-        // currentLocationCameraZoom(this);
 
         mMap.setOnCameraChangeListener(new MyCameraPosition());
         mMap.setOnCameraIdleListener(new MyCameraStop());
-//        if(marker!=null)
-//        {
-//            marker.remove();
-//        }
+//
         mMap.clear();
 
         getAgentsLocation();
@@ -277,6 +273,13 @@ public class CustomPickLocation extends BaseActivity implements OnMapReadyCallba
 
     }
 
+    /**
+     *
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     * invoked when users search location to search places screen and get back to result
+     */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);

@@ -51,7 +51,8 @@ public class PlaceSearch extends Activity {
         initViews();
     }
 
-    private void getIntentValues() {
+    private void getIntentValues()
+    {
         if(getIntent().getExtras()!=null) {
             searchQuery = (String) getIntent().getExtras().get("Query");
             pickLocationScr = getIntent().getBooleanExtra("PickFlag", true);

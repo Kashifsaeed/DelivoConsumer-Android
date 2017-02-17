@@ -86,7 +86,8 @@ public class NewOrder {
 
     }
 
-    public class DestinationLocation {
+    public class DestinationLocation
+    {
 
 
         private String latitude;

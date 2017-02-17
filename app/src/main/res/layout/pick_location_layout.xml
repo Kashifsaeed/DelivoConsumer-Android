@@ -25,6 +25,7 @@
               android:orientation="vertical">
 
 
+
     <RelativeLayout android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:orientation="vertical"
@@ -57,22 +58,29 @@
         </RelativeLayout>
         <!--Frame layout of marker-->
         <FrameLayout
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_gravity="center"
-                android:layout_centerInParent="true">
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:layout_centerInParent="true"
+
+
+            >
 
 
             <ImageView
-                    android:id="@+id/static_marker"
-                    android:layout_marginTop="10dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:src="@drawable/ic_marker"
-            />
+                android:id="@+id/static_marker"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/ic_marker"
+                android:layout_marginTop="@dimen/normal_margin"
+                />
 
 
         </FrameLayout>
+        <!--android:layout_centerHorizontal="true"-->
+
+        <!--android:layout_marginTop="10dp"-->
+
 
     </RelativeLayout>
 

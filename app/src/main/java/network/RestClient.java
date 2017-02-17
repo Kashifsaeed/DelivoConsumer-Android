@@ -1,5 +1,6 @@
 package network;
 
+import Extras.MyConstants;
 import models.User;
 import network.interfaces.GoogleApiInterface;
 import okhttp3.Interceptor;
@@ -107,7 +108,7 @@ public class RestClient {
                 Request request = chain.request();
                 Request newRequest;
                 newRequest = request.newBuilder()
-                        .addHeader("Authorization", "Basic NDlhMmRiZTExN2E0NDdjZWFmYjhiOTZiNTIwMTE2ZTY6ZDYzODQ0YjU2MDE3NDI4NjlhODQwNzRhYWZmNGNiNjY=")
+                        .addHeader("Authorization", MyConstants.Api_Auth_Key)
                         .build();
                 return chain.proceed(newRequest);
             }

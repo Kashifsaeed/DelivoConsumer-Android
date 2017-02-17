@@ -9,11 +9,16 @@ import android.view.View;
 import android.widget.*;
 
 import com.google.android.gms.maps.model.LatLng;
+
+import Extras.CallBackResponse;
 import models.NewOrder;
 import models.UpdatOrderStatus;
+import models.request.DeliveryItem;
+import models.response.DeliverRequestResponse;
 import models.response.ResponseConfirmOrder;
 import models.response.ResponseNewOrder;
 import network.RestClient;
+import network.bals.DeliveryRequestBAL;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -175,6 +180,29 @@ public class OrderCreating extends AppCompatActivity {
 
 
     }
+    private void createRequest(DeliveryItem deliveryItem)
+    {
+        showProgress("loading...");
+        DeliveryRequestBAL.createNewRequest(deliveryItem, new CallBackResponse<DeliverRequestResponse>()
+        {
+            @Override
+            public void onSuccess(DeliverRequestResponse data)
+            {
+                hideprogress();
+                Toast.makeText(getApplicationContext(),data.getMeta().getMessage(),Toast.LENGTH_SHORT).show();
+
+
+            }
+
+            @Override
+            public void onFailure(String message)
+            {
+                hideprogress();
+                Toast.makeText(getApplicationContext(),message,Toast.LENGTH_SHORT).show();
+
+            }
+        });
+    }
     private void hideprogress(){
         mprogress.dismiss();
 
@@ -192,9 +220,23 @@ public class OrderCreating extends AppCompatActivity {
         @Override
         public void onClick(View view) {
             //NewOrder order =new NewOrder();
+            DeliveryItem item=new DeliveryItem();
+            item.setDetail(""+order_description_edittxt.getText().toString());
+            item.setDrop_address(dropadd);
+            item.setPick_address(pickadd);
+            item.setName("Uzair");
+            item.setPhone("0312457896");
+            item.setDrop_lat(dropltlng.latitude);
+            item.setDrop_lng(dropltlng.longitude);
+            item.setPick_lat(pickltlng.latitude);
+            item.setPick_lng(pickltlng.longitude);
+            item.setPick_nearby(pickadd);
+            item.setDrop_nearby(dropadd);
+            createRequest(item);
 
-            mdeliveryorderItems =  createdeliveryList(getSource(pickltlng,pickadd),getDestination(dropltlng,dropadd));
-            placesOrder(order_description_edittxt.getText().toString(),pickadd,dropadd,mdeliveryorderItems);
+
+//            mdeliveryorderItems =  createdeliveryList(getSource(pickltlng,pickadd),getDestination(dropltlng,dropadd));
+//            placesOrder(order_description_edittxt.getText().toString(),pickadd,dropadd,mdeliveryorderItems);
 
 
 
