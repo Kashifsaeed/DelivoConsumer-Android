@@ -40,4 +40,17 @@
 
     <string name="title_activity_test">TestActivity</string>
     <string name="Main_Screen_Title">DELIVO</string>
+
+
+    <string name="input_name_hint">User Name</string>
+    <string name="input_password_hint">User Password</string>
+    <string name="input_email_hint">User Email</string>
+    <string name="input_phoneno_hint">User Phone No</string>
+    <string name="account_signup_label">Dont have an account So Please Sign Up</string>
+    <string name="account_signup_confirmation_password">Confirm Your Password</string>
+    <string name="input_verify_pin">Enter Pin Code</string>
+
+    <string name="account_login">Log In</string>
+    <string name="account_signup">Sign Up</string>
+
 </resources>

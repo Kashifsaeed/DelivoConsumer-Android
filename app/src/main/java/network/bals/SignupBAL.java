@@ -1,10 +1,13 @@
 package network.bals;
 
+import android.content.Context;
 import android.widget.Toast;
 import models.NewUser;
 import models.User;
+import models.response.SignUpResponse;
 import network.RestClient;
 import network.interfaces.LoginUserResponse;
+import network.interfaces.ResponseCallback;
 import network.interfaces.SignupUserResponse;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -137,4 +140,5 @@ public class SignupBAL {
 
 
     }
+
 }

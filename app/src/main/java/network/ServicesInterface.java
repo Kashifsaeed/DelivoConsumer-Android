@@ -47,4 +47,25 @@ public interface ServicesInterface {
 
     @POST(ServerEndpoints.delivery_request)
     Call<DeliverRequestResponse> createnewRequest(@Body DeliveryItem deliveryItem);
+
+    @FormUrlEncoded
+    @POST(ServerEndpoints.sign_in)
+    Call<AuthenticationResponse> signIn(@Field("phone") String phone,@Field("password") String password);
+
+    @FormUrlEncoded
+    @POST(ServerEndpoints.sign_up)
+    Call<SignUpResponse> signUpUSer(@Field("name") String username ,@Field("email") String email,
+                                    @Field("phone") String phone_no,@Field("password") String password,
+                                    @Field("password_confirmation") String confirm_password);
+
+    @FormUrlEncoded
+    @POST(ServerEndpoints.verify_pin)
+    Call<AuthenticationResponse> verifyPin(@Field("hidden_phone") String phone ,
+                                   @Field("hidden_password") String password,
+                                    @Field("pin") String pin);
+
+    @FormUrlEncoded
+    @POST(ServerEndpoints.resent_pin)
+    Call<MessageResponse> resentPin(@Field("hidden_phone") String phone,
+                                    @Field("hidden_password") String password);
 }

@@ -100,7 +100,7 @@ public class PlaceSearch extends Activity {
         public void onClick(DrawablePosition target) {
 
            // getPlacesByTextSearch(searchedittext.getText().toString()+" in Karachi");
-            getPlacesByTextSearch(searchedittext.getText().toString()+" in New York");
+           // getPlacesByTextSearch(searchedittext.getText().toString()+" in New York");
 
 
         }
@@ -355,7 +355,7 @@ public class PlaceSearch extends Activity {
                         @Override
                         public void run() {
                             if (text.length() >= 5) {
-                               // getPlacesByTextSearch(searchedittext.getText().toString().trim() + " in karachi");
+                                //getPlacesByTextSearch(searchedittext.getText().toString().trim() + " in karachi");
                                getAutocompleteplaces(searchedittext.getText().toString()+"+karachi");
 
 

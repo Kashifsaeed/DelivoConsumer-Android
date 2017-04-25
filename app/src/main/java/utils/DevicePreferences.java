@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import com.google.gson.Gson;
 import models.NewOrder;
+import models.SignUpInfo;
 import models.User;
 import models.response.GenerateTokenResponse;
 import models.response.ResponseNewOrder;
@@ -25,6 +26,7 @@ public class DevicePreferences {
     private static final String KEY_TOKEN = "token";
     private static final String KEY_NEW_ORDER = "newOrder";
     private static final String KEY_NEW_ORDER_RESPONSE = "newOrderResponse";
+    private static final String KEY_SIGNUPINFO="userinfo";
 
     private static DevicePreferences instance;
     private static SharedPreferences prefs;
@@ -188,6 +190,23 @@ public class DevicePreferences {
         String body_response = prefs.getString(KEY_NEW_ORDER_RESPONSE, null);
         ResponseNewOrder newOrderResponse = gson.fromJson(body_response, ResponseNewOrder.class);
         return newOrderResponse;
+    }
+    public void setSignUpInfo(SignUpInfo userinfo)
+    {
+        SharedPreferences.Editor editor = prefs.edit();
+        Gson gson = new Gson();
+        String user_signup_info = gson.toJson(userinfo);
+        editor.putString(KEY_SIGNUPINFO,user_signup_info);
+        editor.commit();
+
+    }
+    public SignUpInfo getuserInfo()
+    {
+        Gson gson = new Gson();
+        String userinfo = prefs.getString(KEY_SIGNUPINFO, null);
+        SignUpInfo user_signup_info = gson.fromJson(userinfo, SignUpInfo.class);
+        return user_signup_info;
+
     }
 
 }

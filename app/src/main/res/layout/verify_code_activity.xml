@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_verify_code"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/app_background"
+    android:orientation="vertical"
+
+
+    tools:context="com.attribe.delivo.app.screens.VerifyCode">
+<!--input pin code-->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:gravity="center_vertical"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:layout_marginTop="@dimen/activity_horizontal_margin"
+
+
+
+        >
+
+
+        <View android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            android:alpha="0.2"/>
+
+
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+
+            android:id="@+id/pincode_edittxt"
+            android:textColor="@color/white"
+            android:gravity="center_vertical"
+            android:background="@android:color/transparent"
+            android:paddingLeft="@dimen/normal_padding"
+            android:textColorHint="@color/white"
+            android:hint="@string/input_verify_pin"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+
+
+
+
+            />
+        <!--</android.support.design.widget.TextInputLayout>-->
+    </RelativeLayout>
+    <!--login buttton area-->
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:gravity="center_vertical"
+
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginTop="@dimen/normal_margin"
+
+
+        >
+        <!--android:layout_margin="@dimen/medium_margin"-->
+
+        <View android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            android:alpha="0.2"/>
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:inputType="text"
+            android:id="@+id/pin_sent_btn"
+            android:textColor="@color/white"
+            android:gravity="center"
+            android:text="Submit"
+            android:background="@drawable/white_border"
+
+            />
+
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:gravity="center_vertical"
+
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginTop="@dimen/normal_margin"
+
+
+        >
+        <!--android:layout_margin="@dimen/medium_margin"-->
+
+        <View android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            android:alpha="0.2"/>
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:inputType="text"
+            android:id="@+id/resetpin_btn"
+            android:textColor="@color/white"
+            android:gravity="center"
+            android:text="Resent Code"
+            android:background="@drawable/white_border"
+
+            />
+
+    </RelativeLayout>
+
+</LinearLayout>
+</layout>

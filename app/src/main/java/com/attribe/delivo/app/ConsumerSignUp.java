@@ -39,7 +39,8 @@ public class ConsumerSignUp extends AppCompatActivity {
     }
 
     //===================================Validate Input fields ================================================//
-    private boolean isValidPhoneNumber(String phone) {
+    private boolean isValidPhoneNumber(String phone)
+    {
         if (phone != null && phone.length() == 10) {
             return true;
         }

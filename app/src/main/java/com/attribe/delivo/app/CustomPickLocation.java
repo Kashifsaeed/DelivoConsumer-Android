@@ -33,9 +33,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
-
-public class CustomPickLocation extends BaseActivity implements OnMapReadyCallback,
-        CustomMapView.MapTouchListener {
+//CustomMapView.MapTouchListener
+public class CustomPickLocation extends BaseActivity implements OnMapReadyCallback
+         {
     FirebaseDatabase mRoot=FirebaseDatabase.getInstance();
     DatabaseReference mRef=mRoot.getReference("AgentsLocation");
     private static final String TAG = "DemoActivity";
@@ -79,7 +79,9 @@ public class CustomPickLocation extends BaseActivity implements OnMapReadyCallba
         //setContentView(R.layout.activity_custom_pick_location);
         // setContentView(R.layout.pick_location_layout);
 //        setContentView(R.layout.picklocation_with_drawer);
-        getLayoutInflater().inflate(R.layout.pick_location_layout, frameLayout);
+        //getLayoutInflater().inflate(R.layout.pick_location_layout, frameLayout);
+        getLayoutInflater().inflate(R.layout.new_pickadd_layout, frameLayout);
+
 
         initMap(savedInstanceState);
         initViews();
@@ -98,7 +100,7 @@ public class CustomPickLocation extends BaseActivity implements OnMapReadyCallba
         picklocationname = (TextView) findViewById(R.id.picklocname);
         mainlayout = (RelativeLayout) findViewById(R.id.mainlayout);
 
-        dragView = (LinearLayout) findViewById(R.id.dragView);
+
         searchClick = (ImageView) findViewById(R.id.searchPlaces);
         searchClick.setOnClickListener(new FindNearPlaces());
         pickDelivoBtn.setOnClickListener(new ProceedDelivoListner());
@@ -122,10 +124,11 @@ public class CustomPickLocation extends BaseActivity implements OnMapReadyCallba
         mapView = (CustomMapView) findViewById(R.id.mymapview);
 
 
-        mapView.setMapTouchListener(CustomPickLocation.this);
+       // mapView.setMapTouchListener(CustomPickLocation.this);
 
-
-        mapView.onCreate(savedInstance);
+        if(savedInstance==null) {
+            mapView.onCreate(savedInstance);
+        }
         mapView.getMapAsync(this);
 
 
@@ -181,53 +184,8 @@ public class CustomPickLocation extends BaseActivity implements OnMapReadyCallba
             }
         });
     }
- private void getAgentsLocation()
- {
-    mRef.addValueEventListener(new ValueEventListener() {
-        @Override
-        public void onDataChange(DataSnapshot dataSnapshot) {
 
 
-            for(DataSnapshot firebasedata:dataSnapshot.getChildren())
-            {
-                AgentsLocation agentsLocation=firebasedata.getValue(AgentsLocation.class);
-                markersdata.add(agentsLocation);
-
-            }
-
-           createMarkers(markersdata);
-        }
-
-        @Override
-        public void onCancelled(DatabaseError databaseError) {
-            if(databaseError!=null)
-            {
-
-                Toast.makeText(getApplicationContext(),"Firebase Error"+databaseError.getMessage(),Toast.LENGTH_SHORT).show();
-            }
-
-        }
-    });
-
- }
-
-   private void createMarkers(ArrayList<AgentsLocation> agentsLocations)
-   {
-
-
-
-           for (int i = 0; i <= agentsLocations.size() - 1; i++) {
-             mMap.addMarker(new MarkerOptions().icon(BitmapDescriptorFactory.fromResource(R.drawable.rider_bike)).position(new LatLng(agentsLocations.get(i).getLat(),
-                       agentsLocations.get(i).getLng())));
-           }
-
-   }
-
-
-    private void expandPanel() {
-
-        //  mLayout.setPanelState(SlidingUpPanelLayout.PanelState.EXPANDED);
-    }
 
     private void mapGestureEnabled(boolean gestureEnabled) {
         mMap.getUiSettings().setAllGesturesEnabled(gestureEnabled);
@@ -251,6 +209,7 @@ public class CustomPickLocation extends BaseActivity implements OnMapReadyCallba
             return;
         }
         mMap.setMyLocationEnabled(true);
+        mMap.setPadding(0,0,0,0);
 
 
 
@@ -259,7 +218,7 @@ public class CustomPickLocation extends BaseActivity implements OnMapReadyCallba
 //
         mMap.clear();
 
-        getAgentsLocation();
+        //getAgentsLocation();
 
 
     }
@@ -345,33 +304,7 @@ public class CustomPickLocation extends BaseActivity implements OnMapReadyCallba
     }
 
 
-    @Override
-    public void OnActionDown(float pressure) {
 
-
-    }
-
-    @Override
-    public void OnActionDown() {
-
-    }
-
-    @Override
-    public void OnActionUp() {
-
-
-    }
-
-    @Override
-    public void OnActionMOve() {
-
-
-    }
-
-    @Override
-    public void onScroll() {
-
-    }
 
 
     //==============================================Local Views Listners ====================================================//
@@ -434,56 +367,5 @@ public class CustomPickLocation extends BaseActivity implements OnMapReadyCallba
 
     //===================================== inner Classes ====================================================//
 
-    private class ReverseGeocodingTask extends AsyncTask<Double, Void, String> {
-        Context mContext;
-        ProgressBar bar;
-
-
-        public ReverseGeocodingTask(Context context) {
-            super();
-            mContext = context;
-        }
-
-        @Override
-        protected void onProgressUpdate(Void... values) {
-            super.onProgressUpdate(values);
-
-        }
-
-        @Override
-        protected String doInBackground(Double... params) {
-            Geocoder geocoder = new Geocoder(mContext);
-            double latitude = params[0].doubleValue();
-            double longitude = params[1].doubleValue();
-
-            List<Address> addresses = null;
-            String addressText = "";
-
-            try {
-                addresses = geocoder.getFromLocation(latitude, longitude, 1);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-            if (addresses != null && addresses.size() > 0) {
-                Address address = addresses.get(0);
-
-                addressText = address.getAddressLine(0) + ", "
-                        + address.getLocality() + ", "
-                        + address.getAdminArea();
-
-            } else {
-                addressText = "Not Found...";
-            }
-
-            return addressText;
-        }
-
-        @Override
-        protected void onPostExecute(String addressText) {
-            // Setting address of the touched Position
-            picklocationname.setText("" + addressText);
-        }
-    }
 
 }

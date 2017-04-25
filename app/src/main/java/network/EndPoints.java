@@ -19,6 +19,8 @@ public class EndPoints {
 //    maps/
     public static String GoogleApi_url="https://maps.googleapis.com/maps/";
 
+    public static String BASE_URl="http://138.197.112.122/consumer_api/v1/";
+
 
 
 }

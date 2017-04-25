@@ -45,8 +45,12 @@ public class ReverseGeoLocationTask extends AsyncTask<Double, Void, String>
                     Address address = addresses.get(0);
 
                     addressText = address.getAddressLine(0) + ", "
-                            + address.getLocality() + ", "
-                            + address.getAdminArea();
+                            + address.getLocality();
+
+//                    addressText = address.getThoroughfare() + ", "
+//                            + address.getLocality();
+                          //+ ", "
+//                            + address.getAdminArea();
 
                 } else
                 {

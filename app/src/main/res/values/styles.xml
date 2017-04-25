@@ -63,9 +63,15 @@
     </style>
     <style name="AppTheme1" parent="Theme.AppCompat.Light.NoActionBar">
 
-        <item name="colorPrimary">#01BDD6</item>
-        <item name="colorPrimaryDark">#01BDD6</item>
+        <!--<item name="colorPrimary">#01BDD6</item>-->
+        <!--<item name="colorPrimaryDark">#01BDD6</item>-->
+        <!--<item name="android:windowActionBarOverlay">true</item>-->
+        <item name="colorPrimary">#2D3075</item>
+        <item name="colorPrimaryDark">#2D3075</item>
         <item name="android:windowActionBarOverlay">true</item>
         <!-- Customize your theme here. -->
     </style>
+
+    <style name="TextAppearence.App.TextInputLayout" parent="@android:style/TextAppearance">
+    <item name="android:textColor">@color/md_blue_500</item></style>
 </resources>

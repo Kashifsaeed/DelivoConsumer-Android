@@ -108,14 +108,14 @@ public class RestClient {
                 Request request = chain.request();
                 Request newRequest;
                 newRequest = request.newBuilder()
-                        .addHeader("Authorization", MyConstants.Api_Auth_Key)
+                        //.addHeader("Authorization", MyConstants.Api_Auth_Key)
                         .build();
                 return chain.proceed(newRequest);
             }
         }).addInterceptor(logging).build();
 
         Retrofit retrofit = new Retrofit.Builder().
-                baseUrl(EndPoints.STAGE_URL_BASE).
+                baseUrl(EndPoints.BASE_URl).
                 //baseUrl(EndPoints.STAGE_URL_10).
                 addConverterFactory(GsonConverterFactory.create()).
                 client(httpClient).

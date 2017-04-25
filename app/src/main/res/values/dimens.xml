@@ -11,4 +11,13 @@
     <dimen name="size_text">24sp</dimen>
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="normal_margin">10dp</dimen>
+    <dimen name="large_margin">20dp</dimen>
+    <dimen name="small_margin">5dp</dimen>
+    <dimen name="medium_margin">15dp</dimen>
+
+    <dimen name="normal_padding">10dp</dimen>
+    <dimen name="medium_padding">15dp</dimen>
+    <dimen name="large_padding">20dp</dimen>
+    <dimen name="small_padding">3dp</dimen>
+
 </resources>
