@@ -4,9 +4,9 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import network.bals.LoginBAL;
-import network.interfaces.LoginUserResponse;
-import utils.DevicePreferences;
+
+import com.attribe.delivo.app.screens.CustomPickLocation;
+import com.attribe.delivo.app.utils.DevicePreferences;
 
 
 public class ScreenSplash extends Activity {
@@ -33,18 +33,20 @@ public class ScreenSplash extends Activity {
             @Override
             public void run() {
 
-                Intent i;
+                Intent i = null;
 
                 if (DevicePreferences.getInstance().getUser()!=null)
 
                 {
-                    i = new Intent(ScreenSplash.this,CustomPickLocation.class);
+                    i = new Intent(ScreenSplash.this, CustomPickLocation.class);
                 }
                 else
                 {
-                    i = new Intent(ScreenSplash.this, MainScreen.class);
+                   // i = new Intent(ScreenSplash.this, MainScreen.class);
                 }
                 startActivity(i);
+
+
                 finish();
 
             }

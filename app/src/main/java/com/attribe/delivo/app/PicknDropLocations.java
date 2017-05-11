@@ -1,6 +1,6 @@
 package com.attribe.delivo.app;
 
-import adapters.NavDrawerAdapter;
+import com.attribe.delivo.app.adapters.NavDrawerAdapter;
 import android.app.FragmentManager;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -8,7 +8,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.location.*;
 import android.os.Build;
 import android.os.Bundle;
@@ -17,12 +16,9 @@ import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.content.res.ResourcesCompat;
-import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.*;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
@@ -30,7 +26,6 @@ import android.view.View;
 import android.view.animation.*;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.*;
-import android.widget.Toolbar;
 
 
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
@@ -40,20 +35,15 @@ import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlaceAutocomplete;
 import com.google.android.gms.maps.*;
 import com.google.android.gms.maps.model.*;
-import fragments.CallUs;
-import fragments.MyOrders;
-import fragments.Settings;
-import fragments.UserAuthentication;
-import models.NewOrder;
-import models.User;
-import models.response.ResponseNewOrder;
-import network.bals.OrderBAL;
-import network.interfaces.CreateOrderResponse;
-import utils.CustomEditText;
-import utils.DevicePreferences;
+import com.attribe.delivo.app.fragments.CallUs;
+import com.attribe.delivo.app.fragments.MyOrders;
+import com.attribe.delivo.app.fragments.Settings;
+import com.attribe.delivo.app.fragments.UserAuthentication;
+import com.attribe.delivo.app.models.User;
+import com.attribe.delivo.app.utils.CustomEditText;
+import com.attribe.delivo.app.utils.DevicePreferences;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 

@@ -5,7 +5,7 @@
               android:orientation="vertical"
               style="@style/pick_location">
 
-    <utils.CustomEditText
+    <com.attribe.delivo.app.utils.CustomEditText
             android:id="@+id/pickAddress"
             android:hint="Pick up address"
             android:layout_width="match_parent"

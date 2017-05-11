@@ -11,7 +11,7 @@ android:orientation="vertical">
     android:id="@+id/toolbar_main"/>
 
 
-    <utils.CustomEditText
+    <com.attribe.delivo.app.utils.CustomEditText
 
             android:layout_below="@+id/toolbar_main"
             android:id="@+id/searchaddress"

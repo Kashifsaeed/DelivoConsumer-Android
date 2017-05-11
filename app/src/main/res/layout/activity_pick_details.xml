@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/app_background"
-    tools:context="com.attribe.delivo.app.screens.PickDetailsActivity"
+
     >
     <LinearLayout
 
@@ -15,15 +15,15 @@
         android:orientation="vertical"
         >
 
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:src="@drawable/steptwo"
-            android:layout_marginLeft="@dimen/activity_horizontal_margin"
-            android:layout_marginRight="@dimen/activity_horizontal_margin"
-            android:layout_marginTop="@dimen/activity_horizontal_margin"
-            android:layout_marginBottom="@dimen/activity_horizontal_margin"></ImageView>
+        <!--<ImageView-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="0dp"-->
+            <!--android:layout_weight="1"-->
+            <!--android:src="@drawable/steptwo"-->
+            <!--android:layout_marginLeft="@dimen/activity_horizontal_margin"-->
+            <!--android:layout_marginRight="@dimen/activity_horizontal_margin"-->
+            <!--android:layout_marginTop="@dimen/activity_horizontal_margin"-->
+            <!--android:layout_marginBottom="@dimen/activity_horizontal_margin"></ImageView>-->
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -47,14 +47,14 @@
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:inputType="number"
+
                 android:id="@+id/pick_person_name"
                 android:textColor="@color/white"
                 android:gravity="center_vertical"
                 android:background="@android:color/transparent"
                 android:paddingLeft="@dimen/normal_padding"
                 android:textColorHint="@color/white"
-                android:hint="@string/input_phoneno_hint"
+                android:hint="@string/input_pick_person_name"
                 android:textAppearance="?android:attr/textAppearanceSmall"
 
 
@@ -93,7 +93,7 @@
                 android:background="@android:color/transparent"
                 android:paddingLeft="@dimen/normal_padding"
                 android:textColorHint="@color/white"
-                android:hint="@string/input_phoneno_hint"
+                android:hint="@string/input_pick_person_number"
                 android:textAppearance="?android:attr/textAppearanceSmall"
 
 
@@ -124,14 +124,14 @@
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:inputType="number"
+
                 android:id="@+id/pick_time"
                 android:textColor="@color/white"
                 android:gravity="center_vertical"
                 android:background="@android:color/transparent"
                 android:paddingLeft="@dimen/normal_padding"
                 android:textColorHint="@color/white"
-                android:hint="@string/input_phoneno_hint"
+                android:hint="@string/input_pick_detailed_address"
                 android:textAppearance="?android:attr/textAppearanceSmall"
 
 
@@ -162,14 +162,14 @@
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:inputType="number"
+                android:inputType="datetime"
                 android:id="@+id/pick_date"
                 android:textColor="@color/white"
                 android:gravity="center_vertical"
                 android:background="@android:color/transparent"
                 android:paddingLeft="@dimen/normal_padding"
                 android:textColorHint="@color/white"
-                android:hint="@string/input_phoneno_hint"
+                android:hint="@string/input_pick_time"
                 android:textAppearance="?android:attr/textAppearanceSmall"
 
 
@@ -207,7 +207,7 @@
                 android:background="@android:color/transparent"
                 android:paddingLeft="@dimen/normal_padding"
                 android:textColorHint="@color/white"
-                android:hint="@string/input_phoneno_hint"
+                android:hint="@string/input_pick_details"
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:gravity="left"
                 android:padding="@dimen/normal_margin"

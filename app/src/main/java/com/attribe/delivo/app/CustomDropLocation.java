@@ -15,10 +15,10 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.*;
-import models.response.PlaceDetailsResponse;
-import utils.LocationBAL;
-import utils.LocationReceiveListener;
-import utils.ReverseGeoLocationTask;
+import com.attribe.delivo.app.models.response.PlaceDetailsResponse;
+import com.attribe.delivo.app.utils.LocationBAL;
+import com.attribe.delivo.app.utils.LocationReceiveListener;
+import com.attribe.delivo.app.utils.ReverseGeoLocationTask;
 
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;

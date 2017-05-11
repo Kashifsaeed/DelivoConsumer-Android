@@ -48,7 +48,8 @@
                         android:layout_height="match_parent"
                         android:layout_below="@+id/main_toolbar">
 
-            <utils.CustomMapView android:layout_width="match_parent"
+            <com.attribe.delivo.app.utils.CustomMapView
+                android:layout_width="match_parent"
                                  android:layout_height="match_parent"
                                  android:id="@+id/mymapview"
                                  class="utils.CustomMapFragment"

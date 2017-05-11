@@ -50,6 +50,23 @@
     <string name="account_signup_confirmation_password">Confirm Your Password</string>
     <string name="input_verify_pin">Enter Pin Code</string>
 
+    <string name="input_pick_person_name">Pick Person Name</string>
+    <string name="input_pick_person_number">Pick Person Number</string>
+
+    <string name="input_pick_detailed_address">Pick Address Details</string>
+
+    <string name="input_pick_details">Pick Details</string>
+    <string name="input_pick_time">Pick Time</string>
+<!---->
+    <string name="input_drop_person_name">Receive Person Name</string>
+    <string name="input_drop_person_number">Receive Person Number</string>
+
+    <string name="input_drop_detailed_address">Drop Address Details</string>
+
+    <string name="input_drop_details">Drop Details</string>
+    <string name="input_drop_time">Drop Time</string>
+
+
     <string name="account_login">Log In</string>
     <string name="account_signup">Sign Up</string>
 

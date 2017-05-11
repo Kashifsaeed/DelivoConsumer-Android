@@ -49,17 +49,17 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity android:name=".PickAddressActivity" />
-        <activity android:name=".TestAnim" />
         <activity
-            android:name="screens.CustomPickLocation"
+            android:name=".screens.CustomPickLocation"
             android:label="Pick Location"
             android:windowSoftInputMode="stateHidden">
-            <!--<intent-filter>-->
-                <!--<action android:name="android.intent.action.MAIN" />-->
 
-                <!--<category android:name="android.intent.category.LAUNCHER" />-->
-            <!--</intent-filter>-->
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.MAIN" /> -->
+
+
+            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+            <!-- </intent-filter> -->
         </activity>
         <activity
             android:name=".PlaceSearch"
@@ -70,29 +70,40 @@
             android:label="Drop Location"
             android:windowSoftInputMode="stateHidden" />
         <activity android:name=".CustomAutocomplete" />
-        <activity android:name=".MainScreen" />
-        <activity android:name=".ConsumerLogin" />
-        <activity android:name=".ConsumerSignUp" />
         <activity
             android:name=".OrderCreating"
             android:windowSoftInputMode="stateHidden" />
-        <activity android:name=".slideLogoTesting" />
         <activity android:name=".BaseActivity" />
         <activity android:name=".TestFirebase" />
-        <activity android:name="screens.SignInScreen">
+        <activity android:name=".screens.SignInScreen">
+            <!--<intent-filter>-->
+                <!--<action android:name="android.intent.action.MAIN" />-->
 
-             <intent-filter>
-             <action android:name="android.intent.action.MAIN" />
-
-
-             <category android:name="android.intent.category.LAUNCHER" />
-             </intent-filter>
+                <!--<category android:name="android.intent.category.LAUNCHER" />-->
+            <!--</intent-filter>-->
         </activity>
-        <activity android:name=".TestBinding" />
-        <activity android:name="screens.SignUpScreen" />
-        <activity android:name="screens.SelectOptionScreen" />
-        <activity android:name="screens.VerifyCode" />
-        <activity android:name="screens.PickDetailsActivity"></activity>
+        <activity android:name=".screens.SignUpScreen" />
+        <activity android:name=".screens.SelectOptionScreen" />
+        <activity android:name=".screens.VerifyCode" />
+        <activity android:name=".screens.PickDetailsActivity" />
+        <activity android:name=".teststeplayout.MainStepActivity">
+            <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+
+            <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+
+        </activity>
+        <activity android:name=".screens.AddDropLocation" />
+        <activity android:name=".teststeplayout.MainOrderActivity">
+            <!--<intent-filter>-->
+                <!--<action android:name="android.intent.action.MAIN" />-->
+
+
+                <!--<category android:name="android.intent.category.LAUNCHER" />-->
+            <!--</intent-filter>-->
+        </activity>
     </application>
 
 </manifest>

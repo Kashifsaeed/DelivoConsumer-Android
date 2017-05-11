@@ -1,7 +1,7 @@
 package com.attribe.delivo.app;
 
-import Extras.MyConstants;
-import adapters.GoogleSearchesAdapter;
+import com.attribe.delivo.app.Extras.MyConstants;
+import com.attribe.delivo.app.adapters.GoogleSearchesAdapter;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,14 +16,16 @@ import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-import models.response.AutoCompleteResponse;
-import models.response.GoogleAPiByText;
-import models.response.PlaceDetailsResponse;
-import network.interfaces.GoogleClient;
+import com.attribe.delivo.app.models.response.AutoCompleteResponse;
+import com.attribe.delivo.app.models.response.GoogleAPiByText;
+import com.attribe.delivo.app.models.response.PlaceDetailsResponse;
+import com.attribe.delivo.app.network.interfaces.GoogleClient;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import utils.CustomEditText;
+import com.attribe.delivo.app.screens.AddDropLocation;
+import com.attribe.delivo.app.screens.CustomPickLocation;
+import com.attribe.delivo.app.utils.CustomEditText;
 
 import java.io.Serializable;
 import java.util.Timer;
@@ -300,7 +302,7 @@ public class PlaceSearch extends Activity {
                     else {
 
                         intent.putExtra("SearchPlace", (Serializable) placedeatils);
-                                    setResult(CustomDropLocation.RESULT_OK, intent);
+                                    setResult(AddDropLocation.RESULT_OK, intent);
                                     finish();
 
 

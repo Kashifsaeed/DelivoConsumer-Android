@@ -5,7 +5,7 @@
               style="@style/pick_location"
               android:visibility="gone">
 
-    <utils.CustomEditText
+    <com.attribe.delivo.app.utils.CustomEditText
             android:id="@+id/dropAddress"
             android:hint="Add drop off location"
             android:layout_width="match_parent"

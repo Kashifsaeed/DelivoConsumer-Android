@@ -1,7 +1,7 @@
 package com.attribe.delivo.app;
 
-import adapters.DrawerListAdapter;
-import android.app.Activity;
+import com.attribe.delivo.app.adapters.DrawerListAdapter;
+
 import android.support.annotation.LayoutRes;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
@@ -10,8 +10,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.*;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.FrameLayout;
 import android.widget.ListView;
 

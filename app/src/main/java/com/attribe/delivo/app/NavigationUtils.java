@@ -1,12 +1,20 @@
 package com.attribe.delivo.app;
 
-import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
-import fragments.*;
+import android.support.v4.app.Fragment;
+
+import com.attribe.delivo.app.fragments.ConfirmationScreen;
+import com.attribe.delivo.app.fragments.DropLocationFragment;
+import com.attribe.delivo.app.fragments.OrderMaking;
+import com.attribe.delivo.app.fragments.ScreenRegistration;
+import com.attribe.delivo.app.fragments.ScreenRiderDetail;
+import com.attribe.delivo.app.fragments.PickLocationFragment;
+import com.attribe.delivo.app.fragments.PickDetailFragment;
+import com.attribe.delivo.app.fragments.UserAuthentication;
+
 
 
 /**
@@ -64,5 +72,43 @@ public class NavigationUtils {
         OrderMaking orderMaking = new OrderMaking();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         transaction.replace(R.id.fragments_container, orderMaking).commit();
+    }
+    public static void navigateFragment(android.support.v4.app.FragmentManager fragmentManager, Fragment callingFragment)
+    {
+        if(callingFragment instanceof PickLocationFragment)
+        {
+            PickLocationFragment newFragment = new PickLocationFragment();
+            android.support.v4.app.FragmentTransaction transaction = fragmentManager.beginTransaction();
+            transaction.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left);
+            transaction.replace(R.id.main_container, newFragment);
+            transaction.addToBackStack(null);
+            transaction.commit();
+        }
+        else if(callingFragment instanceof PickDetailFragment)
+        {
+            PickDetailFragment newFragment = new PickDetailFragment();
+            android.support.v4.app.FragmentTransaction transaction =fragmentManager.beginTransaction();
+
+            transaction.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left);
+            transaction.replace(R.id.main_container, newFragment);
+            transaction.addToBackStack(null);
+
+            transaction.commit();
+
+        }
+        else if(callingFragment instanceof DropLocationFragment)
+        {
+            DropLocationFragment newFragment = new DropLocationFragment();
+            android.support.v4.app.FragmentTransaction transaction =fragmentManager.beginTransaction();
+
+            transaction.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left);
+            transaction.replace(R.id.main_container, newFragment);
+            transaction.addToBackStack(null);
+
+            transaction.commit();
+
+        }
+
+
     }
 }

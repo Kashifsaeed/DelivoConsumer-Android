@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:map="http://schemas.android.com/apk/res-auto">
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:context=".fragments.PickLocationFragment"
+        >
+        <!--main layout-->
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/main_toolbar"
+            android:layout_weight="100"
+            android:orientation="vertical">
+
+
+            <com.attribe.delivo.app.utils.CustomMapView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/mymapview"
+                class="utils.CustomMapFragment"
+                android:clickable="true"
+                android:focusable="false"
+                android:layout_centerInParent="true"
+
+                />
+
+            <!--pick address area starts here-->
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="@dimen/extra_large_margin"
+                android:layout_marginLeft="@dimen/large_margin"
+                android:layout_marginRight="@dimen/large_margin"
+                android:elevation="@dimen/small_margin"
+                android:weightSum="1"
+                android:layout_weight="50"
+
+
+
+                >
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="0.90">
+                    <View android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@color/white"
+                        android:alpha="0.3"/>
+                    <TextView
+                        android:id="@+id/droplocname"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
+                        android:layout_margin="2dp"
+                        android:hint="Pick Delivo Location"
+                        android:inputType="textMultiLine|textNoSuggestions"
+                        android:layout_centerInParent="true"
+                        android:layout_alignParentTop="true"
+                        android:paddingLeft="@dimen/normal_margin"
+                        android:textColor="@color/white"
+                        android:background="@android:color/transparent"
+                        android:textAppearance="@android:style/TextAppearance.DeviceDefault.Medium"
+                        android:textColorHint="@color/white"
+                        />
+                </RelativeLayout>
+
+
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="0.1"
+                    android:layout_centerInParent="true"
+
+
+
+                    >
+                    <View android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@color/white"
+                        android:alpha="0.3"/>
+
+                    <ImageView android:layout_width="match_parent"
+                        android:layout_height="35dp"
+
+                        android:background="@drawable/ic_search"
+                        android:id="@+id/searchPlaces"
+
+                        android:gravity="center_vertical"
+                        android:layout_centerInParent="true"
+
+
+                        />
+                    <!--android:padding="2dp"-->
+
+
+                </RelativeLayout>
+
+
+            </LinearLayout>
+            <!--pick address area ends here-->
+            <!--pick add button-->
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginRight="@dimen/large_margin"
+                android:layout_marginLeft="@dimen/large_margin"
+                android:layout_marginBottom="@dimen/large_margin"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                >
+                <View android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/white"
+                    android:alpha="0.2"/>
+
+                <Button android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="Add Drop Details"
+                    android:background="@drawable/white_border"
+                    android:textColor="@color/white"
+                    android:id="@+id/confirm_droplocation_btn"
+
+
+                    />
+                <!--android:elevation="1dp"-->
+            </RelativeLayout>
+            <!--centre marker-->
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+
+                >
+                <ImageView
+                    android:id="@+id/static_marker"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/map_marker"
+                    android:opacity="translucent"
+                    android:layout_marginBottom="50dp"
+
+                    />
+            </FrameLayout>
+        </RelativeLayout>
+
+        <!--</RelativeLayout>-->
+
+
+    </LinearLayout>
+</layout>

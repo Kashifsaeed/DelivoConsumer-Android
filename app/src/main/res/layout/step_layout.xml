@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/lh"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:weightSum="5.5"
+    android:layout_margin="@dimen/normal_margin">
+    <!--android:gravity="center"-->
+
+    <ImageView
+        android:id="@+id/stepone_view"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+       
+        android:src="@drawable/pick_step_icon"/>
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_weight="0.5"
+        android:layout_gravity="center_vertical"
+        android:background="@color/white"
+
+        ></View>
+
+    <ImageView
+        android:id="@+id/steptwo_view"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+
+        android:layout_weight="1"
+
+        android:src="@drawable/pickdetail_step_icon"/>
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_weight="0.5"
+        android:layout_gravity="center_vertical"
+        android:background="@color/white"
+
+        ></View>
+
+    <ImageView
+        android:id="@+id/stepthree_view"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+
+        android:layout_weight="1"
+
+        android:src="@drawable/drop_step_icon"/>
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_weight="0.5"
+        android:layout_gravity="center_vertical"
+        android:background="@color/white"
+
+        ></View>
+
+    <ImageView
+        android:id="@+id/stepfour_view"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+
+        android:src="@drawable/pickdetail_step_icon"/>
+</LinearLayout>
+</layout>

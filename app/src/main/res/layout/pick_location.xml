@@ -33,7 +33,7 @@
               <!--android:layout_gravity="center" android:gravity="center_horizontal"-->
               <!--android:layout_marginTop="5dp"/>-->
 
-    <utils.CustomEditText
+    <com.attribe.delivo.app.utils.CustomEditText
             android:id="@+id/pickAddress"
             android:hint="Pick up address"
             android:layout_width="match_parent"
