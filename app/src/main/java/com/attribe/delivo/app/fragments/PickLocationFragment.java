@@ -7,8 +7,10 @@ import android.content.res.Resources;
 import android.databinding.DataBindingUtil;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,7 +20,11 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.attribe.delivo.app.R;
+import com.attribe.delivo.app.databinding.PickAddressFragmentBinding;
 import com.attribe.delivo.app.databinding.PickLocationFragmentBinding;
+import com.attribe.delivo.app.interfaces.OnNextPageNavigation;
+import com.attribe.delivo.app.interfaces.OnToolbarListner;
+import com.attribe.delivo.app.teststeplayout.MainStepActivity;
 import com.attribe.delivo.app.utils.ReverseGeoLocationTask;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
@@ -40,7 +46,10 @@ public class PickLocationFragment extends Fragment implements OnMapReadyCallback
 
 
     private OnPickLocationFragmentInteractionListner mListener;
-    private PickLocationFragmentBinding viewBinding;
+    private OnToolbarListner toolbarListner;
+    private OnNextPageNavigation onNextPageNavigation;
+
+    private PickAddressFragmentBinding viewBinding;
     private MapView mapView;
     private GoogleMap mMap;
     private LatLng cameraPickLocation;
@@ -58,7 +67,7 @@ public class PickLocationFragment extends Fragment implements OnMapReadyCallback
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        viewBinding = DataBindingUtil.inflate(inflater, R.layout.pick_location_fragment, container, false);
+        viewBinding = DataBindingUtil.inflate(inflater, R.layout.pick_address_fragment, container, false);
 
         initViews(savedInstanceState);
 
@@ -78,6 +87,8 @@ public class PickLocationFragment extends Fragment implements OnMapReadyCallback
 
     private void initViews(Bundle savedInstanceState) {
         getViewsRefernce();
+//        ((MainStepActivity)getActivity()).mToolbar.setTitle(""+"Pick Location");
+
         if (savedInstanceState == null) {
             mapView.onCreate(savedInstanceState);
         }
@@ -91,7 +102,7 @@ public class PickLocationFragment extends Fragment implements OnMapReadyCallback
         // mapView=googleMap;
 
         mMap = googleMap;
-        setMapTheme(mMap);
+        //setMapTheme(mMap);
         if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             // TODO: Consider calling
             //    ActivityCompat#requestPermissions
@@ -114,7 +125,7 @@ public class PickLocationFragment extends Fragment implements OnMapReadyCallback
             // position on right bottom
             layoutParams.addRule(RelativeLayout.ALIGN_PARENT_TOP, 0);
             layoutParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, RelativeLayout.TRUE);
-            layoutParams.setMargins(0, 0, 30, 250);//left top right bottom
+            layoutParams.setMargins(0, 0, 30, 400);//left top right bottom
         }
 
         //mMap.setOnCameraMoveListener(new OnCameraMovingListner());
@@ -150,8 +161,16 @@ public class PickLocationFragment extends Fragment implements OnMapReadyCallback
     @Override
     public void onResume() {
         super.onResume();
+
         mapView.onResume();
 
+
+
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
     }
 
     @Override
@@ -174,17 +193,24 @@ public class PickLocationFragment extends Fragment implements OnMapReadyCallback
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof OnPickLocationFragmentInteractionListner) {
+        try
+        {
             mListener = (OnPickLocationFragmentInteractionListner) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnPickLocationFragmentInteractionListener");
+            onNextPageNavigation= (OnNextPageNavigation) context;
         }
+        catch (ClassCastException e){
+            throw new ClassCastException(e.toString() + " must implement OnDrawerToggleListner");
+
+
+        }
+
+
     }
     @Override
     public void onDetach() {
         super.onDetach();
         mListener = null;
+//        toolbarListner=null;
     }
     // TODO: Rename method, update argument and hook method into UI event
 //    public void onButtonPressed(Uri uri) {
@@ -193,6 +219,7 @@ public class PickLocationFragment extends Fragment implements OnMapReadyCallback
 //
 //        }
 //    }
+
 
 
     /**
@@ -213,6 +240,7 @@ public class PickLocationFragment extends Fragment implements OnMapReadyCallback
     {
         void OnPickLocationFragmentInteraction(String picklocation);
     }
+
 //========================================= Local Listners ================================================================//
 
     /**
@@ -245,6 +273,7 @@ public class PickLocationFragment extends Fragment implements OnMapReadyCallback
             if(!picklocation_txtview.getText().toString().equals(""))
             {
                 mListener.OnPickLocationFragmentInteraction(picklocation_txtview.getText().toString());
+                onNextPageNavigation.onPage(1);
             }
 
         }

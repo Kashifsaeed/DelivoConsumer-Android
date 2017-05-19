@@ -27,7 +27,7 @@ import com.attribe.delivo.app.utils.DevicePreferences;
 
 public class UserAutenticationBAL
 {
-    public static void signInUser(Context context, String phone_no, String password, final ResponseCallback<AuthenticationResponse> listner)
+    public static void signInUser(final Context context, String phone_no, String password, final ResponseCallback<AuthenticationResponse> listner)
     {
         RestClient.getAuthAdapter().signIn(phone_no,password).enqueue(new Callback<AuthenticationResponse>() {
             @Override
@@ -35,6 +35,8 @@ public class UserAutenticationBAL
             {
                 if(response.isSuccessful()&&response.body()!=null)
                 {
+                    DevicePreferences.getInstance().init(context);
+                    DevicePreferences.getInstance().setAuthKey(response.body());
                     listner.onSuccess(response.body());
 
                 }
@@ -114,7 +116,7 @@ public class UserAutenticationBAL
      * @param listner
      */
 
-    public static void verifyUserPin(Context context, String phone, String password, String pin, final ResponseCallback<AuthenticationResponse> listner)
+    public static void verifyUserPin(final Context context, String phone, String password, String pin, final ResponseCallback<AuthenticationResponse> listner)
     {
      RestClient.getAuthAdapter().verifyPin(phone,password,pin).enqueue(new Callback<AuthenticationResponse>() {
          @Override
@@ -123,7 +125,9 @@ public class UserAutenticationBAL
          {
              if(response.isSuccessful()&&response.body()!=null)
              {
-                listner.onSuccess(response.body());
+                 DevicePreferences.getInstance().init(context);
+                 DevicePreferences.getInstance().setAuthKey(response.body());
+                 listner.onSuccess(response.body());
 
              }
 

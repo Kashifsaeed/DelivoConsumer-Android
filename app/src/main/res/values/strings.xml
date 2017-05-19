@@ -57,7 +57,7 @@
 
     <string name="input_pick_details">Pick Details</string>
     <string name="input_pick_time">Pick Time</string>
-<!---->
+    <!---->
     <string name="input_drop_person_name">Receive Person Name</string>
     <string name="input_drop_person_number">Receive Person Number</string>
 
@@ -67,7 +67,9 @@
     <string name="input_drop_time">Drop Time</string>
 
 
-    <string name="account_login">Log In</string>
+    <string name="account_login">LOGIN</string>
     <string name="account_signup">Sign Up</string>
+    <string name="fb_login">FACEBOOK LOGIN</string>
+
 
 </resources>

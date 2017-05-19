@@ -13,4 +13,15 @@
     <color name="primary_purple">#2D3075</color>
     <color name="blue_action_bar">#2E3192</color>
     <color name="map_color">#18162B</color>
+    <color name="input_bg_color">#8B8B8B</color>
+    <color name="orange_btncolor">#FF7D07</color>
+    <!--<color name="light_orange">#FF8C00</color>-->
+    <color name="theme_orange">#FF7D07</color>
+    <color name="fb_blue">#486EC1</color>
+    <color name="dark_purple">#461B46</color>
+    <color name="light_purple">#945584</color>
+    <color name="action_bar_purple">#461B46</color>
+    <color name="status_bar_purple">#6F366B</color>
+
+
 </resources>

@@ -6,6 +6,7 @@ import com.attribe.delivo.app.models.NewUser;
 import com.attribe.delivo.app.models.UpdatOrderStatus;
 import com.attribe.delivo.app.models.User;
 import com.attribe.delivo.app.models.request.DeliveryItem;
+import com.attribe.delivo.app.models.request.OrderCreate;
 import com.attribe.delivo.app.models.response.AuthenticationResponse;
 import com.attribe.delivo.app.models.response.ConsumerOrders;
 import com.attribe.delivo.app.models.response.DeliverRequestResponse;
@@ -41,7 +42,7 @@ public interface ServicesInterface {
                                         @Field("refresh_token") String refresh_token,
                                         @Field("scope") String scope);
 
-    @POST(EndPoints.STAGE_URL_10 + "guest")
+    @POST(ServerURL.STAGE_URL_10 + "guest")
     Call<User> createUser(@Body NewUser user);
 
     @PUT("deleveryorder/confirm/{orderid}")
@@ -80,4 +81,6 @@ public interface ServicesInterface {
     @POST(ServerEndpoints.resent_pin)
     Call<MessageResponse> resentPin(@Field("hidden_phone") String phone,
                                     @Field("hidden_password") String password);
+    @POST(ServerEndpoints.order_create)
+    Call<Object> placeOrder(@Body OrderCreate orderCreate);
 }

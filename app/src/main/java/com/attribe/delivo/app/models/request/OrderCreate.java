@@ -1,21 +1,45 @@
 package com.attribe.delivo.app.models.request;
 
+import java.util.List;
+
 /**
  * Author: Uzair Qureshi
- * Date:  2/15/17.
+ * Date:  5/11/17.
  * Description:
  */
 
 public class OrderCreate {
-    private DeliveryItem delivery_request;
+    private Order order;
+    private List<Task> tasks;
+    private static OrderCreate mInstance;
 
-    public DeliveryItem getDelivery_request()
-    {
-        return delivery_request;
+
+    private OrderCreate() {
+
     }
 
-    public void setDelivery_request(DeliveryItem delivery_request) {
-        this.delivery_request = delivery_request;
+    public static OrderCreate getInstance() {
+        if (mInstance == null) {
+            mInstance = new OrderCreate();
+        }
+        return mInstance;
+
+    }
+
+    public Order getOrder() {
+        return order;
+    }
+
+    public void setOrder(Order order) {
+        this.order = order;
+    }
+
+    public List<Task> getTasks() {
+        return tasks;
+    }
+
+    public void setTasks(List<Task> tasks) {
+        this.tasks = tasks;
     }
 
 

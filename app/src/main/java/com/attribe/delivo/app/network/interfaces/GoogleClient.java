@@ -1,6 +1,6 @@
 package com.attribe.delivo.app.network.interfaces;
 
-import com.attribe.delivo.app.network.EndPoints;
+import com.attribe.delivo.app.network.ServerURL;
 
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -29,7 +29,7 @@ public class GoogleClient {
 
 
         Retrofit retrofit = new Retrofit.Builder().
-                baseUrl(EndPoints.Google_base_url).
+                baseUrl(ServerURL.Google_base_url).
                 addConverterFactory(GsonConverterFactory.create()).
                 //client(httpClient).
                 build();

@@ -1,4 +1,4 @@
-package com.attribe.delivo.app.models.response;
+package com.attribe.delivo.app.models.request;
 
 /**
  * Author: Uzair Qureshi
@@ -17,7 +17,7 @@ public class Order {
 
     private String pickup_time;
 
-    private String order_type;
+    private String order_type="time_critical";
 
 
 

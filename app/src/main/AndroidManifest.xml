@@ -43,24 +43,12 @@
         <activity
             android:name=".ScreenSplash"
             android:label="@string/title_activity_screen_splash">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".screens.CustomPickLocation"
             android:label="Pick Location"
-            android:windowSoftInputMode="stateHidden">
-
-            <!-- <intent-filter> -->
-            <!-- <action android:name="android.intent.action.MAIN" /> -->
-
-
-            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
-            <!-- </intent-filter> -->
-        </activity>
+            android:windowSoftInputMode="stateHidden"></activity>
         <activity
             android:name=".PlaceSearch"
             android:label="Search Places"
@@ -75,34 +63,30 @@
             android:windowSoftInputMode="stateHidden" />
         <activity android:name=".BaseActivity" />
         <activity android:name=".TestFirebase" />
-        <activity android:name=".screens.SignInScreen">
-            <!--<intent-filter>-->
-                <!--<action android:name="android.intent.action.MAIN" />-->
+        <activity
+            android:name=".screens.LoginScreen"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen">
 
-                <!--<category android:name="android.intent.category.LAUNCHER" />-->
-            <!--</intent-filter>-->
         </activity>
         <activity android:name=".screens.SignUpScreen" />
-        <activity android:name=".screens.SelectOptionScreen" />
+        <activity
+            android:name=".screens.DeliveryOptionScreen"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen" />
         <activity android:name=".screens.VerifyCode" />
         <activity android:name=".screens.PickDetailsActivity" />
-        <activity android:name=".teststeplayout.MainStepActivity">
+        <activity android:name=".teststeplayout.MainStepActivity"></activity>
+        <activity android:name=".screens.AddDropLocation" />
+        <activity android:name=".teststeplayout.MainOrderActivity" />
+        <activity
+            android:name=".screens.sampleActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen"></activity>
+        <activity android:name=".screens.SplashScreen">
             <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.MAIN" />
 
-            <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
 
-
-        </activity>
-        <activity android:name=".screens.AddDropLocation" />
-        <activity android:name=".teststeplayout.MainOrderActivity">
-            <!--<intent-filter>-->
-                <!--<action android:name="android.intent.action.MAIN" />-->
-
-
-                <!--<category android:name="android.intent.category.LAUNCHER" />-->
-            <!--</intent-filter>-->
         </activity>
     </application>
 

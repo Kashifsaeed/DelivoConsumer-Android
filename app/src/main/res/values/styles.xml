@@ -66,12 +66,20 @@
         <!--<item name="colorPrimary">#01BDD6</item>-->
         <!--<item name="colorPrimaryDark">#01BDD6</item>-->
         <!--<item name="android:windowActionBarOverlay">true</item>-->
-        <item name="colorPrimary">#2D3075</item>
-        <item name="colorPrimaryDark">#2D3075</item>
-        <item name="android:windowActionBarOverlay">true</item>
+        <item name="colorPrimary">@color/status_bar_purple</item>
+        <item name="colorPrimaryDark">@color/status_bar_purple</item>
+        <item name="android:windowActionBarOverlay">false</item>
         <!-- Customize your theme here. -->
     </style>
 
     <style name="TextAppearence.App.TextInputLayout" parent="@android:style/TextAppearance">
     <item name="android:textColor">@color/md_blue_500</item></style>
+<!--Activity with no action bar theme-->
+    <style name="Theme.AppCompat.Light.NoActionBar.FullScreen" parent="@style/Theme.AppCompat.Light">
+        <item name="windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+    </style>
+
 </resources>

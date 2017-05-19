@@ -5,14 +5,15 @@ import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 
 import com.attribe.delivo.app.fragments.ConfirmationScreen;
 import com.attribe.delivo.app.fragments.DropLocationFragment;
 import com.attribe.delivo.app.fragments.OrderMaking;
+import com.attribe.delivo.app.fragments.PickDetailsFragment;
 import com.attribe.delivo.app.fragments.ScreenRegistration;
 import com.attribe.delivo.app.fragments.ScreenRiderDetail;
 import com.attribe.delivo.app.fragments.PickLocationFragment;
-import com.attribe.delivo.app.fragments.PickDetailFragment;
 import com.attribe.delivo.app.fragments.UserAuthentication;
 
 
@@ -84,9 +85,9 @@ public class NavigationUtils {
             transaction.addToBackStack(null);
             transaction.commit();
         }
-        else if(callingFragment instanceof PickDetailFragment)
+        else if(callingFragment instanceof PickDetailsFragment)
         {
-            PickDetailFragment newFragment = new PickDetailFragment();
+            PickDetailsFragment newFragment = new PickDetailsFragment();
             android.support.v4.app.FragmentTransaction transaction =fragmentManager.beginTransaction();
 
             transaction.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left);
@@ -110,5 +111,10 @@ public class NavigationUtils {
         }
 
 
+    }
+    public static void navigateNext(Context context, Class<? extends AppCompatActivity> activity){
+
+        Intent intent=new Intent(context,activity);
+        context.startActivity(intent);
     }
 }

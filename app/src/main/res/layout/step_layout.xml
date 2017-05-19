@@ -1,74 +1,83 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/lh"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    android:weightSum="5.5"
-    android:layout_margin="@dimen/normal_margin">
-    <!--android:gravity="center"-->
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <ImageView
-        android:id="@+id/stepone_view"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-       
-        android:src="@drawable/pick_step_icon"/>
 
-    <View
-        android:layout_width="0dp"
-        android:layout_height="1dp"
-        android:layout_weight="0.5"
-        android:layout_gravity="center_vertical"
-        android:background="@color/white"
+    <LinearLayout
+        android:id="@+id/lh"
+        android:layout_width="match_parent"
+        android:layout_height="75dp"
+        android:background="@color/status_bar_purple"
+        android:orientation="horizontal"
+        android:padding="@dimen/small_margin"
+        android:weightSum="5.5"
+        android:gravity="center"
 
-        ></View>
 
-    <ImageView
-        android:id="@+id/steptwo_view"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        >
+        <!--android:layout_margin="@dimen/normal_margin"-->
 
-        android:layout_weight="1"
+        <!--android:gravity="center"-->
 
-        android:src="@drawable/pickdetail_step_icon"/>
+        <ImageView
+            android:id="@+id/stepone_view"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
 
-    <View
-        android:layout_width="0dp"
-        android:layout_height="1dp"
-        android:layout_weight="0.5"
-        android:layout_gravity="center_vertical"
-        android:background="@color/white"
+            android:src="@drawable/pick_step_icon"
+          />
 
-        ></View>
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="0.5"
+            android:background="@color/white"
 
-    <ImageView
-        android:id="@+id/stepthree_view"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+            ></View>
 
-        android:layout_weight="1"
+        <ImageView
+            android:id="@+id/steptwo_view"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
 
-        android:src="@drawable/drop_step_icon"/>
+            android:layout_weight="1"
 
-    <View
-        android:layout_width="0dp"
-        android:layout_height="1dp"
-        android:layout_weight="0.5"
-        android:layout_gravity="center_vertical"
-        android:background="@color/white"
+            android:src="@drawable/pickdetail_step_icon" />
 
-        ></View>
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="0.5"
+            android:background="@color/white"
 
-    <ImageView
-        android:id="@+id/stepfour_view"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
+            ></View>
 
-        android:src="@drawable/pickdetail_step_icon"/>
-</LinearLayout>
+        <ImageView
+            android:id="@+id/stepthree_view"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+
+            android:layout_weight="1"
+
+            android:src="@drawable/drop_step_icon" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="0.5"
+            android:background="@color/white"
+
+            ></View>
+
+        <ImageView
+            android:id="@+id/stepfour_view"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+
+            android:src="@drawable/pickdetail_step_icon" />
+    </LinearLayout>
 </layout>

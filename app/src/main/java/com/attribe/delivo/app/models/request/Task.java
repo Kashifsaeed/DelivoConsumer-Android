@@ -1,4 +1,4 @@
-package com.attribe.delivo.app.models.response;
+package com.attribe.delivo.app.models.request;
 
 /**
  * Author: Uzair Qureshi

@@ -19,6 +19,7 @@ import android.widget.TextView;
 
 import com.attribe.delivo.app.R;
 import com.attribe.delivo.app.databinding.StepThreeFragmentBinding;
+import com.attribe.delivo.app.interfaces.OnNextPageNavigation;
 import com.attribe.delivo.app.utils.ReverseGeoLocationTask;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
@@ -39,6 +40,7 @@ import static com.zl.reik.dilatingdotsprogressbar.DilatingDotsProgressBar.TAG;
 public class DropLocationFragment extends Fragment implements OnMapReadyCallback{
 
     private OnDropLocationFragmentInteractionListener mListener;
+    private OnNextPageNavigation onNextPageNavigation;
     StepThreeFragmentBinding viewBinding;
     private MapView mapView;
     private GoogleMap mMap;
@@ -138,10 +140,12 @@ public class DropLocationFragment extends Fragment implements OnMapReadyCallback
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof OnDropLocationFragmentInteractionListener) {
+        try {
             mListener = (OnDropLocationFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
+            onNextPageNavigation= (OnNextPageNavigation) context;
+        }
+        catch (ClassCastException e){
+            throw new RuntimeException(e.toString()
                     + " must implement OnFragmentInteractionListener");
         }
     }
@@ -155,7 +159,7 @@ public class DropLocationFragment extends Fragment implements OnMapReadyCallback
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-        setMapTheme(mMap);
+       // setMapTheme(mMap);
         if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             // TODO: Consider calling
             //    ActivityCompat#requestPermissions
@@ -178,7 +182,7 @@ public class DropLocationFragment extends Fragment implements OnMapReadyCallback
             // position on right bottom
             layoutParams.addRule(RelativeLayout.ALIGN_PARENT_TOP, 0);
             layoutParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, RelativeLayout.TRUE);
-            layoutParams.setMargins(0, 0, 30, 250);//left top right bottom
+            layoutParams.setMargins(0, 0, 30, 400);//left top right bottom
         }
 
         //mMap.setOnCameraMoveListener(new OnCameraMovingListner());
@@ -237,6 +241,7 @@ public class DropLocationFragment extends Fragment implements OnMapReadyCallback
             if(!droplocation_txtview.getText().toString().equals(""))
             {
                 mListener.onDropLocationFragmentInteraction(droplocation_txtview.getText().toString());
+                onNextPageNavigation.onPage(3);
             }
 
 

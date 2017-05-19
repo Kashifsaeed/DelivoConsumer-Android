@@ -7,8 +7,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
+import com.attribe.delivo.app.NavigationUtils;
 import com.attribe.delivo.app.R;
-import com.attribe.delivo.app.databinding.SigninScreenActivityBinding;
+import com.attribe.delivo.app.databinding.LoginActivityBinding;
 
 import com.attribe.delivo.app.dialouge.AlertDialouge;
 import com.attribe.delivo.app.models.response.AuthenticationResponse;
@@ -16,17 +17,17 @@ import com.attribe.delivo.app.network.bals.UserAutenticationBAL;
 import com.attribe.delivo.app.network.interfaces.ResponseCallback;
 import com.attribe.delivo.app.utils.ValidationUtills;
 
-public class SignInScreen extends AppCompatActivity {
+public class LoginScreen extends AppCompatActivity {
     //private
     //DataBindingUtilS
-   private SigninScreenActivityBinding binding;
+   private LoginActivityBinding binding;
     private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //setContentView(R.layout.signin_screen_layout);
-        binding= DataBindingUtil.setContentView(SignInScreen.this, R.layout.signin_screen_activity);
+        binding= DataBindingUtil.setContentView(LoginScreen.this, R.layout.login_activity);
         setEventListners();
     }
 //======================================Helper Methods ====================================================//
@@ -61,7 +62,7 @@ public class SignInScreen extends AppCompatActivity {
 
     private void showProgress(String message)
     {
-        progressDialog= ProgressDialog.show(SignInScreen.this,"",message,false);
+        progressDialog= ProgressDialog.show(LoginScreen.this,"",message,false);
     }
 
     private void hideProgress()
@@ -79,7 +80,8 @@ public class SignInScreen extends AppCompatActivity {
             {
                 hideProgress();
                 //navigate to main screen
-                startActivity(new Intent(SignInScreen.this,SelectOptionScreen.class));
+                //startActivity(new Intent(LoginScreen.this,DeliveryOptionScreen.class));
+                NavigationUtils.navigateNext(LoginScreen.this,DeliveryOptionScreen.class);
 
             }
 
@@ -87,14 +89,14 @@ public class SignInScreen extends AppCompatActivity {
             public void OnResponseFailure(String error_body)
             {
                 hideProgress();
-                AlertDialouge.showDialoge(SignInScreen.this,error_body);
+                AlertDialouge.showDialoge(LoginScreen.this,error_body);
 
             }
 
             @Override
             public void onfailure(String message) {
                 hideProgress();
-                AlertDialouge.showError(SignInScreen.this,message);
+                AlertDialouge.showError(LoginScreen.this,message);
 
             }
         });
@@ -118,7 +120,9 @@ public class SignInScreen extends AppCompatActivity {
         public void onClick(View view)
         {
 
-              startActivity(new Intent(SignInScreen.this,SignUpScreen.class));
+             // startActivity(new Intent(LoginScreen.this,SignUpScreen.class));
+            NavigationUtils.navigateNext(LoginScreen.this,SignUpScreen.class);
+
 
         }
     }
@@ -126,7 +130,7 @@ public class SignInScreen extends AppCompatActivity {
     private class VerifyListner implements View.OnClickListener {
         @Override
         public void onClick(View view) {
-            //startActivity(new Intent(SignInScreen.this,VerifyCode.class));
+            //startActivity(new Intent(LoginScreen.this,VerifyCode.class));
 
         }
     }

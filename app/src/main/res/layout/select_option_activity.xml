@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
 
-    tools:context="com.attribe.delivo.app.screens.SelectOptionScreen"
+    tools:context="com.attribe.delivo.app.screens.DeliveryOptionScreen"
     android:background="@drawable/app_background">
     <!--main layout-->
     <LinearLayout

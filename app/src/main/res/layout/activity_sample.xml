@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+    <RelativeLayout
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/mainlogin_panel"
+            android:orientation="vertical"
+            android:weightSum="2">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:id="@+id/input_area_layout"
+                android:orientation="vertical">
+
+
+                <EditText android:id="@+id/password"
+                    android:hint="@string/input_phoneno_hint"
+                    android:textColorHint="@color/white"
+                    android:inputType="textPassword"
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:layout_centerVertical="true"
+                    android:background="@color/blue_action_bar"
+                    />
+
+
+
+            </LinearLayout>
+        </LinearLayout>
+    </RelativeLayout>
+</layout>

@@ -1,7 +1,8 @@
 package com.attribe.delivo.app.network;
 
-import com.attribe.delivo.app.models.User;
+import com.attribe.delivo.app.Extras.AppConstants;
 import com.attribe.delivo.app.network.interfaces.GoogleApiInterface;
+import com.attribe.delivo.app.utils.DevicePreferences;
 
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
@@ -12,6 +13,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 import java.io.IOException;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by Sabih Ahmed on 06-Jun-16.
@@ -57,7 +59,7 @@ public class RestClient {
                 .build();
 
         Retrofit retrofit = new Retrofit.Builder().
-               // baseUrl(EndPoints.STAGE_URL_10).
+               // baseUrl(ServerURL.STAGE_URL_10).
                 addConverterFactory(GsonConverterFactory.create()).
                 client(httpClient).
                 build();
@@ -78,19 +80,21 @@ public class RestClient {
                         Request request = chain.request();
                         Request newRequest;
                         newRequest = request.newBuilder()
-                                .addHeader("Authorization", "bearer " + User.getInstance().getUserToken().getAccess_token())
+                              //  .addHeader("Authorization", "bearer " + User.getInstance().getUserToken().getAccess_token())
+                                .addHeader("COMPANYAPIKEY",AppConstants.COMPANY_KEY)
+                                .addHeader("Authorization", DevicePreferences.getInstance().getAuthKey().getAuth_token())
                                 .build();
                         return chain.proceed(newRequest);
                     }
                 })
                 .addInterceptor(logging)
-//                .connectTimeout(ApplicationConstant.TIMEOUT, TimeUnit.MILLISECONDS)
+                .connectTimeout(AppConstants.TIMEOUT, TimeUnit.MILLISECONDS)
                 //.authenticator()
                 //.authenticator(new RestAuthenticator())
                 .build();
 
         Retrofit retrofit = new Retrofit.Builder().
-                baseUrl(EndPoints.STAGE_URL_10).
+                baseUrl(ServerURL.BASE_URl).
                 addConverterFactory(GsonConverterFactory.create()).
                 client(httpClient).
                 build();
@@ -107,15 +111,17 @@ public class RestClient {
                 Request request = chain.request();
                 Request newRequest;
                 newRequest = request.newBuilder()
-                        //.addHeader("Authorization", MyConstants.Api_Auth_Key)
+                        .addHeader("COMPANYAPIKEY", AppConstants.COMPANY_KEY)
                         .build();
                 return chain.proceed(newRequest);
             }
-        }).addInterceptor(logging).build();
+        }).addInterceptor(logging)
+                .connectTimeout(AppConstants.TIMEOUT, TimeUnit.MILLISECONDS)
+                .build();
 
         Retrofit retrofit = new Retrofit.Builder().
-                baseUrl(EndPoints.BASE_URl).
-                //baseUrl(EndPoints.STAGE_URL_10).
+                baseUrl(ServerURL.BASE_URl).
+                //baseUrl(ServerURL.STAGE_URL_10).
                 addConverterFactory(GsonConverterFactory.create()).
                 client(httpClient).
                 build();

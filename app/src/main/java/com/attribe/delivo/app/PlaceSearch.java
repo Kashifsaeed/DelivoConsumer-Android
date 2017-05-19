@@ -1,6 +1,6 @@
 package com.attribe.delivo.app;
 
-import com.attribe.delivo.app.Extras.MyConstants;
+import com.attribe.delivo.app.Extras.AppConstants;
 import com.attribe.delivo.app.adapters.GoogleSearchesAdapter;
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -120,7 +120,7 @@ public class PlaceSearch extends Activity {
 
 
     private void getAutocompleteplaces(String input){
-        String key= MyConstants.Googlekey2;
+        String key= AppConstants.Googlekey2;
         String types="geocode|establishment";
         showProgress("Searching...");
         GoogleClient.googleEndclient().getplacepridiction(input,types,key).enqueue(new Callback<AutoCompleteResponse>() {
@@ -186,7 +186,7 @@ public class PlaceSearch extends Activity {
     private void getPlacesByTextSearch(String query){
        String type="bus_station|bank|mosque|hospitals";
         String keyword="establishment";
-        String key= MyConstants.Googlekey2;
+        String key= AppConstants.Googlekey2;
         showProgress("Searching...");
 
         GoogleClient.googleEndclient().getPlacesByText(query,type,keyword,key).enqueue(new Callback<GoogleAPiByText>() {
@@ -278,7 +278,7 @@ public class PlaceSearch extends Activity {
     {
        // final PlaceDetailsResponse.Result[] placeDetailsResponse = new PlaceDetailsResponse.Result[1];
 
-        String key=MyConstants.Googlekey2;
+        String key= AppConstants.Googlekey2;
         GoogleClient.googleEndclient().getplaceDetails(placesId,key).enqueue(new Callback<PlaceDetailsResponse>() {
 
             @Override

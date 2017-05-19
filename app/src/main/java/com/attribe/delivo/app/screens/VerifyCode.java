@@ -55,7 +55,8 @@ public class VerifyCode extends AppCompatActivity  {
             public void onSuccess(AuthenticationResponse response)
             {
                 hideProgress();
-                startActivity(new Intent(VerifyCode.this,SelectOptionScreen.class));
+                startActivity(new Intent(VerifyCode.this,DeliveryOptionScreen.class));
+
                 //recieves an auth_token and do naviagtion
             }
 

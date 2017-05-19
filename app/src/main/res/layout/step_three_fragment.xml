@@ -6,6 +6,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         tools:context=".fragments.PickLocationFragment"
+
         >
         <!--main layout-->
 
@@ -34,12 +35,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_marginTop="@dimen/extra_large_margin"
                 android:layout_marginLeft="@dimen/large_margin"
                 android:layout_marginRight="@dimen/large_margin"
+                android:layout_marginTop="@dimen/large_margin"
                 android:elevation="@dimen/small_margin"
                 android:weightSum="1"
                 android:layout_weight="50"
+                android:background="@drawable/input_fields_rounded"
 
 
 
@@ -48,10 +50,7 @@
                     android:layout_width="0dp"
                     android:layout_height="50dp"
                     android:layout_weight="0.90">
-                    <View android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="@color/white"
-                        android:alpha="0.3"/>
+
                     <TextView
                         android:id="@+id/droplocname"
                         android:layout_width="match_parent"
@@ -81,17 +80,12 @@
 
 
                     >
-                    <View android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="@color/white"
-                        android:alpha="0.3"/>
+
 
                     <ImageView android:layout_width="match_parent"
                         android:layout_height="35dp"
-
                         android:background="@drawable/ic_search"
                         android:id="@+id/searchPlaces"
-
                         android:gravity="center_vertical"
                         android:layout_centerInParent="true"
 
@@ -110,21 +104,19 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:layout_marginRight="@dimen/large_margin"
-                android:layout_marginLeft="@dimen/large_margin"
-                android:layout_marginBottom="@dimen/large_margin"
+
                 android:layout_alignParentBottom="true"
                 android:layout_centerHorizontal="true"
+                android:layout_marginBottom="@dimen/extra_large_margin"
+                android:layout_marginLeft="@dimen/large_margin"
+                android:layout_marginRight="@dimen/large_margin"
                 >
-                <View android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@color/white"
-                    android:alpha="0.2"/>
+
 
                 <Button android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:text="Add Drop Details"
-                    android:background="@drawable/white_border"
+                    android:text="Add Drop Address"
+                    android:background="@drawable/orange_rounded_btn"
                     android:textColor="@color/white"
                     android:id="@+id/confirm_droplocation_btn"
 

@@ -2,11 +2,14 @@ package com.attribe.delivo.app.network.bals;
 
 import com.attribe.delivo.app.models.NewOrder;
 import com.attribe.delivo.app.models.UpdatOrderStatus;
+import com.attribe.delivo.app.models.request.OrderCreate;
 import com.attribe.delivo.app.models.response.ResponseConfirmOrder;
 import com.attribe.delivo.app.models.response.ResponseNewOrder;
 import com.attribe.delivo.app.network.RestClient;
 import com.attribe.delivo.app.network.interfaces.CreateOrderResponse;
 import com.attribe.delivo.app.network.interfaces.OrderConfirmListener;
+import com.attribe.delivo.app.network.interfaces.ResponseCallback;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -71,6 +74,32 @@ public class OrderBAL {
 
             @Override
             public void onFailure(Call<ResponseConfirmOrder> call, Throwable t) {
+
+            }
+        });
+
+    }
+    public static void placeOrder(final OrderCreate orderCreate, final ResponseCallback<Object> listner){
+        RestClient.getAuthRestAdapter().placeOrder(orderCreate).enqueue(new Callback<Object>() {
+            @Override
+            public void onResponse(Call<Object> call, Response<Object> response)
+            {
+                if (response.isSuccessful())
+                {
+                    listner.onSuccess(response.body());
+
+                }
+                if(response.errorBody()!=null)
+                {
+                    listner.OnResponseFailure("Some server error");
+
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<Object> call, Throwable t) {
+                listner.onfailure(t.getMessage());
 
             }
         });

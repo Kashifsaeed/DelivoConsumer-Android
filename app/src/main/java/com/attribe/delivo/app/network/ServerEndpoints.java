@@ -13,5 +13,6 @@ public class ServerEndpoints
     public final static String sign_up="signup";
     public final static String verify_pin="verify_pin";
     public final static  String resent_pin="resend_pin";
+    public final static String order_create="orders";
 
 }

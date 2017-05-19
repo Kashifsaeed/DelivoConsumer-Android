@@ -1,6 +1,6 @@
 package com.attribe.delivo.app;
 
-import com.attribe.delivo.app.Extras.MyConstants;
+import com.attribe.delivo.app.Extras.AppConstants;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -33,7 +33,7 @@ public class CustomAutocomplete extends AppCompatActivity {
         });
     }
     private void getAutocompleteplaces(String input){
-        String key= MyConstants.Googlekey2;
+        String key= AppConstants.Googlekey2;
         String types="geocode|establishment";
         GoogleClient.googleEndclient().getplacepridiction(input,types,key).enqueue(new Callback<AutoCompleteResponse>() {
             @Override

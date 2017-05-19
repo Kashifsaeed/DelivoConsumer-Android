@@ -3,6 +3,8 @@ package com.attribe.delivo.app.utils;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
+
+import com.attribe.delivo.app.models.response.AuthenticationResponse;
 import com.google.gson.Gson;
 import com.attribe.delivo.app.models.NewOrder;
 import com.attribe.delivo.app.models.SignUpInfo;
@@ -20,6 +22,7 @@ public class DevicePreferences {
     private static final String KEY_NEW_ORDER = "newOrder";
     private static final String KEY_NEW_ORDER_RESPONSE = "newOrderResponse";
     private static final String KEY_SIGNUPINFO="userinfo";
+    private static String AUTH_KEY="authenticationkey";
 
     private static DevicePreferences instance;
     private static SharedPreferences prefs;
@@ -200,6 +203,20 @@ public class DevicePreferences {
         SignUpInfo user_signup_info = gson.fromJson(userinfo, SignUpInfo.class);
         return user_signup_info;
 
+    }
+    public void setAuthKey(AuthenticationResponse authentication){
+        SharedPreferences.Editor editor=prefs.edit();
+        Gson gson=new Gson();
+        String user_auth=gson.toJson(authentication);
+        editor.putString(AUTH_KEY,user_auth);
+        editor.commit();
+
+    }
+    public AuthenticationResponse getAuthKey(){
+        Gson gson=new Gson();
+        String user_auth=prefs.getString(AUTH_KEY,null);
+        AuthenticationResponse user_authentication_key=gson.fromJson(user_auth,AuthenticationResponse.class);
+        return user_authentication_key;
     }
 
 }

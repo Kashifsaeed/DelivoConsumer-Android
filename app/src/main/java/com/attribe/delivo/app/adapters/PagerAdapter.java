@@ -5,8 +5,8 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
 import com.attribe.delivo.app.fragments.DropLocationFragment;
-import com.attribe.delivo.app.fragments.PickDetailFragment;
-import com.attribe.delivo.app.fragments.StepFour;
+import com.attribe.delivo.app.fragments.PickDetailsFragment;
+import com.attribe.delivo.app.fragments.DropDetailFragment;
 import com.attribe.delivo.app.fragments.PickLocationFragment;
 import com.attribe.delivo.app.teststeplayout.MainStepActivity;
 
@@ -31,11 +31,11 @@ public class PagerAdapter extends FragmentPagerAdapter
             case 0:
                 return new PickLocationFragment();
             case 1:
-                return new PickDetailFragment();
+                return new PickDetailsFragment();
             case 2:
                 return new DropLocationFragment();
             case 3:
-                return new StepFour();
+                return new DropDetailFragment();
 
 
 
