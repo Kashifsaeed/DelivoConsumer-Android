@@ -28,13 +28,13 @@
                 android:layout_weight="1"
                 android:id="@+id/input_area_layout"
                 android:orientation="vertical"
-                android:weightSum="3"
+                android:weightSum="3.4"
                 android:background="@color/white"
                android:layout_marginTop="@dimen/small_margin">
                    >
-                  <EditText
+                  <com.attribe.delivo.app.utils.CustomEditText
                       android:layout_width="match_parent"
-                      android:layout_height="wrap_content"
+                      android:layout_height="0dp"
                       android:layout_weight="0.5"
                       android:layout_marginLeft="@dimen/fields_margin"
                       android:layout_marginRight="@dimen/fields_margin"
@@ -43,7 +43,7 @@
                       android:paddingLeft="@dimen/normal_padding"
                       android:textColorHint="@color/white"
                       android:textColor="@color/white"
-                      android:hint="@string/input_phoneno_hint"
+                      android:hint="@string/user_contact"
                       android:textAppearance="@android:style/TextAppearance.Small"
                       android:inputType="phone"
                       android:id="@+id/loginuser_phone"
@@ -51,7 +51,7 @@
 
                 <EditText
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="0dp"
                     android:layout_weight="0.5"
                     android:layout_marginTop="@dimen/normal_margin"
                     android:layout_marginLeft="@dimen/fields_margin"
@@ -70,7 +70,7 @@
                     />
                 <Button
                     android:layout_width="match_parent"
-                    android:layout_height="20dp"
+                    android:layout_height="0dp"
                     android:layout_weight="0.5"
                     android:layout_marginTop="@dimen/normal_margin"
                     android:layout_marginLeft="@dimen/fields_margin"
@@ -84,24 +84,31 @@
 
                     />
                 <!---->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="0.7"
+                    android:orientation="vertical"
+                    android:weightSum="1">
                 <TextView
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_weight="0.5"
 
                     android:gravity="center"
                     android:text="FORGOT PASSWORD?"
                     android:textColor="@color/black"
-                    android:layout_marginTop="@dimen/activity_horizontal_margin"/>
+                   />
+                    <!--android:layout_marginTop="@dimen/activity_horizontal_margin"-->
                 <!--empty area-->
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="10dp"
-                    android:layout_weight="0.4"
+                    android:layout_height="0dp"
+                    android:layout_weight="0.5"
                     android:orientation="horizontal"
                     android:weightSum="1"
-                    android:layout_marginEnd="@dimen/large_margin"
-
-                    android:layout_marginStart="@dimen/large_margin">
+                    android:layout_marginLeft="@dimen/fields_margin"
+                    android:layout_marginRight="@dimen/fields_margin">
                     <View
                         android:layout_width="0dp"
                         android:layout_height="1dp"
@@ -110,8 +117,7 @@
                         android:layout_gravity="center"></View>
                     <TextView
                         android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-
+                        android:layout_height="match_parent"
                         android:gravity="center"
                         android:text="OR"
                         android:textColor="@color/black"
@@ -125,18 +131,20 @@
                         android:background="@color/md_blue_grey_700"
                         android:layout_gravity="center"></View>
                 </LinearLayout>
+                </LinearLayout>
+                <!--android:layout_marginTop="@dimen/normal_margin"-->
                 <Button
                     android:layout_width="match_parent"
-                    android:layout_height="25dp"
-                    android:layout_weight="0.5"
-                    android:layout_marginTop="@dimen/normal_margin"
+                    android:layout_height="0dp"
+                    android:layout_weight="0.6"
+
                     android:layout_marginLeft="@dimen/fields_margin"
                     android:layout_marginRight="@dimen/fields_margin"
-                    android:textColor="@color/white"
-                    android:gravity="center"
+
                     android:background="@drawable/fb_bg"
 
                     android:id="@+id/facebooklogin_btn"
+
 
 
 
@@ -145,17 +153,18 @@
                 <!--android:text="@string/fb_login"-->
                 <TextView
                     android:layout_width="match_parent"
-                    android:layout_height="15dp"
+                    android:layout_height="0dp"
                     android:layout_weight="0.6"
                     android:inputType="text"
                     android:id="@+id/accountsignup_btn"
                     android:textColor="@color/white"
                     android:gravity="center"
-
                     android:background="@drawable/signup_message"
                     android:layout_marginTop="@dimen/normal_margin"
 
+
                     />
+                <!--android:layout_marginTop="@dimen/normal_margin"-->
 
 
 

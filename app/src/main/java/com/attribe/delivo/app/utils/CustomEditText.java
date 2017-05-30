@@ -19,6 +19,9 @@ public class CustomEditText extends EditText{
     private Drawable drawableBottom;
     private int actionX;
     private int actionY;
+    private String mPrefix = "+92"; // can be hardcoded for demo purposes
+    private Rect mPrefixRect = new Rect(); // actual prefix size
+
 
     public CustomEditText(Context context, AttributeSet attrs) {
 
@@ -31,8 +34,20 @@ public class CustomEditText extends EditText{
 
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
+        canvas.drawText(mPrefix, super.getCompoundPaddingLeft(), getBaseline(), getPaint());
     }
 
+    @Override
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        getPaint().getTextBounds(mPrefix, 0, mPrefix.length(), mPrefixRect);
+        mPrefixRect.right += getPaint().measureText(" "); // add some offset
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+    }
+
+    @Override
+    public int getCompoundPaddingLeft() {
+        return super.getCompoundPaddingLeft()+mPrefixRect.width();
+    }
 
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {

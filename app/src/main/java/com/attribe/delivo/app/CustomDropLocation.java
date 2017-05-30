@@ -10,6 +10,9 @@ import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.attribe.delivo.app.screens.BaseActivity;
+import com.attribe.delivo.app.screens.PlaceSearch;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
@@ -262,14 +265,14 @@ public class CustomDropLocation extends BaseActivity implements OnMapReadyCallba
 //            DevicePreferences.getInstance().setDestinationLocationObject(droplatlng.latitude,droplatlng.longitude, droplocknameText.getText().toString());
 //            DevicePreferences.getInstance().setSourceLocationObject(pickLatlng.latitude,pickLatlng.longitude,pickAdd);
 
-            Intent intent =new Intent(CustomDropLocation.this,OrderCreating.class);
-            Bundle order_bundle=new Bundle();
-            order_bundle.putString("pickAddress",pickAdd);
-            order_bundle.putParcelable("pickLatLng",pickLatlng);
-            order_bundle.putString("dropAddress",droplocknameText.getText().toString());
-            order_bundle.putParcelable("dropLatLng",droplatlng);
-            intent.putExtra("Orderinfo",order_bundle);
-            startActivity(intent);
+//            Intent intent =new Intent(CustomDropLocation.this,OrderCreating.class);
+//            Bundle order_bundle=new Bundle();
+//            order_bundle.putString("pickAddress",pickAdd);
+//            order_bundle.putParcelable("pickLatLng",pickLatlng);
+//            order_bundle.putString("dropAddress",droplocknameText.getText().toString());
+//            order_bundle.putParcelable("dropLatLng",droplatlng);
+//            intent.putExtra("Orderinfo",order_bundle);
+//            startActivity(intent);
 
         }
     }

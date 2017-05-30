@@ -1,19 +1,9 @@
 package com.attribe.delivo.app.network;
 
-import com.attribe.delivo.app.models.EditUserProfile;
-import com.attribe.delivo.app.models.NewOrder;
-import com.attribe.delivo.app.models.NewUser;
-import com.attribe.delivo.app.models.UpdatOrderStatus;
-import com.attribe.delivo.app.models.User;
-import com.attribe.delivo.app.models.request.DeliveryItem;
 import com.attribe.delivo.app.models.request.OrderCreate;
 import com.attribe.delivo.app.models.response.AuthenticationResponse;
-import com.attribe.delivo.app.models.response.ConsumerOrders;
-import com.attribe.delivo.app.models.response.DeliverRequestResponse;
-import com.attribe.delivo.app.models.response.GenerateTokenResponse;
 import com.attribe.delivo.app.models.response.MessageResponse;
-import com.attribe.delivo.app.models.response.ResponseConfirmOrder;
-import com.attribe.delivo.app.models.response.ResponseNewOrder;
+import com.attribe.delivo.app.models.response.OrderResponse;
 import com.attribe.delivo.app.models.response.SignUpResponse;
 
 import retrofit2.Call;
@@ -24,42 +14,42 @@ import retrofit2.http.*;
  */
 public interface ServicesInterface {
 
+//
+//    @POST("deleveryorder")
+//    Call<ResponseNewOrder> createOrder(@Body NewOrder newOrder);
+//
+//    @FormUrlEncoded
+//
+//    @POST("oauth/token")
+//    Call<GenerateTokenResponse> login(@Field("grant_type") String grant_type,
+//                                      @Field("username") String username,
+//                                      @Field("password") String password,
+//                                      @Field("scope") String scope);
 
-    @POST("deleveryorder")
-    Call<ResponseNewOrder> createOrder(@Body NewOrder newOrder);
+//    @POST("http://stage.dmenu.co:8080/delvo-api/oauth/token")
+//    Call<GenerateTokenResponse> refresh(@Field("grant_type") String grant_type,
+//                                        @Field("username") String username,
+//                                        @Field("refresh_token") String refresh_token,
+//                                        @Field("scope") String scope);
 
-    @FormUrlEncoded
+//    @POST(ServerURL.STAGE_URL_10 + "guest")
+//    Call<User> createUser(@Body NewUser user);
 
-    @POST("oauth/token")
-    Call<GenerateTokenResponse> login(@Field("grant_type") String grant_type,
-                                      @Field("username") String username,
-                                      @Field("password") String password,
-                                      @Field("scope") String scope);
+//    @PUT("deleveryorder/confirm/{orderid}")
+//    Call<ResponseConfirmOrder> confirmOrder(@Body UpdatOrderStatus updatOrderStatus, @Path("orderid") String orderID);
 
-    @POST("http://stage.dmenu.co:8080/delvo-api/oauth/token")
-    Call<GenerateTokenResponse> refresh(@Field("grant_type") String grant_type,
-                                        @Field("username") String username,
-                                        @Field("refresh_token") String refresh_token,
-                                        @Field("scope") String scope);
-
-    @POST(ServerURL.STAGE_URL_10 + "guest")
-    Call<User> createUser(@Body NewUser user);
-
-    @PUT("deleveryorder/confirm/{orderid}")
-    Call<ResponseConfirmOrder> confirmOrder(@Body UpdatOrderStatus updatOrderStatus, @Path("orderid") String orderID);
-
-    @POST("guest")
-    Call<User> userEditProfile(@Body EditUserProfile editUserProfile);
+//    @POST("guest")
+//    Call<User> userEditProfile(@Body EditUserProfile editUserProfile);
 
     //    @GET("deleveryorder")
 //    void getUserOrders(Callback<ArrayList<ConsumerOrders>> callback);
-    @GET("deleveryorder")
-    Call<ConsumerOrders> getUserOrders();
+//    @GET("deleveryorder")
+//    Call<ConsumerOrders> getUserOrders();
 //============================================= Rails APi Endpoints ================================================================//
 
 
-    @POST(ServerEndpoints.delivery_request)
-    Call<DeliverRequestResponse> createnewRequest(@Body DeliveryItem deliveryItem);
+//    @POST(ServerEndpoints.delivery_request)
+//    Call<DeliverRequestResponse> createnewRequest(@Body DeliveryItem deliveryItem);
 
     @FormUrlEncoded
     @POST(ServerEndpoints.sign_in)
@@ -79,8 +69,7 @@ public interface ServicesInterface {
 
     @FormUrlEncoded
     @POST(ServerEndpoints.resent_pin)
-    Call<MessageResponse> resentPin(@Field("hidden_phone") String phone,
-                                    @Field("hidden_password") String password);
+    Call<MessageResponse> resentPin(@Field("hidden_phone") String phone);
     @POST(ServerEndpoints.order_create)
-    Call<Object> placeOrder(@Body OrderCreate orderCreate);
+    Call<OrderResponse> placeOrder(@Body OrderCreate orderCreate);
 }

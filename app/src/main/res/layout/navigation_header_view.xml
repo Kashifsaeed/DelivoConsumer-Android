@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/dark_purple"
+    android:orientation="vertical"
+    android:elevation="@dimen/small_elevation"
+    android:padding="@dimen/large_margin"
+
+    >
+
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_profile_img"
+        android:id="@+id/circularImageView"
+        android:layout_marginTop="@dimen/large_margin"
+        android:layout_centerHorizontal="true"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        android:layout_below="@id/circularImageView"
+        android:layout_margin="@dimen/normal_margin"
+        android:padding="@dimen/large_padding">
+
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:text="Uzair Qureshi"
+            android:textAppearance="@android:style/TextAppearance.Large"
+            android:gravity="center"
+
+            />
+
+
+    </LinearLayout>
+
+</RelativeLayout>
+</layout>

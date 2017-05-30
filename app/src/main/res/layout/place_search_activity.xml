@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+
+        android:orientation="vertical">
+
+        <include
+            android:id="@+id/toolbar_main"
+            layout="@layout/toolbar" />
+
+
+        <EditText
+            android:id="@+id/searchaddress"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_below="@+id/toolbar_main"
+            android:layout_weight="25"
+            android:drawableRight="@drawable/places_ic_search"
+            android:elevation="5dp"
+            android:hint="Pick up address"
+            android:imeOptions="actionDone"
+            android:layout_margin="@dimen/medium_margin"
+            android:background="@drawable/input_fields_rounded"
+            android:textColor="@color/white"
+            android:textColorHint="@color/white"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/medium_padding"
+            android:drawablePadding="@dimen/medium_padding"
+            />
+
+        <FrameLayout
+            android:id="@+id/searchstatusframe"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/searchaddress"
+
+            >
+
+            <TextView
+                android:id="@+id/searchstatusText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="No Area found in Karachi"
+                android:visibility="gone" />
+
+        </FrameLayout>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/SearchList"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/searchstatusframe"
+          android:layout_marginLeft="@dimen/medium_margin"
+            android:layout_marginRight="@dimen/medium_margin">
+
+        </android.support.v7.widget.RecyclerView>
+
+
+    </RelativeLayout>
+</layout>

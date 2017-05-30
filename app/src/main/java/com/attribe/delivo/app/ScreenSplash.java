@@ -35,7 +35,7 @@ public class ScreenSplash extends Activity {
 
                 Intent i = null;
 
-                if (DevicePreferences.getInstance().getUser()!=null)
+                if (DevicePreferences.getInstance().getAuthKey()!=null)
 
                 {
                     i = new Intent(ScreenSplash.this, CustomPickLocation.class);

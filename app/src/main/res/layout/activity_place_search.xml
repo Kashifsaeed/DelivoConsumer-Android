@@ -5,7 +5,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
 
-        tools:context="com.attribe.delivo.app.PlaceSearch"
+        tools:context="com.attribe.delivo.app.screens.PlaceSearch"
 android:orientation="vertical">
     <include layout="@layout/toolbar"
     android:id="@+id/toolbar_main"/>

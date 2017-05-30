@@ -20,6 +20,7 @@
     <string name="success">Success</string>
     <string name="rider_detail_head">Here are your rider details</string>
     <string name="google_app_map_id">AIzaSyCGWoe8_S8QqeDm8OMUGSAp2atLfNU2QSY</string>
+    <string name="map_key">AIzaSyDuduWAYDUbloxpCR60XMmRWEwQ9MxDVSo</string>
     <string name="pick_address_empty">Please specify pick address</string>
     <string name="drop_address_empty">Please specify drop address</string>
     <string name="drawer_open">Drawer open</string>
@@ -43,12 +44,13 @@
 
 
     <string name="input_name_hint">User Name</string>
-    <string name="input_password_hint">User Password</string>
+    <string name="input_password_hint">Password</string>
     <string name="input_email_hint">User Email</string>
     <string name="input_phoneno_hint">User Phone No</string>
+    <string name="user_contact">Phone No</string>
     <string name="account_signup_label">Dont have an account So Please Sign Up</string>
     <string name="account_signup_confirmation_password">Confirm Your Password</string>
-    <string name="input_verify_pin">Enter Pin Code</string>
+    <string name="input_verify_pin">Enter Verification Code</string>
 
     <string name="input_pick_person_name">Pick Person Name</string>
     <string name="input_pick_person_number">Pick Person Number</string>
@@ -70,6 +72,7 @@
     <string name="account_login">LOGIN</string>
     <string name="account_signup">Sign Up</string>
     <string name="fb_login">FACEBOOK LOGIN</string>
+    <string name="already_signin">Already have an account ? Please SignIn</string>
 
 
 </resources>

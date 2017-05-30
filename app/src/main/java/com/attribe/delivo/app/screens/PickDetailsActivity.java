@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-import com.attribe.delivo.app.BaseActivity;
 import com.attribe.delivo.app.R;
 
 public class PickDetailsActivity extends BaseActivity {

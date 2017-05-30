@@ -6,11 +6,7 @@ import android.preference.PreferenceManager;
 
 import com.attribe.delivo.app.models.response.AuthenticationResponse;
 import com.google.gson.Gson;
-import com.attribe.delivo.app.models.NewOrder;
-import com.attribe.delivo.app.models.SignUpInfo;
-import com.attribe.delivo.app.models.User;
-import com.attribe.delivo.app.models.response.GenerateTokenResponse;
-import com.attribe.delivo.app.models.response.ResponseNewOrder;
+import com.attribe.delivo.app.models.request.SignUpInfo;
 
 /**
  * Created by Sabih Ahmed and Maaz on 09-Jun-16.
@@ -33,8 +29,6 @@ public class DevicePreferences {
     private static String authHeader = "Basic NDlhMmRiZTExN2E0NDdjZWFmYjhiOTZiNTIwMTE2ZTY6ZDYzODQ0YjU2MDE3NDI4NjlhODQwNzRhYWZmNGNiNjY=";
     private String KEY_AUTH_HEADER = "AuthenticationHeader";
 
-    NewOrder.SourceLocation sourceLocation;
-    NewOrder.DestinationLocation destinationLocation;
 
 
     public DevicePreferences init(Context context){
@@ -54,17 +48,7 @@ public class DevicePreferences {
         return instance;
     }
 
-    public String getHeader() {
 
-        //check in prefs which header flag has to be used and return that header
-
-        if(isAuthHeaderFlag()){
-            return authHeader ;
-        }
-        else{
-            return getInstance().getUserToken().getAccess_token();
-        }
-    }
 
     public void setAuthHeaderFlag(Boolean flag) {
         SharedPreferences.Editor editor = prefs.edit();
@@ -81,32 +65,23 @@ public class DevicePreferences {
     }
 
     public void setUser() {
-        SharedPreferences.Editor editor = prefs.edit();
-
-        Gson gson = new Gson();
-        String user = gson.toJson(User.getInstance());
-
-        editor.putString(KEY_USER,user);
-        editor.commit();
-    }
-    public void setdelivoUser(User user){
-        SharedPreferences.Editor editor = prefs.edit();
-
-        Gson gson = new Gson();
-        String muser = gson.toJson(user);
-
-        editor.putString(KEY_USER,muser);
-        editor.commit();
+//        SharedPreferences.Editor editor = prefs.edit();
+//
+//        Gson gson = new Gson();
+//        String user = gson.toJson(User.getInstance());
+//
+//        editor.putString(KEY_USER,user);
+//        editor.commit();
     }
 
-    public User getUser(){
-        Gson gson = new Gson();
-        String userString = prefs.getString(KEY_USER, "");
-
-        User user = gson.fromJson(userString, User.class);
-        return user;
-
-    }
+//    public User getUser(){
+//        Gson gson = new Gson();
+//        String userString = prefs.getString(KEY_USER, "");
+//
+//        User user = gson.fromJson(userString, User.class);
+//        return user;
+//
+//    }
 
     public void removeUser(Context context){
         SharedPreferences mySPrefs = PreferenceManager.getDefaultSharedPreferences(context);
@@ -115,78 +90,29 @@ public class DevicePreferences {
         editor.apply();
     }
 
-    public void setUserToken(GenerateTokenResponse response) {
 
-        header = "bearer " + response.access_token;
-        SharedPreferences.Editor editor = prefs.edit();
-        Gson gson = new Gson();
-        String token = gson.toJson(response);
-        editor.putString(KEY_TOKEN,token);
-        editor.commit();
-    }
 
-    public GenerateTokenResponse getUserToken(){
-        Gson gson = new Gson();
-        String userToken = prefs.getString(KEY_TOKEN, null);
-        GenerateTokenResponse token = gson.fromJson(userToken, GenerateTokenResponse.class);
-        return token;
-    }
 
-    public void setOrder(NewOrder newOrder) {
-        SharedPreferences.Editor editor = prefs.edit();
-        Gson gson = new Gson();
-        String order = gson.toJson(newOrder);
-        editor.putString(KEY_NEW_ORDER,order);
-        editor.commit();
-    }
 
-    public NewOrder getOrder(){
-        Gson gson = new Gson();
-        String order = prefs.getString(KEY_NEW_ORDER, null);
-        NewOrder newOrder = gson.fromJson(order, NewOrder.class);
-        return newOrder;
-
-    }
 
     public void setSourceLocationObject(double latitude, double longitude, String address){
 
         String sLatitude = String.valueOf(latitude);
         String sLongitude = String.valueOf(longitude);
-        sourceLocation = new NewOrder().new SourceLocation(sLatitude,sLongitude,address);
+       // sourceLocation = new NewOrder().new SourceLocation(sLatitude,sLongitude,address);
     }
 
-    public NewOrder.SourceLocation getSourceLocationObject(){
-        return sourceLocation;
-    }
 
     public void setDestinationLocationObject(double latitude, double longitude, String address){
 
         String dLatitude = String.valueOf(latitude);
         String dLongitude = String.valueOf(longitude);
-        destinationLocation = new NewOrder().new DestinationLocation(dLatitude, dLongitude, address);
-    }
-
-    public NewOrder.DestinationLocation getDestinationLocationObject(){
-        return destinationLocation;
-    }
-
-    public void setNewOrderResponse(ResponseNewOrder body){
-
-        SharedPreferences.Editor editor = prefs.edit();
-        Gson gson = new Gson();
-        String body_response = gson.toJson(body);
-        editor.putString(KEY_NEW_ORDER_RESPONSE,body_response);
-        editor.commit();
+     //   destinationLocation = new NewOrder().new DestinationLocation(dLatitude, dLongitude, address);
     }
 
 
-    public ResponseNewOrder getResponseNewOrder(){
 
-        Gson gson = new Gson();
-        String body_response = prefs.getString(KEY_NEW_ORDER_RESPONSE, null);
-        ResponseNewOrder newOrderResponse = gson.fromJson(body_response, ResponseNewOrder.class);
-        return newOrderResponse;
-    }
+
     public void setSignUpInfo(SignUpInfo userinfo)
     {
         SharedPreferences.Editor editor = prefs.edit();

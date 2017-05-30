@@ -1,7 +1,6 @@
 package com.attribe.delivo.app.network;
 
 import com.attribe.delivo.app.Extras.AppConstants;
-import com.attribe.delivo.app.network.interfaces.GoogleApiInterface;
 import com.attribe.delivo.app.utils.DevicePreferences;
 
 import okhttp3.Interceptor;

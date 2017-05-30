@@ -1,5 +1,7 @@
 package com.attribe.delivo.app.fragments;
 
+import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.net.Uri;
@@ -9,13 +11,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.TimePicker;
 
 import com.attribe.delivo.app.R;
 import com.attribe.delivo.app.databinding.DropDetailFragmentBinding;
 import com.attribe.delivo.app.databinding.DropDetailsFragmentBinding;
 
+import java.util.Calendar;
 import java.util.Date;
 
 /**
@@ -72,6 +77,18 @@ public class DropDetailFragment extends Fragment {
         drop_time=vBinding.dropTime;
         drop_date=vBinding.dropDate;
         dropdetailbtn=vBinding.addDropdetailsBtn;
+        drop_time.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setDropTime();
+            }
+        });
+        drop_date.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setDropDate();
+            }
+        });
 
     }
 //=============================================Helper Methods =======================================================//
@@ -122,6 +139,47 @@ public class DropDetailFragment extends Fragment {
     }
 
 
+    private void setDropTime() {
+        // TODO Auto-generated method stub
+        Calendar mcurrentTime = Calendar.getInstance();
+        int hour = mcurrentTime.get(Calendar.HOUR);
+        int minute = mcurrentTime.get(Calendar.MINUTE);
+        TimePickerDialog mTimePicker = new TimePickerDialog(getContext(), new TimePickerDialog.OnTimeSetListener() {
+            @Override
+            public void onTimeSet(TimePicker timePicker, int i, int i1) {
+
+                String select_time = timePicker.getHour() + "" + ":" + timePicker.getMinute();
+               // pick_time_edittxt.setText("" + select_time);
+                drop_time.setText(select_time);
+
+
+            }
+        }
+                , hour, minute, true);
+        mTimePicker.setTitle("Select Time");
+
+        mTimePicker.show();
+
+    }
+    private void setDropDate()
+    {
+        Calendar mcurrentTime = Calendar.getInstance();
+        int year = mcurrentTime.get(Calendar.YEAR);
+        int month = mcurrentTime.get(Calendar.MONTH);
+        int date=mcurrentTime.get(Calendar.DATE);
+        DatePickerDialog mDatePickerDialog=new DatePickerDialog(getContext(), new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
+                String date= String.valueOf(datePicker.getYear()+"/"+datePicker.getMonth()+"/"+datePicker.getDayOfMonth());
+               //pick_date_edittxt.setText(date);
+                drop_date.setText(date);
+
+            }
+        },year,month,date);
+        mDatePickerDialog.setTitle("Select Date");
+        mDatePickerDialog.show();
+
+    }
 
 
 

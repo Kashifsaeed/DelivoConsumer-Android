@@ -8,7 +8,7 @@ import com.attribe.delivo.app.fragments.DropLocationFragment;
 import com.attribe.delivo.app.fragments.PickDetailsFragment;
 import com.attribe.delivo.app.fragments.DropDetailFragment;
 import com.attribe.delivo.app.fragments.PickLocationFragment;
-import com.attribe.delivo.app.teststeplayout.MainStepActivity;
+import com.attribe.delivo.app.screens.OrderContainerActivity;
 
 /**
  * Author: Uzair Qureshi
@@ -18,8 +18,8 @@ import com.attribe.delivo.app.teststeplayout.MainStepActivity;
 
 public class PagerAdapter extends FragmentPagerAdapter
 {
-    private MainStepActivity activity;
-    public PagerAdapter(FragmentManager fm, MainStepActivity activity) {
+    private OrderContainerActivity activity;
+    public PagerAdapter(FragmentManager fm, OrderContainerActivity activity) {
         super(fm);
         this.activity=activity;
     }

@@ -7,5 +7,5 @@ package com.attribe.delivo.app.interfaces;
  */
 
 public interface OnNextPageNavigation {
-    void onPage(int position);
+    void onPageChange(int position);
 }

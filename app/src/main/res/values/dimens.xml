@@ -21,5 +21,6 @@
     <dimen name="medium_padding">15dp</dimen>
     <dimen name="large_padding">20dp</dimen>
     <dimen name="small_padding">3dp</dimen>
+    <dimen name="small_elevation">3dp</dimen>
 
 </resources>

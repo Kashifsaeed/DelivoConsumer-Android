@@ -2,8 +2,6 @@ package com.attribe.delivo.app.network;
 
 import android.util.Log;
 
-import com.attribe.delivo.app.models.User;
-import com.attribe.delivo.app.models.response.GenerateTokenResponse;
 import okhttp3.Request;
 import okhttp3.Response;
 import okhttp3.Route;
@@ -35,24 +33,24 @@ public class RestAuthenticator implements okhttp3.Authenticator {
 
     private String getRefreshtoken(){
 
-
-        RestClient.getAuthAdapter().refresh("refresh_token",User.getInstance().getData().getUsername()
-                ,User.getInstance().getUserToken().refresh_token,"read write").enqueue(new Callback<GenerateTokenResponse>() {
-
-            @Override
-            public void onResponse(Call<GenerateTokenResponse> call, retrofit2.Response<GenerateTokenResponse> response) {
-                if(response.isSuccessful()){
-                    Log.e(TAG, "onResponse: "+response.message());
-                    User.getInstance().setUserToken(response.body());
-                    refreshToken= User.getInstance().getUserToken().getAccess_token();  // DevicePreferences.getInstance().getUser().getResponse().getAccess_token();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<GenerateTokenResponse> call, Throwable t) {
-                Log.e(TAG, "onFailure: "+ t.getLocalizedMessage() );
-            }
-        });
+//
+//        RestClient.getAuthAdapter().refresh("refresh_token",User.getInstance().getData().getUsername()
+//                ,User.getInstance().getUserToken().refresh_token,"read write").enqueue(new Callback<GenerateTokenResponse>() {
+//
+//            @Override
+//            public void onResponse(Call<GenerateTokenResponse> call, retrofit2.Response<GenerateTokenResponse> response) {
+//                if(response.isSuccessful()){
+//                    Log.e(TAG, "onResponse: "+response.message());
+//                    User.getInstance().setUserToken(response.body());
+//                    refreshToken= User.getInstance().getUserToken().getAccess_token();  // DevicePreferences.getInstance().getUser().getResponse().getAccess_token();
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<GenerateTokenResponse> call, Throwable t) {
+//                Log.e(TAG, "onFailure: "+ t.getLocalizedMessage() );
+//            }
+//        });
         return refreshToken;
     }
 }

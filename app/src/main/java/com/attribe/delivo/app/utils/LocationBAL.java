@@ -7,6 +7,7 @@ import android.location.Location;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 
+import com.attribe.delivo.app.interfaces.onDialogeListner;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationRequest;
@@ -56,7 +57,17 @@ public class LocationBAL implements GoogleApiClient.ConnectionCallbacks, GoogleA
             // can't get location
             // GPS or Network is not enabled
             // Ask user to enable GPS/network in settings
-            gps.showSettingsAlert();
+            gps.showSettingsAlert(new onDialogeListner() {
+                @Override
+                public void onYes() {
+
+                }
+
+                @Override
+                public void onCacle() {
+
+                }
+            });
         }
 
     }

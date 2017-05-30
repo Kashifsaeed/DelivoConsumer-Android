@@ -11,9 +11,10 @@ import com.attribe.delivo.app.R;
 import com.attribe.delivo.app.databinding.SignupScreenActivityBinding;
 
 import com.attribe.delivo.app.dialouge.AlertDialouge;
+import com.attribe.delivo.app.models.response.ErrorBody;
 import com.attribe.delivo.app.models.response.SignUpResponse;
-import com.attribe.delivo.app.network.bals.UserAutenticationBAL;
-import com.attribe.delivo.app.network.interfaces.ResponseCallback;
+import com.attribe.delivo.app.bals.UserAutenticationBAL;
+import com.attribe.delivo.app.interfaces.ResponseCallback;
 import com.attribe.delivo.app.utils.ValidationUtills;
 
 public class SignUpScreen extends AppCompatActivity {
@@ -32,6 +33,7 @@ public class SignUpScreen extends AppCompatActivity {
 private void setEventListners()
 {
     binding.signupBtn.setOnClickListener(new SignUpListner());
+    binding.alreadySignUp.setOnClickListener(new AleadySignUpListner());
 
 }
     private void showProgress(String message)
@@ -102,11 +104,11 @@ private void setEventListners()
             }
 
             @Override
-            public void OnResponseFailure(String error_body)
+            public void OnResponseFailure(ErrorBody error_body)
             {
                 hideProgress();
               //  Toast.makeText(getApplicationContext(),""+error_body,Toast.LENGTH_SHORT).show();
-                AlertDialouge.showDialoge(SignUpScreen.this,error_body);
+                AlertDialouge.showDialoge(SignUpScreen.this,error_body.getError_msg());
             }
 
 
@@ -127,17 +129,24 @@ private void setEventListners()
 
         {
             if(isValidate(binding.signupUserName.getText().toString().trim(),
-                    binding.signupUserPhone.getText().toString().trim(),binding.signupEmailAddress.getText().toString().trim(),
+                   "92"+ binding.signupUserPhone.getText().toString().trim(),binding.signupEmailAddress.getText().toString().trim(),
                     binding.signupUserPassword.getText().toString().trim(),
                     binding.signupUserConfirmpassword.getText().toString().trim()))
             {
                 userSignUp(binding.signupUserName.getText().toString().trim(),
                         binding.signupEmailAddress.getText().toString().trim(),
-                        binding.signupUserPhone.getText().toString().trim(),
+                        "92"+binding.signupUserPhone.getText().toString().trim(),
                         binding.signupUserPassword.getText().toString().trim(),
                         binding.signupUserConfirmpassword.getText().toString().trim());
             }
 
+        }
+    }
+
+    private class AleadySignUpListner implements View.OnClickListener {
+        @Override
+        public void onClick(View view) {
+            finish();
         }
     }
 }

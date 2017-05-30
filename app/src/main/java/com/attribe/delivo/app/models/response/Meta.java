@@ -1,54 +1,40 @@
 package com.attribe.delivo.app.models.response;
 
-import java.io.Serializable;
-
 /**
- * Created by Sabih Ahmed on 14-Jun-16.
+ * Author: Uzair Qureshi
+ * Date:  5/24/17.
+ * Description:
  */
-public class Meta implements Serializable{
 
-    private Boolean success;
-    private Object apiDeprecated;
-    private Object message;
-    private Integer code;
+public class Meta {
+    public boolean success;
+    public Integer status;
+    public String message;
 
-    public Meta(Boolean success, Object apiDeprecated, Object message, Integer code) {
-        this.success = success;
-        this.apiDeprecated = apiDeprecated;
-        this.message = message;
-        this.code = code;
-    }
-
-    public Boolean getSuccess() {
-        return success;
-    }
-
-    public void setSuccess(Boolean success) {
-        this.success = success;
-    }
-
-    public Object getApiDeprecated() {
-        return apiDeprecated;
-    }
-
-    public void setApiDeprecated(Object apiDeprecated) {
-        this.apiDeprecated = apiDeprecated;
-    }
-
-    public Object getMessage() {
+    public String getMessage() {
         return message;
     }
 
-    public void setMessage(Object message) {
+    public void setMessage(String message) {
         this.message = message;
     }
 
-    public Integer getCode() {
-        return code;
+    public Integer getStatus() {
+        return status;
     }
 
-    public void setCode(Integer code) {
-        this.code = code;
+    public void setStatus(Integer status) {
+        this.status = status;
     }
+
+    public boolean getSuccess() {
+        return success;
+    }
+
+    public void setSuccess(boolean success) {
+        this.success = success;
+    }
+
+
 
 }

@@ -27,8 +27,8 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.5"
+                android:layout_height="0dp"
+                android:layout_weight="0.35"
                 android:gravity="center"
                 android:orientation="horizontal"
                 android:weightSum="2"
@@ -76,8 +76,8 @@
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.5">
+                android:layout_height="0dp"
+                android:layout_weight="0.35">
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -102,11 +102,11 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.1"
+                android:layout_height="0dp"
+                android:layout_weight="0.4"
                 android:weightSum="2"
                 android:orientation="horizontal"
-               android:layout_marginLeft="@dimen/large_margin"
+                android:layout_marginLeft="@dimen/large_margin"
                 android:layout_marginRight="@dimen/normal_margin">
 
                 <TextView
@@ -127,16 +127,16 @@
                     android:backgroundTint="@color/dark_purple"
                     android:textColorHint="@color/theme_orange"
                     android:textColor="@color/theme_orange"
-                    android:inputType="time"
-                    android:clickable="true"
+                    android:focusableInTouchMode="false"
+
                    />
 
             </LinearLayout>
             <!---->
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.1"
+                android:layout_height="0dp"
+                android:layout_weight="0.4"
                 android:weightSum="2"
                 android:orientation="horizontal"
                 android:layout_marginLeft="@dimen/large_margin"
@@ -162,14 +162,12 @@
                     android:backgroundTint="@color/dark_purple"
                     android:textColor="@color/theme_orange"
                     android:textColorHint="@color/theme_orange"
-                    android:inputType="date"
-
+                    android:focusableInTouchMode="false"
                     />
-
             </LinearLayout>
             <EditText
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
                 android:layout_weight="0.6"
                 android:inputType="textMultiLine"
                 android:textColor="@color/white"
@@ -183,21 +181,27 @@
                 android:layout_marginRight="@dimen/normal_margin"
                 android:layout_marginLeft="@dimen/normal_margin"
                 android:id="@+id/pick_description"
-                android:layout_marginBottom="@dimen/normal_margin"
+
 
 
                 />
             <Button
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
                 android:id="@+id/add_pickdetails_btn"
                 android:textColor="@color/white"
-                android:gravity="center"
+                android:gravity="center_vertical|center"
                 android:text="Add Pick Details"
-                android:background="@color/theme_orange"
+                android:background="@drawable/orange_rounded_btn"
+                android:layout_weight="0.4"
+                android:layout_margin="@dimen/normal_margin"
 
 
                 />
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.5"></FrameLayout>
             <!--android:layout_margin="@dimen/normal_margin"-->
             <!--android:layout_weight="0.1"-->
 

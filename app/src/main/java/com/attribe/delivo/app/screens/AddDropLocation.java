@@ -26,8 +26,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.attribe.delivo.app.BaseActivity;
-import com.attribe.delivo.app.PlaceSearch;
 import com.attribe.delivo.app.R;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;

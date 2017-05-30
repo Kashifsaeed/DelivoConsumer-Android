@@ -1,6 +1,5 @@
 package com.attribe.delivo.app.fragments;
 
-import com.attribe.delivo.app.adapters.MyOrdersAdapter;
 import android.app.Fragment;
 import android.os.Bundle;
 import android.os.StrictMode;
@@ -11,7 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 import com.attribe.delivo.app.R;
-import com.attribe.delivo.app.models.response.ConsumerOrders;
 import com.attribe.delivo.app.network.RestClient;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -24,7 +22,7 @@ public class MyOrders extends Fragment {
 
     private View view;
     private RecyclerView recyclerView;
-    private MyOrdersAdapter myordersAdapter;
+   // private MyOrdersAdapter myordersAdapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -50,22 +48,22 @@ public class MyOrders extends Fragment {
 
     private void getAllOrders() {
 
-        RestClient.getAuthRestAdapter().getUserOrders().enqueue(new Callback<ConsumerOrders>() {
-            @Override
-            public void onResponse(Call<ConsumerOrders> call, Response<ConsumerOrders> response) {
-                if(response.body() != null){
-                    myordersAdapter = new MyOrdersAdapter(getActivity().getApplicationContext(),response.body().getData());
-                    RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
-                    recyclerView.setLayoutManager(mLayoutManager);
-//                    recyclerView.setItemAnimator(new DefaultItemAnimator());
-                    recyclerView.setAdapter(myordersAdapter);
-                }
-            }
-
-            @Override
-            public void onFailure(Call<ConsumerOrders> call, Throwable t) {
-                Toast.makeText(getActivity(),""+t.toString(),Toast.LENGTH_SHORT).show();
-            }
-        });
+//        RestClient.getAuthRestAdapter().getUserOrders().enqueue(new Callback<ConsumerOrders>() {
+//            @Override
+//            public void onResponse(Call<ConsumerOrders> call, Response<ConsumerOrders> response) {
+//                if(response.body() != null){
+//                    myordersAdapter = new MyOrdersAdapter(getActivity().getApplicationContext(),response.body().getData());
+//                    RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
+//                    recyclerView.setLayoutManager(mLayoutManager);
+////                    recyclerView.setItemAnimator(new DefaultItemAnimator());
+//                    recyclerView.setAdapter(myordersAdapter);
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<ConsumerOrders> call, Throwable t) {
+//                Toast.makeText(getActivity(),""+t.toString(),Toast.LENGTH_SHORT).show();
+//            }
+//        });
     }
 }

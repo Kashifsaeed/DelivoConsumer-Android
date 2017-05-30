@@ -19,8 +19,6 @@ import com.attribe.delivo.app.R;
 import com.attribe.delivo.app.databinding.PickDetailsFragmentBinding;
 import com.attribe.delivo.app.interfaces.OnNextPageNavigation;
 
-import java.text.DateFormat;
-import java.text.ParseException;
 import java.util.Calendar;
 
 /**
@@ -28,7 +26,7 @@ import java.util.Calendar;
  * Activities that contain this fragment must implement the
  * to handle interaction events.
  */
-public class PickDetailsFragment extends Fragment implements View.OnClickListener {
+public class PickDetailsFragment extends Fragment{
     PickDetailsFragmentBinding vBinding;
    // Calendar dateSelected = Calendar.getInstance();
     private EditText pickpersonname_edittxt,
@@ -59,12 +57,22 @@ public class PickDetailsFragment extends Fragment implements View.OnClickListene
     //=============================================Initialize Views =======================================================//
     private void initViews() {
         getReference();
-        //((MainStepActivity) getActivity()).mToolbar.setTitle("" + "Pick Details");
+        //((OrderContainerActivity) getActivity()).mToolbar.setTitle("" + "Pick Details");
 
 
         add_pickdetails_btn.setOnClickListener(new onAddPickDetailsListner());
-        pick_time_edittxt.setOnClickListener(this);
-        pick_date_edittxt.setOnClickListener(this);
+        pick_time_edittxt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setPickTime();
+            }
+        });
+        pick_date_edittxt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setDate();
+            }
+        });
 
     }
 
@@ -76,6 +84,8 @@ public class PickDetailsFragment extends Fragment implements View.OnClickListene
         pick_time_edittxt = vBinding.pickTime;
         pick_date_edittxt = vBinding.pickDate;
         add_pickdetails_btn = vBinding.addPickdetailsBtn;
+//
+
 
     }
     //=============================================Helper Methods =======================================================//
@@ -121,18 +131,40 @@ public class PickDetailsFragment extends Fragment implements View.OnClickListene
     private void setPickTime() {
         // TODO Auto-generated method stub
         Calendar mcurrentTime = Calendar.getInstance();
-        int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
+        int hour = mcurrentTime.get(Calendar.HOUR);
         int minute = mcurrentTime.get(Calendar.MINUTE);
-        TimePickerDialog mTimePicker;
-        mTimePicker = new TimePickerDialog(getContext(), new TimePickerDialog.OnTimeSetListener() {
+
+        TimePickerDialog mTimePicker = new TimePickerDialog(getContext(), new TimePickerDialog.OnTimeSetListener() {
             @Override
-            public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
-                pick_time_edittxt.setText(selectedHour + ":" + selectedMinute);
+            public void onTimeSet(TimePicker timePicker, int i, int i1) {
+
+                String select_time = timePicker.getHour() + "" + ":" + timePicker.getMinute();
+                pick_time_edittxt.setText("" + select_time);
+
+
             }
-        }, hour, minute, true);//Yes 24 hour time
+        }
+                , hour, minute, true);
         mTimePicker.setTitle("Select Time");
         mTimePicker.show();
 
+    }
+    private void setDate(){
+        Calendar mcurrentTime = Calendar.getInstance();
+        int year = mcurrentTime.get(Calendar.YEAR);
+        int month = mcurrentTime.get(Calendar.MONTH);
+        int date=mcurrentTime.get(Calendar.DATE);
+       DatePickerDialog mDatePickerDialog=new DatePickerDialog(getContext(), new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
+                String select_date = datePicker.getYear() + "/"  + datePicker.getMonth()+"/"+datePicker.getDayOfMonth();
+                pick_date_edittxt.setText("" + select_date);
+
+
+            }
+        },year,month,date);
+        mDatePickerDialog.setTitle("Select Date");
+        mDatePickerDialog.show();
 
     }
 
@@ -172,22 +204,23 @@ public class PickDetailsFragment extends Fragment implements View.OnClickListene
         super.onStart();
     }
 
-    @Override
-    public void onClick(View view) {
-        int itemId = view.getId();
 
-        switch (itemId) {
-
-            case R.id.pick_time:
-                // setPickTime();
-                break;
-            case R.id.pick_date:
-                //setPickTime();
-                break;
-            default:
-                break;
-        }
-    }
+//    @Override
+//    public void onClick(View view) {
+//        int itemId = view.getId();
+//
+//        switch (itemId) {
+//
+//            case R.id.pick_time:
+//                 setPickTime();
+//                break;
+//            case R.id.pick_date:
+//                //setPickTime();
+//                break;
+//            default:
+//                break;
+//        }
+//    }
 
     /**
      * This interface must be implemented by activities that contain this
@@ -218,7 +251,7 @@ public class PickDetailsFragment extends Fragment implements View.OnClickListene
                         pick_time_edittxt.getText().toString(), pick_date_edittxt.getText().toString(),
                         pick_desc_edittxt.getText().toString());
 
-                       onNextPageNavigation.onPage(2);
+                       onNextPageNavigation.onPageChange(2);
 
             }
 

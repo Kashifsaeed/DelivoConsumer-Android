@@ -28,6 +28,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.*;
 
 
+import com.attribe.delivo.app.utils.NavigationUtils;
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
 import com.google.android.gms.location.places.AutocompleteFilter;
@@ -38,8 +39,6 @@ import com.google.android.gms.maps.model.*;
 import com.attribe.delivo.app.fragments.CallUs;
 import com.attribe.delivo.app.fragments.MyOrders;
 import com.attribe.delivo.app.fragments.Settings;
-import com.attribe.delivo.app.fragments.UserAuthentication;
-import com.attribe.delivo.app.models.User;
 import com.attribe.delivo.app.utils.CustomEditText;
 import com.attribe.delivo.app.utils.DevicePreferences;
 
@@ -97,7 +96,7 @@ public class PicknDropLocations extends AppCompatActivity implements OnMapReadyC
         // setContentView(R.layout.activity_pickn_drop_locations);
         setContentView(R.layout.pickaddress_activity);
 
-        User.getInstance(DevicePreferences.getInstance().init(this).getUser());
+        //User.getInstance(DevicePreferences.getInstance().init(this).getUser());
 
         initViews(savedInstanceState);
         currentLocationCameraZoom(this);
@@ -675,13 +674,13 @@ public class PicknDropLocations extends AppCompatActivity implements OnMapReadyC
                     break;
 
                 case 4:
-                    UserAuthentication userAuthentication = new UserAuthentication();
-                    fragmentManager = getFragmentManager();
-                    DevicePreferences.getInstance().removeUser(PicknDropLocations.this);
-                    mapLayout.setVisibility(LinearLayout.GONE);
-                    fragmentManager.beginTransaction().replace(R.id.fragments_container, userAuthentication).commit();
-                    setDrawerclosed();
-                    break;
+//                    UserAuthentication userAuthentication = new UserAuthentication();
+//                    fragmentManager = getFragmentManager();
+//                    DevicePreferences.getInstance().removeUser(PicknDropLocations.this);
+//                    mapLayout.setVisibility(LinearLayout.GONE);
+//                    fragmentManager.beginTransaction().replace(R.id.fragments_container, userAuthentication).commit();
+//                    setDrawerclosed();
+//                    break;
 
                 default:
                     Toast.makeText(getApplicationContext(), "Sorry.... wrong choice!", Toast.LENGTH_LONG).show();

@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -34,13 +35,13 @@ public class GoogleSearchesAdapter extends RecyclerView.Adapter<GoogleSearchesAd
     public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         public TextView placesView,formatedaddress;
-        public RelativeLayout rowItemlayout;
+        public LinearLayout rowItemlayout;
 
         public MyViewHolder(View view) {
             super(view);
 
 //            orderItemCount = (TextView) view.findViewById(R.id.orderCount);
-            rowItemlayout= (RelativeLayout) view.findViewById(R.id.rowLayout);
+            rowItemlayout= (LinearLayout) view.findViewById(R.id.rowLayout);
             placesView = (TextView) view.findViewById(R.id.placesView);
             formatedaddress = (TextView) view.findViewById(R.id.formatedadress);
 

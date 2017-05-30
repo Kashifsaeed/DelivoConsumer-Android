@@ -1,56 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-                android:elevation="1dp"
->
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:elevation="1dp"
+    android:orientation="vertical">
 
-   <!--Main Row layout-->
-    <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="10dp"
-            android:id="@+id/rowLayout"
-    >
+    <!--Main Row layout-->
+    <LinearLayout
+        android:id="@+id/rowLayout"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:orientation="horizontal"
+        android:padding="10dp"
+        android:weightSum="2"
+
+        >
 
 
         <TextView
-                android:id="@+id/placesView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="NaganChowrangi"
-                android:textStyle="bold"
-                android:gravity="top"
-                android:layout_margin="5dp"/>
-        <!--android:textSize="18sp"-->
-        <!--formatted address-->
-        <!--<TextView-->
-                <!--android:layout_below="@+id/placesView"-->
-                <!--android:id="@+id/formatedadress"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:text="NaganChowrangi"-->
+            android:id="@+id/placesView"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
 
-                <!--android:layout_margin="5dp"-->
-        <!--android:gravity="top"/>-->
-        <TextView android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:layout_alignParentRight="true"
-                  android:gravity="center"
-                 android:background="@drawable/ic_marker"
-                  android:clickable="false"
-                  android:layout_alignTop="@id/placesView"/>
-        <View android:layout_width="match_parent"
-              android:layout_height="0.5dp"
-              android:background="@color/cardview_dark_background"
-              android:layout_below="@+id/formatedadress"
+            android:layout_weight="1.8"
+
+            android:gravity="center_vertical"
+            android:maxLines="2"
+            android:text="Nagan chowrangi"
+            android:textStyle="bold" />
+        <!--android:layout_margin="5dp"-->
+
+        <TextView
+            android:id="@+id/formatedadress"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_margin="@dimen/small_margin"
+            android:layout_weight="0.2"
+
+            android:background="@drawable/map_marker"
+            android:clickable="false"
+            android:gravity="center_vertical" />
+
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_below="@+id/rowLayout"
+        android:background="@color/cardview_dark_background"
 
         />
-
-
-
-    </RelativeLayout>
 
 </RelativeLayout>

@@ -2,6 +2,7 @@ package com.attribe.delivo.app.fragments;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.databinding.DataBindingUtil;
@@ -14,13 +15,21 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.attribe.delivo.app.R;
-import com.attribe.delivo.app.databinding.StepThreeFragmentBinding;
+import com.attribe.delivo.app.databinding.DropLocationFragmentBinding;
 import com.attribe.delivo.app.interfaces.OnNextPageNavigation;
+import com.attribe.delivo.app.interfaces.onDialogeListner;
+import com.attribe.delivo.app.models.response.PlaceDetailsResponse;
+import com.attribe.delivo.app.screens.OrderContainerActivity;
+import com.attribe.delivo.app.screens.PlaceSearchActivity;
+import com.attribe.delivo.app.utils.LocationTracker;
 import com.attribe.delivo.app.utils.ReverseGeoLocationTask;
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -37,16 +46,18 @@ import static com.zl.reik.dilatingdotsprogressbar.DilatingDotsProgressBar.TAG;
  * {@link DropLocationFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
  */
-public class DropLocationFragment extends Fragment implements OnMapReadyCallback{
+public class DropLocationFragment extends Fragment implements OnMapReadyCallback {
 
+    public static final int DROP_RESULTSOK = 201;
+    DropLocationFragmentBinding viewBinding;
     private OnDropLocationFragmentInteractionListener mListener;
     private OnNextPageNavigation onNextPageNavigation;
-    StepThreeFragmentBinding viewBinding;
     private MapView mapView;
     private GoogleMap mMap;
     private LatLng cameradropLocation;
     private TextView droplocation_txtview;
     private Button addDropkloc_btn;
+    private ImageView search_icon;
 
 
     public DropLocationFragment() {
@@ -58,39 +69,41 @@ public class DropLocationFragment extends Fragment implements OnMapReadyCallback
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        viewBinding = DataBindingUtil.inflate(inflater, R.layout.step_three_fragment, container, false);
-         initViews(savedInstanceState);
+        viewBinding = DataBindingUtil.inflate(inflater, R.layout.drop_location_fragment, container, false);
+        initViews(savedInstanceState);
         return viewBinding.getRoot();
     }
     //================================================Views Initialization ==================================//
 
     private void getViewsRefernce() {
         mapView = viewBinding.mymapview;
-        droplocation_txtview=viewBinding.droplocname;
-        addDropkloc_btn=viewBinding.confirmDroplocationBtn;
+        droplocation_txtview = viewBinding.droplocname;
+        addDropkloc_btn = viewBinding.confirmDroplocationBtn;
+        search_icon = viewBinding.searchPlaces;
 
 
     }
 
     private void initViews(Bundle savedInstanceState) {
         getViewsRefernce();
-        if (savedInstanceState == null) {
+        //if (savedInstanceState != null) {
             mapView.onCreate(savedInstanceState);
-        }
+       // }
+
         mapView.getMapAsync(this);
-      addDropkloc_btn.setOnClickListener(new onDropLocationListner());
+        addDropkloc_btn.setOnClickListener(new onDropLocationListner());
+        search_icon.setOnClickListener(new PlaceSearchListner());
+
     }
 
     //===========================================Helper Methods===============================================//
-    private void setMapTheme(GoogleMap mMap)
-    {
+    private void setMapTheme(GoogleMap mMap) {
         try {
             // Customise the styling of the base map using a JSON object defined
             // in a raw resource file.
             boolean success = mMap.setMapStyle(
                     MapStyleOptions.loadRawResourceStyle(
                             getContext(), R.raw.map_style));
-
 
 
             if (!success) {
@@ -113,8 +126,10 @@ public class DropLocationFragment extends Fragment implements OnMapReadyCallback
 
     @Override
     public void onResume() {
-        super.onResume();
         mapView.onResume();
+        super.onResume();
+
+        //showLocationAlert();
 
     }
 
@@ -142,9 +157,8 @@ public class DropLocationFragment extends Fragment implements OnMapReadyCallback
         super.onAttach(context);
         try {
             mListener = (OnDropLocationFragmentInteractionListener) context;
-            onNextPageNavigation= (OnNextPageNavigation) context;
-        }
-        catch (ClassCastException e){
+            onNextPageNavigation = (OnNextPageNavigation) context;
+        } catch (ClassCastException e) {
             throw new RuntimeException(e.toString()
                     + " must implement OnFragmentInteractionListener");
         }
@@ -157,9 +171,11 @@ public class DropLocationFragment extends Fragment implements OnMapReadyCallback
     }
 
     @Override
-    public void onMapReady(GoogleMap googleMap) {
+    public void onMapReady(GoogleMap googleMap)
+    {
         mMap = googleMap;
-       // setMapTheme(mMap);
+        // setMapTheme(mMap);
+        getLocation();
         if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             // TODO: Consider calling
             //    ActivityCompat#requestPermissions
@@ -172,8 +188,22 @@ public class DropLocationFragment extends Fragment implements OnMapReadyCallback
         }
         mMap.setMyLocationEnabled(true);
         //re-positioning the location button
-        if (mapView != null &&
-                mapView.findViewById(Integer.parseInt("1")) != null) {
+        setLocationButton(mapView);
+        mMap.setOnCameraIdleListener(new OnCameraStopListner());//when camera stops
+
+
+    }
+    private void getLocation()
+    {
+        LocationTracker tracker=new LocationTracker(getContext());
+        if(tracker.getLocation()!=null)
+        {
+            zoomlocation(new LatLng(tracker.getLocation().getLatitude(),tracker.getLocation().getLongitude()));
+        }
+    }
+
+    private void setLocationButton(MapView mapView) {
+        if (mapView != null && mapView.findViewById(Integer.parseInt("1")) != null) {
             // Get the button view
             View locationButton = ((View) mapView.findViewById(Integer.parseInt("1")).getParent()).findViewById(Integer.parseInt("2"));
             // and next place it, on bottom right (as Google Maps app)
@@ -185,11 +215,47 @@ public class DropLocationFragment extends Fragment implements OnMapReadyCallback
             layoutParams.setMargins(0, 0, 30, 400);//left top right bottom
         }
 
-        //mMap.setOnCameraMoveListener(new OnCameraMovingListner());
-        mMap.setOnCameraIdleListener(new OnCameraStopListner());//when camera stops
-
 
     }
+    private void showLocationAlert(){
+        LocationTracker tracker=new LocationTracker(getActivity());
+        if(!tracker.canGetLocation())
+        {
+            tracker.showSettingsAlert(new onDialogeListner() {
+                @Override
+                public void onYes() {
+                 getLocation();
+                }
+
+                @Override
+                public void onCacle() {
+
+                }
+            });
+
+        }
+    }
+
+    private void passIntent(String picklocation) {
+        Intent intent = new Intent(getActivity(), PlaceSearchActivity.class);
+        intent.putExtra("Query", picklocation);
+        intent.putExtra("Flag", false);
+        startActivityForResult(intent, DROP_RESULTSOK);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == DROP_RESULTSOK && data != null) {
+            PlaceDetailsResponse.Result place = (PlaceDetailsResponse.Result) data.getSerializableExtra("SearchPlace");
+            LatLng latLng=new LatLng(place.getGeometry().getLocation().getLat(),place.getGeometry().getLocation().getLng());
+            zoomlocation(latLng);
+            droplocation_txtview.setText(""+place.getFormatted_address());
+
+
+        }
+    }
+    //========================================= Local Listners ================================================================//
 
     /**
      * This interface must be implemented by activities that contain this
@@ -205,12 +271,11 @@ public class DropLocationFragment extends Fragment implements OnMapReadyCallback
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
-    public interface OnDropLocationFragmentInteractionListener
-    {
+
+    public interface OnDropLocationFragmentInteractionListener {
         void onDropLocationFragmentInteraction(String droplocation_name);
 
     }
-    //========================================= Local Listners ================================================================//
 
     /**
      * This class will calling the geocoder when camera stops at certain position
@@ -233,17 +298,31 @@ public class DropLocationFragment extends Fragment implements OnMapReadyCallback
 
         }
     }
+    private void zoomlocation(LatLng mlocation) {
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(mlocation.latitude, mlocation.longitude), 16));
+
+
+    }
 
     private class onDropLocationListner implements View.OnClickListener {
         @Override
-        public void onClick(View view)
-        {
-            if(!droplocation_txtview.getText().toString().equals(""))
-            {
+        public void onClick(View view) {
+            if (!droplocation_txtview.getText().toString().equals("")) {
                 mListener.onDropLocationFragmentInteraction(droplocation_txtview.getText().toString());
-                onNextPageNavigation.onPage(3);
+                onNextPageNavigation.onPageChange(3);
             }
 
+
+        }
+    }
+
+    private class PlaceSearchListner implements View.OnClickListener {
+        @Override
+        public void onClick(View view) {
+            if(!droplocation_txtview.getText().toString().isEmpty())
+            {
+                passIntent(droplocation_txtview.getText().toString());
+            }
 
         }
     }
