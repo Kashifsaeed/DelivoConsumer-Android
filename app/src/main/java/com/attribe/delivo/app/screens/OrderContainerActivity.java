@@ -9,6 +9,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -18,6 +19,7 @@ import com.attribe.delivo.app.Extras.AppConstants;
 import com.attribe.delivo.app.R;
 
 import com.attribe.delivo.app.adapters.PagerAdapter;
+import com.attribe.delivo.app.databinding.NavigationHeaderViewBinding;
 import com.attribe.delivo.app.databinding.OrderContainerActivityBinding;
 import com.attribe.delivo.app.dialouge.AlertDialouge;
 import com.attribe.delivo.app.fragments.DropDetailFragment;
@@ -31,8 +33,11 @@ import com.attribe.delivo.app.models.request.OrderCreate;
 import com.attribe.delivo.app.models.request.Task;
 import com.attribe.delivo.app.bals.OrderBAL;
 import com.attribe.delivo.app.interfaces.ResponseCallback;
+import com.attribe.delivo.app.models.request.UpdateUserProfile;
 import com.attribe.delivo.app.models.response.ErrorBody;
 import com.attribe.delivo.app.models.response.OrderResponse;
+import com.attribe.delivo.app.models.response.UserProfile;
+import com.attribe.delivo.app.utils.DevicePreferences;
 import com.attribe.delivo.app.utils.LocationTracker;
 import com.attribe.delivo.app.utils.NavigationUtils;
 
@@ -60,8 +65,9 @@ public class OrderContainerActivity extends AppCompatActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        DevicePreferences.getInstance().init(OrderContainerActivity.this);
         databinding = DataBindingUtil.setContentView(OrderContainerActivity.this, R.layout.order_container_activity);//set root view
-        databinding.mainpager.setAdapter(new PagerAdapter(getSupportFragmentManager(), this));
+        databinding.mainpager.setAdapter(new PagerAdapter(getSupportFragmentManager(), OrderContainerActivity.this));
 
         initViews();
 
@@ -79,6 +85,17 @@ public class OrderContainerActivity extends AppCompatActivity implements
 
     private void setUpDrawer() {
         setupDrawerContent(databinding.nvView);
+        setUpDrawerHeader();
+
+
+    }
+
+    private void setUpDrawerHeader() {
+        NavigationHeaderViewBinding headerViewBinding=NavigationHeaderViewBinding.inflate(LayoutInflater.from(databinding.nvView.getContext()));
+        databinding.nvView.addHeaderView(headerViewBinding.getRoot());
+        headerViewBinding.name.setText(""+ DevicePreferences.getInstance().getUserProfile().getName());
+
+
 
     }
 
@@ -158,19 +175,23 @@ public class OrderContainerActivity extends AppCompatActivity implements
              switch (item.getItemId()) {
 
                  case R.id.nav_myorder_screen:
-                     NavigationUtils.navigateScreen(OrderContainerActivity.this, sampleActivity.class);
+                     NavigationUtils.navigateScreen(OrderContainerActivity.this, MyOrders.class);
                      break;
                  case R.id.nav_signout:
+                     UserProfile.getInstance().setLogin(false);
+                     DevicePreferences.getInstance().setUserProfile(UserProfile.getInstance());
                      Intent intent = new Intent(OrderContainerActivity.this,
                              LoginScreen.class);
-                    // intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                      startActivity(intent);
+                     finish();
 
 
 
                      break;
 
                  case R.id.nav_myprofile_screen:
+                     NavigationUtils.navigateScreen(OrderContainerActivity.this,MyProfile.class);
                      break;
 
                  default:
@@ -233,8 +254,10 @@ public class OrderContainerActivity extends AppCompatActivity implements
     }
 
     @Override
-    public void OnPickLocationFragmentInteraction(String picklocation) {
+    public void OnPickLocationFragmentInteraction(String picklocation,double lat,double lng) {
         pickupTask.setNearby(picklocation);
+        pickupTask.setLng((float) lng);
+        pickupTask.setLat((float) lat);
     }
 
     @Override
@@ -279,7 +302,7 @@ public class OrderContainerActivity extends AppCompatActivity implements
             @Override
             public void onSuccess(OrderResponse response) {
                 hideProgress();
-                AlertDialouge.showSuccess(OrderContainerActivity.this, "Your Order has been placed!", new onDialogeListner() {
+                AlertDialouge.showSuccess(OrderContainerActivity.this, response.getMeta().getMessage(), new onDialogeListner() {
                     @Override
                     public void onYes() {
                         NavigationUtils.navigateScreen(OrderContainerActivity.this,DeliveryOptionScreen.class);
@@ -312,8 +335,10 @@ public class OrderContainerActivity extends AppCompatActivity implements
     }
 
     @Override
-    public void onDropLocationFragmentInteraction(String droplocation_name) {
+    public void onDropLocationFragmentInteraction(String droplocation_name, double lat, double lng) {
         dropoffTask.setNearby(droplocation_name);
+        dropoffTask.setLng((float) lng);
+        dropoffTask.setLat((float) lat);
 
     }
 

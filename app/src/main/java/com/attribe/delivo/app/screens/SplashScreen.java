@@ -18,6 +18,7 @@ import android.widget.Toast;
 import com.attribe.delivo.app.Extras.AppConstants;
 import com.attribe.delivo.app.R;
 import com.attribe.delivo.app.interfaces.OnLocationPermmisionListner;
+import com.attribe.delivo.app.utils.DevicePreferences;
 import com.attribe.delivo.app.utils.LocationPermissionUtil;
 
 public class SplashScreen extends AppCompatActivity {
@@ -29,6 +30,7 @@ public class SplashScreen extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
+        DevicePreferences.getInstance().init(SplashScreen.this);
 
        LocationPermissionUtil.askForPermission( SplashScreen.this, new OnLocationPermmisionListner() {
            @Override
@@ -66,17 +68,14 @@ public class SplashScreen extends AppCompatActivity {
             public void run() {
 
 
+                Intent i;
+                if (isUserExist()) {
+                    i = new Intent(SplashScreen.this, DeliveryOptionScreen.class);
 
-//                if (isUserExist())
-//                {
-                   Intent i = new Intent(SplashScreen.this, LoginScreen.class);
+                } else {
 
-//                }
-//                else
-//                {
-
-                   // i = new Intent(SplashScreen.this, SignInScreen.class);
-                //}
+                    i = new Intent(SplashScreen.this, LoginScreen.class);
+                }
                 startActivity(i);
                 finish();
 
@@ -86,6 +85,17 @@ public class SplashScreen extends AppCompatActivity {
 
 
     }
+
+    private boolean isUserExist() {
+        if(DevicePreferences.getInstance().getUserProfile()!=null)
+        {
+        if (DevicePreferences.getInstance().getUserProfile().isLogin()){
+            return true;
+        }
+        }
+        return false;
+    }
+
     private void showDialogue(){
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
         alertDialogBuilder.setTitle(AppConstants.deny_tittle);

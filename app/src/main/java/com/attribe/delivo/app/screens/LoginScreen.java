@@ -6,8 +6,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
+import com.attribe.delivo.app.bals.UserProfileBAL;
 import com.attribe.delivo.app.interfaces.onDialogeListner;
 import com.attribe.delivo.app.models.response.ErrorBody;
+import com.attribe.delivo.app.models.response.UserProfile;
 import com.attribe.delivo.app.utils.NavigationUtils;
 import com.attribe.delivo.app.R;
 import com.attribe.delivo.app.databinding.LoginActivityBinding;
@@ -16,6 +18,7 @@ import com.attribe.delivo.app.dialouge.AlertDialouge;
 import com.attribe.delivo.app.models.response.AuthenticationResponse;
 import com.attribe.delivo.app.bals.UserAutenticationBAL;
 import com.attribe.delivo.app.interfaces.ResponseCallback;
+import com.attribe.delivo.app.utils.SnackBars;
 import com.attribe.delivo.app.utils.ValidationUtills;
 
 public class LoginScreen extends AppCompatActivity {
@@ -63,20 +66,27 @@ public class LoginScreen extends AppCompatActivity {
         progressDialog.dismiss();
     }
 
-
-    private void signInUser(String phone, String password) {
+    /**
+     * Call a sign in bal method
+     * @param phone
+     * @param password
+     */
+    private void signInUser(String phone, String password)
+    {
         showProgress("loading....");
         UserAutenticationBAL.signInUser(getApplicationContext(), phone, password, new ResponseCallback<AuthenticationResponse>() {
             @Override
             public void onSuccess(AuthenticationResponse response) {
                 hideProgress();
                 //navigate to main screen
-                NavigationUtils.navigateScreen(LoginScreen.this, DeliveryOptionScreen.class);
+                //NavigationUtils.navigateScreen(LoginScreen.this, DeliveryOptionScreen.class);
+                getUserProfile();
 
             }
 
             @Override
-            public void OnResponseFailure(ErrorBody error_body) {
+            public void OnResponseFailure(ErrorBody error_body)
+            {
                 hideProgress();
                 if (error_body.getError_code() == 422) {//this condition will execute when Account is not verified and navigate to verify code screen
                     AlertDialouge.showYesDialoge(LoginScreen.this, error_body.getError_msg(), new onDialogeListner() {
@@ -107,6 +117,37 @@ public class LoginScreen extends AppCompatActivity {
             }
         });
     }
+
+    /**
+     * Call the method of user profile bal
+     */
+    private void getUserProfile()
+    {
+        UserProfileBAL.getUserProfile(LoginScreen.this, new ResponseCallback<UserProfile>() {
+            @Override
+            public void onSuccess(UserProfile response)
+            {
+                NavigationUtils.navigateScreen(LoginScreen.this, DeliveryOptionScreen.class);
+
+
+            }
+
+            @Override
+            public void OnResponseFailure(ErrorBody error_body) {
+                SnackBars.showMessage(binding.getRoot(),error_body.getError_msg());
+
+            }
+
+            @Override
+            public void onfailure(String message) {
+                SnackBars.showMessage(binding.getRoot(),message);
+
+
+            }
+        });
+
+    }
+
 
     //===========================================Click Listners ==================================================//
     private class LoginListner implements View.OnClickListener {

@@ -73,8 +73,9 @@
             android:layout_gravity="end"
             android:background="@android:color/white"
             app:menu="@menu/drawer_view"
-            app:headerLayout="@layout/navigation_header_view"
             app:itemTextColor="@color/dark_purple"/>
+        <!--app:headerLayout="@layout/navigation_header_view"-->
+
 
     </android.support.v4.widget.DrawerLayout>
 </layout>

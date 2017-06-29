@@ -6,7 +6,7 @@ package com.attribe.delivo.app.models.response;
  * Description:
  */
 
-public class OrderTask {
+public class Task {
     private int id;
     private String taskType;
     private String details;

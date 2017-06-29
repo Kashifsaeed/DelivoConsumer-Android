@@ -42,7 +42,7 @@
 
         <activity
             android:name=".ScreenSplash"
-            android:label="@string/title_activity_screen_splash"></activity>
+            android:label="@string/title_activity_screen_splash" />
         <activity
             android:name=".screens.CustomPickLocation"
             android:label="Pick Location"
@@ -58,47 +58,45 @@
         <activity android:name=".utils.CustomAutocomplete" />
         <activity android:name=".screens.BaseActivity" />
         <activity android:name=".Extras.TestFirebase" />
-        <!--android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen"-->
+        <!-- android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen" -->
 
         <activity
             android:name=".screens.LoginScreen"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen"
-            ></activity>
-        <activity android:name=".screens.SignUpScreen"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen" />
+        <activity
+            android:name=".screens.SignUpScreen"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen"
-            />
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen" />
         <activity
             android:name=".screens.DeliveryOptionScreen"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen"
-            android:screenOrientation="portrait">
-
-
-
-        </activity>
-        <activity android:name=".screens.VerifyCode"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen" />
+        <activity
+            android:name=".screens.VerifyCode"
+            android:screenOrientation="portrait" />
         <activity android:name=".screens.PickDetailsActivity" />
-        <activity android:name=".screens.OrderContainerActivity"
-            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".screens.OrderContainerActivity"
+            android:screenOrientation="portrait" />
         <activity android:name=".screens.AddDropLocation" />
         <activity
             android:name=".screens.sampleActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen" />
-        <activity android:name=".screens.SplashScreen"
+        <activity
+            android:name=".screens.SplashScreen"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
-
         </activity>
-        <activity android:name=".screens.PlaceSearchActivity"
-            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".screens.PlaceSearchActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".screens.MyProfile" />
+        <activity android:name=".screens.MyOrders"></activity>
     </application>
 
 </manifest>

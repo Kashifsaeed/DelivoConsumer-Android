@@ -22,6 +22,10 @@
     <color name="light_purple">#945584</color>
     <color name="action_bar_purple">#461B46</color>
     <color name="status_bar_purple">#6F366B</color>
+    <color name="medium_grey">#ABABAB</color>
+    <color name="medium__light_grey">#BABABA</color>
+
+
 
 
 </resources>

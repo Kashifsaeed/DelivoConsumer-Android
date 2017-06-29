@@ -23,7 +23,7 @@
                 android:layout_height="match_parent"
                 android:weightSum="8"
                 android:orientation="vertical"
-                android:layout_marginTop="@dimen/extra_large_margin"
+                android:layout_marginTop="@dimen/v_v_extra_large_margin"
                 >
 
 

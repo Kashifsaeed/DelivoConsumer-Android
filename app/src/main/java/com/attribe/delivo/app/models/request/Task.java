@@ -19,13 +19,14 @@ public class Task {
 
     private boolean task_type;
 
-    private float lng;
+
 
     private String nearby;
 
     private String contact;
 
-    private float lat;
+    private float lat=  24.64887f;
+    private float lng=67.0045f;
 
     public float getPay_at_pickup_amount() {
         return pay_at_pickup_amount;

@@ -1,7 +1,5 @@
 package com.attribe.delivo.app.models.response;
 
-import com.attribe.delivo.app.models.request.Task;
-
 import java.util.List;
 
 /**
@@ -37,7 +35,7 @@ public class OrderResponse
 
     public class Data{
         public Order order;
-        public List<OrderTask> tasks = null;
+        public List<Task> tasks = null;
 
     }
 

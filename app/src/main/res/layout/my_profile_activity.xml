@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+   >
+<LinearLayout
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/my_profile_activity_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.attribe.delivo.app.screens.MyProfile"
+    android:orientation="vertical">
+    <include layout="@layout/toolbar"
+        android:id="@+id/toolbar"></include>
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_profile_img"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center"
+        android:layout_margin="@dimen/medium_margin"
+        android:id="@+id/user_img"/>
+    <!--profile label area-->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_below="@+id/user_img"
+
+        android:layout_marginTop="@dimen/v_large_margin"
+        android:visibility="visible"
+        android:id="@+id/profile_layout">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/medium_text_size"
+            android:hint="Uzair"
+            android:layout_margin="@dimen/medium_margin"
+            android:drawableLeft="@drawable/profile_left_drawable"
+            android:gravity="center_vertical"
+            android:drawablePadding="@dimen/large_padding"
+
+            android:id="@+id/user_profilename"
+
+
+            />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@color/dark_purple"
+            android:layout_marginLeft="@dimen/v_v_extra_large_margin"
+            android:layout_marginRight="@dimen/large_margin"
+         ></View>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="923132740437"
+            android:layout_margin="@dimen/medium_margin"
+            android:drawableLeft="@drawable/profile_left_drawable"
+            android:gravity="center_vertical"
+            android:drawablePadding="@dimen/large_padding"
+
+            android:id="@+id/user_profilenumber"
+          />
+        />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@color/dark_purple"
+            android:layout_marginLeft="@dimen/v_v_extra_large_margin"
+            android:layout_marginRight="@dimen/large_margin"
+            ></View>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Uzair@gmail.com"
+            android:layout_margin="@dimen/medium_margin"
+            android:drawableLeft="@drawable/profile_left_drawable"
+            android:gravity="center_vertical"
+            android:drawablePadding="@dimen/large_padding"
+            android:id="@+id/user_profile_email"
+            android:clickable="false"/>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@color/dark_purple"
+            android:layout_marginLeft="@dimen/v_v_extra_large_margin"
+            android:layout_marginRight="@dimen/large_margin"
+            ></View>
+        />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/v_v_extra_large_margin"
+            android:background="@drawable/orange_rounded_btn"
+            android:text="@string/edit_profile"
+            android:textColor="@color/white"
+            android:layout_marginRight="@dimen/medium_margin"
+            android:layout_marginLeft="@dimen/medium_margin"
+            android:id="@+id/edit_profile_btn"/>
+    </LinearLayout>
+    </ScrollView>
+
+    <!--edit_profile_area-->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <!--Reset password area-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_below="@+id/user_img"
+
+        android:layout_marginTop="@dimen/v_large_margin"
+        android:visibility="gone"
+        android:id="@+id/edit_profile_layout"
+
+      >
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/medium_text_size"
+            android:hint="@string/input_name_hint"
+            android:layout_margin="@dimen/medium_margin"
+            android:drawableLeft="@drawable/profile_left_drawable"
+            android:gravity="center_vertical"
+            android:drawablePadding="@dimen/large_padding"
+
+            android:id="@+id/user_profilename_edittxt"
+            android:background="@android:color/transparent"
+
+
+            />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@color/dark_purple"
+            android:layout_marginLeft="@dimen/v_v_extra_large_margin"
+            android:layout_marginRight="@dimen/large_margin"
+            ></View>
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="@string/input_email_hint"
+            android:layout_margin="@dimen/medium_margin"
+            android:drawableLeft="@drawable/profile_left_drawable"
+            android:gravity="center_vertical"
+            android:drawablePadding="@dimen/large_padding"
+            android:id="@+id/user_profile_email__edittxt"
+            android:background="@android:color/transparent"
+            />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@color/dark_purple"
+            android:layout_marginLeft="@dimen/v_v_extra_large_margin"
+            android:layout_marginRight="@dimen/large_margin"
+            ></View>
+        />
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/medium_margin"
+            android:layout_marginRight="@dimen/medium_margin"
+            android:layout_marginLeft="@dimen/medium_margin"
+            android:text="@string/reset_password"
+            android:textColor="@color/white"
+            android:id="@+id/reset_nav_btn"
+
+            />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/large_margin"
+            android:background="@drawable/orange_rounded_btn"
+            android:text="@string/save_btn"
+            android:textColor="@color/white"
+            android:layout_marginRight="@dimen/medium_margin"
+            android:layout_marginLeft="@dimen/medium_margin"
+            android:id="@+id/save_btn"/>
+    </LinearLayout>
+    </ScrollView>
+      <ScrollView
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:id="@+id/reset_password_layout"
+        android:layout_marginTop="@dimen/v_large_margin"
+        android:visibility="gone"
+       >
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="@drawable/input_fields_rounded"
+
+            android:hint="@string/old_password"
+            android:layout_marginRight="@dimen/medium_margin"
+            android:layout_marginLeft="@dimen/medium_margin"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/small_padding"
+            android:textColor="@color/white"
+            android:textColorHint="@color/white"
+            android:id="@+id/old_password"
+            android:textAppearance="@android:style/TextAppearance.Small"
+
+
+            />
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:hint="@string/new_password"
+            android:background="@drawable/input_fields_rounded"
+
+            android:layout_marginRight="@dimen/medium_margin"
+            android:layout_marginLeft="@dimen/medium_margin"
+            android:layout_marginTop="@dimen/medium_margin"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/small_padding"
+            android:textColor="@color/white"
+            android:textColorHint="@color/white"
+            android:id="@+id/new_reset_password"
+            android:textAppearance="@android:style/TextAppearance.Small"
+
+
+            />
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:hint="@string/account_signup_confirmation_password"
+            android:background="@drawable/input_fields_rounded"
+            android:layout_marginRight="@dimen/medium_margin"
+            android:layout_marginLeft="@dimen/medium_margin"
+            android:layout_marginTop="@dimen/medium_margin"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/small_padding"
+            android:textColor="@color/white"
+            android:textColorHint="@color/white"
+            android:id="@+id/confirm_reset_password"
+            android:textAppearance="@android:style/TextAppearance.Small"
+
+
+            />
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/large_margin"
+            android:background="@drawable/orange_rounded_btn"
+            android:text="@string/save_password"
+            android:textColor="@color/white"
+            android:layout_marginRight="@dimen/medium_margin"
+            android:layout_marginLeft="@dimen/medium_margin"
+            android:id="@+id/reset_password_btn"
+            />
+
+</LinearLayout>
+      </ScrollView>
+
+
+
+
+</LinearLayout>
+</layout>

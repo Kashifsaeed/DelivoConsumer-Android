@@ -13,6 +13,14 @@ public class ServerEndpoints
     public final static String sign_up="signup";
     public final static String verify_pin="verify_pin";
     public final static  String resent_pin="resend_pin";
-    public final static String order_create="orders";
+    public final static String orders ="orders";
+    public final static String get_userprofile="my_profile";
+    public final static String update_userprofile="consumers/{id}";
+    public final static String get_myorders="orders";
+    public final static String reset_password="change_password";
+
+
+
+
 
 }

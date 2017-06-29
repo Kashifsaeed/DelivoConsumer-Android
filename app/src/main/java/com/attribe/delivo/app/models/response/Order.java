@@ -15,7 +15,7 @@ public class Order {
     private String createdAt;
     private String updatedAt;
     private Integer companyId;
-    private Integer totaldistance;
+    private double totaldistance;
     private Object itemType;
     private String pickupTime;
     private String dropTime;
@@ -92,11 +92,11 @@ public class Order {
         this.companyId = companyId;
     }
 
-    public Integer getTotaldistance() {
+    public double getTotaldistance() {
         return totaldistance;
     }
 
-    public void setTotaldistance(Integer totaldistance) {
+    public void setTotaldistance(double totaldistance) {
         this.totaldistance = totaldistance;
     }
 

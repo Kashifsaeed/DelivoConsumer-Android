@@ -81,7 +81,8 @@ public class RestClient {
                         newRequest = request.newBuilder()
                               //  .addHeader("Authorization", "bearer " + User.getInstance().getUserToken().getAccess_token())
                                 .addHeader("COMPANYAPIKEY",AppConstants.COMPANY_KEY)
-                                .addHeader("Authorization", DevicePreferences.getInstance().getAuthKey().getAuth_token())
+                              .addHeader("Authorization", DevicePreferences.getInstance().getAuthKey().getAuth_token())
+                                .addHeader("Accept","application/json")
                                 .build();
                         return chain.proceed(newRequest);
                     }

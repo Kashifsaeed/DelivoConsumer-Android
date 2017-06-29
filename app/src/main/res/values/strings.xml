@@ -73,6 +73,15 @@
     <string name="account_signup">Sign Up</string>
     <string name="fb_login">FACEBOOK LOGIN</string>
     <string name="already_signin">Already have an account ? Please SignIn</string>
+    <string name="edit_profile">Edit Profile</string>
+    <string name="my_profile_tittle">My Profile</string>
+    <string name="my_order_tittle">My Orders</string>
+
+    <string name="save_btn">Save</string>
+    <string name="reset_password">Reset Password</string>
+    <string name="old_password">Old Password</string>
+    <string name="new_password">New Password</string>
+    <string name="save_password">Save Password</string>
 
 
 </resources>

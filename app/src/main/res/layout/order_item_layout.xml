@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:layout_margin="@dimen/medium_margin"
+        app:cardCornerRadius="@dimen/medium_margin"
+      app:cardBackgroundColor="@color/md_grey_200">
+        <!--app:cardElevation="@dimen/small_elevation"-->
+
+        <View
+            android:layout_width="4dp"
+            android:layout_height="match_parent"
+            android:background="@color/dark_purple"></View>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Malir xyz Street model"
+                android:layout_gravity="center_vertical"
+                android:textSize="@dimen/above_medium_text_size"
+                android:drawableLeft="@drawable/ic_marker_pin"
+                android:id="@+id/pick_address"
+                android:layout_margin="@dimen/medium_margin"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Malir xyz Street model"
+                android:layout_gravity="center_vertical"
+                android:textSize="@dimen/above_medium_text_size"
+                android:drawableLeft="@drawable/ic_marker_pin"
+                android:layout_margin="@dimen/medium_margin"
+                android:id="@+id/drop_address"
+                />
+        </LinearLayout>
+
+    </android.support.v7.widget.CardView>
+
+</RelativeLayout>

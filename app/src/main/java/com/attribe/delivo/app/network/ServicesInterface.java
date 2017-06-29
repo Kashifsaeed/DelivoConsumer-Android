@@ -1,10 +1,14 @@
 package com.attribe.delivo.app.network;
 
 import com.attribe.delivo.app.models.request.OrderCreate;
+import com.attribe.delivo.app.models.request.UpdatePassword;
+import com.attribe.delivo.app.models.request.UpdateUserProfile;
 import com.attribe.delivo.app.models.response.AuthenticationResponse;
 import com.attribe.delivo.app.models.response.MessageResponse;
+import com.attribe.delivo.app.models.response.MyOrders;
 import com.attribe.delivo.app.models.response.OrderResponse;
 import com.attribe.delivo.app.models.response.SignUpResponse;
+import com.attribe.delivo.app.models.response.UserProfile;
 
 import retrofit2.Call;
 import retrofit2.http.*;
@@ -70,6 +74,14 @@ public interface ServicesInterface {
     @FormUrlEncoded
     @POST(ServerEndpoints.resent_pin)
     Call<MessageResponse> resentPin(@Field("hidden_phone") String phone);
-    @POST(ServerEndpoints.order_create)
+    @POST(ServerEndpoints.orders)
     Call<OrderResponse> placeOrder(@Body OrderCreate orderCreate);
+    @GET(ServerEndpoints.get_userprofile)
+    Call<UserProfile> getUserProfile();
+    @PATCH(ServerEndpoints.update_userprofile)
+    Call<UserProfile> updateProfile(@Path("id") String id,@Body UpdateUserProfile userProfile);
+    @GET(ServerEndpoints.orders)
+    Call<MyOrders> getMyOrders();
+    @PATCH(ServerEndpoints.reset_password)
+    Call<MessageResponse> resetPassword(@Body UpdatePassword updatePassword);
 }

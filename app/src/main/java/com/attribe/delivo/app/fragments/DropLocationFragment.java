@@ -248,8 +248,8 @@ public class DropLocationFragment extends Fragment implements OnMapReadyCallback
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == DROP_RESULTSOK && data != null) {
             PlaceDetailsResponse.Result place = (PlaceDetailsResponse.Result) data.getSerializableExtra("SearchPlace");
-            LatLng latLng=new LatLng(place.getGeometry().getLocation().getLat(),place.getGeometry().getLocation().getLng());
-            zoomlocation(latLng);
+            cameradropLocation=new LatLng(place.getGeometry().getLocation().getLat(),place.getGeometry().getLocation().getLng());
+            zoomlocation(cameradropLocation);
             droplocation_txtview.setText(""+place.getFormatted_address());
 
 
@@ -273,7 +273,7 @@ public class DropLocationFragment extends Fragment implements OnMapReadyCallback
     }
 
     public interface OnDropLocationFragmentInteractionListener {
-        void onDropLocationFragmentInteraction(String droplocation_name);
+        void onDropLocationFragmentInteraction(String droplocation_name,double lat,double lng);
 
     }
 
@@ -308,7 +308,7 @@ public class DropLocationFragment extends Fragment implements OnMapReadyCallback
         @Override
         public void onClick(View view) {
             if (!droplocation_txtview.getText().toString().equals("")) {
-                mListener.onDropLocationFragmentInteraction(droplocation_txtview.getText().toString());
+                mListener.onDropLocationFragmentInteraction(droplocation_txtview.getText().toString(),cameradropLocation.latitude,cameradropLocation.longitude);
                 onNextPageNavigation.onPageChange(3);
             }
 

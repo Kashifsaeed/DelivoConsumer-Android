@@ -264,7 +264,7 @@ public class PickLocationFragment extends Fragment implements OnMapReadyCallback
     }
     public interface OnPickLocationFragmentInteractionListner
     {
-        void OnPickLocationFragmentInteraction(String picklocation);
+        void OnPickLocationFragmentInteraction(String picklocation,double lat,double lng);
     }
 
 //========================================= Local Listners ================================================================//
@@ -298,7 +298,7 @@ public class PickLocationFragment extends Fragment implements OnMapReadyCallback
         {
             if(!picklocation_txtview.getText().toString().equals(""))
             {
-                mListener.OnPickLocationFragmentInteraction(picklocation_txtview.getText().toString());
+                mListener.OnPickLocationFragmentInteraction(picklocation_txtview.getText().toString(),cameraPickLocation.latitude,cameraPickLocation.longitude);
                 onNextPageNavigation.onPageChange(1);
           }
 
@@ -376,8 +376,10 @@ public class PickLocationFragment extends Fragment implements OnMapReadyCallback
         if(resultCode==PICK_RESULTSOK && data!=null)
         {
             PlaceDetailsResponse.Result place = (PlaceDetailsResponse.Result) data.getSerializableExtra("SearchPlace");
-            LatLng latLng=new LatLng(place.getGeometry().getLocation().getLat(),place.getGeometry().getLocation().getLng());
-            zoomlocation(latLng);
+         //   LatLng latLng=new LatLng(place.getGeometry().getLocation().getLat(),place.getGeometry().getLocation().getLng());
+          cameraPickLocation=new LatLng(place.getGeometry().getLocation().getLat(),place.getGeometry().getLocation().getLng());
+
+            zoomlocation(cameraPickLocation);
             picklocation_txtview.setText(""+place.getFormatted_address());
 
 
