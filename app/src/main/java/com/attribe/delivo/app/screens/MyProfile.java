@@ -36,6 +36,7 @@ public class MyProfile extends AppCompatActivity implements View.OnClickListener
 
     private void loadData()
     {
+        DevicePreferences.getInstance().init(this);
         initToolbar();
         setListners();
         if(DevicePreferences.getInstance().getUserProfile()!=null)
@@ -43,6 +44,8 @@ public class MyProfile extends AppCompatActivity implements View.OnClickListener
             binding.userProfilename.setText(DevicePreferences.getInstance().getUserProfile().getName());
             binding.userProfileEmail.setText(DevicePreferences.getInstance().getUserProfile().getEmail());
             binding.userProfilenumber.setText(DevicePreferences.getInstance().getUserProfile().getPhone());
+            binding.userProfilenameEdittxt.setText(DevicePreferences.getInstance().getUserProfile().getName());
+            binding.userProfileEmailEdittxt.setText(DevicePreferences.getInstance().getUserProfile().getEmail());
         }
 
 

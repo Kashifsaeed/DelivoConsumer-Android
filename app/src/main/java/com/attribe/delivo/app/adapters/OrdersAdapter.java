@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.attribe.delivo.app.Extras.AppConstants;
 import com.attribe.delivo.app.R;
 import com.attribe.delivo.app.models.response.MyOrders;
 import com.attribe.delivo.app.viewholders.OrderViewHolder;
@@ -41,8 +42,10 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrderViewHolder> {
     public void onBindViewHolder(OrderViewHolder holder, int position) {
         MyOrders.Datum datum=orders.getData().get(position);
         if(datum!=null){
+
             holder.pick_address.setText(""+datum.getTasks().get(0).getNearby());
             holder.drop_address.setText(""+datum.getTasks().get(1).getNearby());
+            holder.order_id.setText("Order #"+ AppConstants.SPACE+datum.getId());
         }
 
 

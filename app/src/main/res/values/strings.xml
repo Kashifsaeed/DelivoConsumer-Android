@@ -43,36 +43,36 @@
     <string name="Main_Screen_Title">DELIVO</string>
 
 
-    <string name="input_name_hint">User Name</string>
-    <string name="input_password_hint">Password</string>
-    <string name="input_email_hint">User Email</string>
+    <string name="input_name_hint">Enter Name</string>
+    <string name="input_password_hint">Enter Password</string>
+    <string name="input_email_hint">Enter Email</string>
     <string name="input_phoneno_hint">User Phone No</string>
     <string name="user_contact">Phone No</string>
     <string name="account_signup_label">Dont have an account So Please Sign Up</string>
-    <string name="account_signup_confirmation_password">Confirm Your Password</string>
+    <string name="account_signup_confirmation_password">Confirm Password</string>
     <string name="input_verify_pin">Enter Verification Code</string>
 
-    <string name="input_pick_person_name">Pick Person Name</string>
-    <string name="input_pick_person_number">Pick Person Number</string>
+    <string name="input_pick_person_name">Sender Name</string>
+    <string name="input_pick_person_number">Contact</string>
 
-    <string name="input_pick_detailed_address">Pick Address Details</string>
+    <string name="input_pick_detailed_address">Detailed Address</string>
 
-    <string name="input_pick_details">Pick Details</string>
+    <string name="input_pick_details">PickUp Details</string>
     <string name="input_pick_time">Pick Time</string>
     <!---->
-    <string name="input_drop_person_name">Receive Person Name</string>
-    <string name="input_drop_person_number">Receive Person Number</string>
+    <string name="input_drop_person_name">Receiver Name</string>
+    <string name="input_drop_person_number">Contact</string>
 
-    <string name="input_drop_detailed_address">Drop Address Details</string>
+    <string name="input_drop_detailed_address">Detailed Address</string>
 
-    <string name="input_drop_details">Drop Details</string>
+    <string name="input_drop_details">DropOff Details</string>
     <string name="input_drop_time">Drop Time</string>
 
 
     <string name="account_login">LOGIN</string>
     <string name="account_signup">Sign Up</string>
     <string name="fb_login">FACEBOOK LOGIN</string>
-    <string name="already_signin">Already have an account ? Please SignIn</string>
+    <string name="already_signin">Already have an account ?</string>
     <string name="edit_profile">Edit Profile</string>
     <string name="my_profile_tittle">My Profile</string>
     <string name="my_order_tittle">My Orders</string>
@@ -82,6 +82,18 @@
     <string name="old_password">Old Password</string>
     <string name="new_password">New Password</string>
     <string name="save_password">Save Password</string>
+    <string name="near_by_address_label">select near by place</string>
+    <string name="pick_now">Pick Now</string>
+    <string name="pick_later">Pick Later</string>
+    <string name="pay_at_pick_label">Do you want rider to pay?</string>
+    <string name="pay_at_pick_label_dialoge">Enter amount that you want to rider to pay at pick up on your behalf</string>
+
+
+    <string name="pay_amount">Enter Pay Amount</string>
+
+    <string name="add_pick_label">Add Pick Location</string>
+    <string name="add_drop_label">Add DropOff Location</string>
+    <string name="add_pick_btn">Add PickUp Details</string>
 
 
 </resources>

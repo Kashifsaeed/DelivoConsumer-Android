@@ -47,7 +47,7 @@ public class VerifyCode extends AppCompatActivity {
     }
 
     private void verifyPin(String phone, String password, String pin) {
-        showProgress("loading...");
+        showProgress("Verifying User...");
         UserAutenticationBAL.verifyUserPin(getApplicationContext(), phone, password, pin, new ResponseCallback<AuthenticationResponse>() {
             @Override
             public void onSuccess(AuthenticationResponse response) {

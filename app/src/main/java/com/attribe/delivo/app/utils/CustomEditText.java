@@ -9,7 +9,7 @@ import android.view.MotionEvent;
 import android.widget.EditText;
 
 /**
- * Created by Sabih Ahmed on 30-Jun-16.
+ * Created by Uzair Qureshi on 30-Jun-17.
  */
 public class CustomEditText extends EditText{
     private DrawableClickListener clickListener;
@@ -19,7 +19,7 @@ public class CustomEditText extends EditText{
     private Drawable drawableBottom;
     private int actionX;
     private int actionY;
-    private String mPrefix = "+92"; // can be hardcoded for demo purposes
+    private String mPrefix = "+92 "; // can be hardcoded for demo purposes
     private Rect mPrefixRect = new Rect(); // actual prefix size
 
 

@@ -21,6 +21,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.attribe.delivo.app.Extras.AppConstants;
 import com.attribe.delivo.app.R;
 import com.attribe.delivo.app.databinding.PickAddressFragmentBinding;
 import com.attribe.delivo.app.interfaces.OnNextPageNavigation;
@@ -35,6 +36,7 @@ import com.attribe.delivo.app.utils.LocationFusedHelper;
 import com.attribe.delivo.app.utils.LocationReceiveListener;
 import com.attribe.delivo.app.utils.LocationTracker;
 import com.attribe.delivo.app.utils.ReverseGeoLocationTask;
+import com.attribe.delivo.app.utils.SnackBars;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
@@ -69,6 +71,7 @@ public class PickLocationFragment extends Fragment implements OnMapReadyCallback
     private ImageView search_icon;
     //private int PICKREQUESTCODE =200;
     public static final int PICK_RESULTSOK=200;
+   private String pick_Location;
 
 
 
@@ -280,8 +283,18 @@ public class PickLocationFragment extends Fragment implements OnMapReadyCallback
             try {
 
                 cameraPickLocation = mMap.getCameraPosition().target;
-                String pick_Location = new ReverseGeoLocationTask(getContext()).execute(cameraPickLocation.latitude, cameraPickLocation.longitude).get();
-                picklocation_txtview.setText("" + pick_Location);
+                pick_Location = new ReverseGeoLocationTask(getContext()).execute(cameraPickLocation.latitude, cameraPickLocation.longitude).get();
+                if(pick_Location.equals(""))
+                {
+                    picklocation_txtview.setText("" + "Address not found");
+
+
+                }
+                else {
+                    picklocation_txtview.setText("" + pick_Location);
+
+
+                }
             } catch (InterruptedException e) {
                 e.printStackTrace();
             } catch (ExecutionException e) {
@@ -296,11 +309,18 @@ public class PickLocationFragment extends Fragment implements OnMapReadyCallback
         @Override
         public void onClick(View view)
         {
-            if(!picklocation_txtview.getText().toString().equals(""))
+            if(pick_Location.equals(""))
+            {
+                SnackBars.showMessage(viewBinding.getRoot(), AppConstants.NEAR_BY_ADD_LABEL);
+
+          }
+            else
+
             {
                 mListener.OnPickLocationFragmentInteraction(picklocation_txtview.getText().toString(),cameraPickLocation.latitude,cameraPickLocation.longitude);
                 onNextPageNavigation.onPageChange(1);
-          }
+
+            }
 
 //            LocationFusedHelper fusedHelper=new LocationFusedHelper(getActivity());
 //            Toast.makeText(getContext(),""+ fusedHelper.getmLastLocation().getLatitude()+fusedHelper.getmLastLocation().getLongitude(),Toast.LENGTH_SHORT).show();
@@ -317,12 +337,7 @@ public class PickLocationFragment extends Fragment implements OnMapReadyCallback
     }
 
 
-    private class OnCameraMovingListner implements GoogleMap.OnCameraMoveListener {
-        @Override
-        public void onCameraMove() {
 
-        }
-    }
     private void showLocationAlert(){
         final LocationTracker tracker=new LocationTracker(getActivity());
         if(!tracker.canGetLocation())

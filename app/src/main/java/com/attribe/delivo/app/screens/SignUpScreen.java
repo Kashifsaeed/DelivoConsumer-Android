@@ -93,7 +93,7 @@ private void setEventListners()
     }
     private void userSignUp(String name,String email,String phone,String password,String confirm_passwrod)
     {
-        showProgress("wait...");
+        showProgress("Signing Up...");
         UserAutenticationBAL.signUpUser(SignUpScreen.this, name, email, phone, password, confirm_passwrod, new ResponseCallback<SignUpResponse>() {
             @Override
             public void onSuccess(SignUpResponse response)
@@ -129,13 +129,13 @@ private void setEventListners()
 
         {
             if(isValidate(binding.signupUserName.getText().toString().trim(),
-                   "92"+ binding.signupUserPhone.getText().toString().trim(),binding.signupEmailAddress.getText().toString().trim(),
+                   "92 "+ binding.signupUserPhone.getText().toString().trim(),binding.signupEmailAddress.getText().toString().trim(),
                     binding.signupUserPassword.getText().toString().trim(),
                     binding.signupUserConfirmpassword.getText().toString().trim()))
             {
                 userSignUp(binding.signupUserName.getText().toString().trim(),
                         binding.signupEmailAddress.getText().toString().trim(),
-                        "92"+binding.signupUserPhone.getText().toString().trim(),
+                        "92 "+binding.signupUserPhone.getText().toString().trim(),
                         binding.signupUserPassword.getText().toString().trim(),
                         binding.signupUserConfirmpassword.getText().toString().trim());
             }

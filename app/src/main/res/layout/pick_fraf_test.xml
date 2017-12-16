@@ -1,0 +1,344 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout     xmlns:android="http://schemas.android.com/apk/res/android"
+    >
+    <RelativeLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+
+            android:orientation="vertical"
+            android:id="@+id/main_pick_detail_layout">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="90dp"
+
+                android:background="@drawable/pick_n_drop_detail"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="480dp"
+
+                android:id="@+id/input_arealayout"
+                android:orientation="vertical"
+
+              >
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:weightSum="2"
+                    android:layout_marginTop="@dimen/normal_margin"
+                    android:layout_marginBottom="@dimen/small_margin">
+                    <!--<android.support.design.widget.TextInputLayout-->
+                        <!--android:layout_width="0dp"-->
+                        <!--android:layout_height="40dp"-->
+                        <!--android:background="@drawable/input_fields_rounded"-->
+                        <!--android:hint="@string/input_pick_person_name"-->
+                        <!--android:layout_marginLeft="@dimen/normal_margin"-->
+                        <!--android:layout_marginRight="@dimen/small_margin"-->
+                        <!--android:layout_weight="1"-->
+                        <!--android:textColorHint="@color/white"-->
+                        <!--android:theme="@style/TextLabel"-->
+
+
+
+                        <!--&gt;-->
+
+                    <EditText
+                        android:layout_width="0dp"
+                        android:layout_height="35dp"
+                        android:background="@drawable/input_fields_rounded"
+                        android:hint="@string/input_pick_person_name"
+                        android:layout_marginLeft="@dimen/normal_margin"
+                        android:layout_marginRight="@dimen/small_margin"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="@dimen/normal_padding"
+                        android:textColor="@color/white"
+                        android:textAppearance="@android:style/TextAppearance.Small"
+                        android:inputType="text"
+                        android:textColorHint="@color/white"
+
+                        android:id="@+id/pick_person_name"
+
+
+
+
+
+                        />
+                    <!--</android.support.design.widget.TextInputLayout>-->
+                    <!--<android.support.design.widget.TextInputLayout-->
+                        <!--android:layout_width="0dp"-->
+                        <!--android:layout_height="40dp"-->
+                        <!--android:background="@drawable/input_fields_rounded"-->
+                        <!--android:layout_marginRight="@dimen/normal_margin"-->
+                        <!--android:hint="@string/input_pick_person_number"-->
+                        <!--android:layout_weight="1"-->
+                        <!--android:textColorHint="@color/white"-->
+                        <!--android:theme="@style/TextLabel"-->
+
+
+                        <!--&gt;-->
+                    <com.attribe.delivo.app.utils.CustomEditText
+                        android:layout_width="0dp"
+                        android:layout_height="35dp"
+                        android:background="@drawable/input_fields_rounded"
+                        android:layout_marginRight="@dimen/normal_margin"
+                        android:hint="@string/input_pick_person_number"
+                        android:layout_weight="1"
+                        android:textColorHint="@color/white"
+
+                        android:gravity="center_vertical"
+                        android:paddingLeft="@dimen/normal_padding"
+                        android:textColor="@color/white"
+                        android:textAppearance="@android:style/TextAppearance.Small"
+                        android:inputType="phone"
+
+                        android:id="@+id/pick_person_contact"
+
+                        />
+                    <!--</android.support.design.widget.TextInputLayout>-->
+
+
+
+                </LinearLayout>
+                <!--<android.support.design.widget.TextInputLayout-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="40dp"-->
+                    <!--android:hint="@string/input_pick_detailed_address"-->
+                    <!--android:textColorHint="@color/white"-->
+                    <!--android:layout_marginRight="@dimen/normal_margin"-->
+                    <!--android:layout_marginLeft="@dimen/normal_margin"-->
+                    <!--android:background="@drawable/input_fields_rounded"-->
+                    <!--android:theme="@style/TextLabel"-->
+
+
+
+                    <!--&gt;-->
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="35dp"
+                        android:hint="@string/input_pick_detailed_address"
+                        android:textColorHint="@color/white"
+                        android:layout_marginRight="@dimen/normal_margin"
+                        android:layout_marginLeft="@dimen/normal_margin"
+                        android:background="@drawable/input_fields_rounded"
+                        android:paddingLeft="@dimen/normal_padding"
+                        android:textColor="@color/white"
+                        android:inputType="text"
+                        android:gravity="center_vertical"
+                        android:id="@+id/pick_detail_address"
+                        android:textAppearance="@android:style/TextAppearance.Small"
+
+
+
+
+                        />
+                    <!--android:layout_marginTop="@dimen/normal_margin"-->
+                <!--</android.support.design.widget.TextInputLayout>-->
+                <!--pick Time layout-->
+                <CheckBox
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/pick_now"
+                    android:textColor="@color/input_bg_color"
+                    android:layout_marginRight="@dimen/normal_margin"
+                    android:layout_marginLeft="@dimen/normal_margin"
+                    android:buttonTint="@color/dark_purple"
+
+                    android:id="@+id/picknow_check"
+                    android:layout_marginTop="@dimen/small_margin"
+                    />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:weightSum="2"
+                    android:orientation="horizontal"
+                    android:layout_marginLeft="@dimen/large_margin"
+                    android:layout_marginRight="@dimen/normal_margin"
+                    android:visibility="visible"
+                   >
+                    <!--android:layout_marginTop="@dimen/small_margin"-->
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:text="PICKUP TIME"
+                        android:gravity="center_vertical"
+
+                        android:textAppearance="@android:style/TextAppearance.Small"/>
+                    <EditText
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:hint="hh-mm-ss"
+                        android:gravity="center_vertical"
+                        android:id="@+id/pick_time"
+                        android:backgroundTint="@color/dark_purple"
+                        android:textColorHint="@color/input_bg_color"
+                        android:textColor="@color/input_bg_color"
+                        android:focusableInTouchMode="false"
+
+                        />
+
+
+                </LinearLayout>
+                <!---->
+                <!--pick date layout-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:weightSum="2"
+                    android:orientation="horizontal"
+                    android:layout_marginLeft="@dimen/large_margin"
+                    android:layout_marginRight="@dimen/normal_margin"
+                    android:visibility="visible"
+                   >
+                    <!--android:layout_marginTop="@dimen/small_margin"-->
+
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:text="PICKUP DATE"
+                        android:gravity="center_vertical"
+
+                        android:textAppearance="@android:style/TextAppearance.Small"
+                        />
+                    <!--android:layout_marginLeft="@dimen/normal_margin"-->
+                    <EditText
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:hint="yy-dd-mm"
+                        android:gravity="center_vertical"
+                        android:id="@+id/pick_date"
+                        android:backgroundTint="@color/dark_purple"
+                        android:textColor="@color/input_bg_color"
+                        android:textColorHint="@color/input_bg_color"
+                        android:focusableInTouchMode="false"
+                        />
+                </LinearLayout>
+                <!--checkbox area-->
+                <!--<LinearLayout-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="50dp"-->
+                    <!--android:layout_weight="0.8"-->
+                    <!--android:orientation="horizontal"-->
+                    <!--android:layout_marginLeft="@dimen/large_margin"-->
+                    <!--android:layout_marginRight="@dimen/normal_margin"-->
+                    <!--android:weightSum="1"-->
+                    <!--android:gravity="center_vertical">-->
+                    <!--<CheckBox-->
+                        <!--android:layout_width="0dp"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:checked="false"-->
+                        <!--android:backgroundTint="@color/accent"-->
+                        <!--android:text="@string/pick_now"-->
+                        <!--android:layout_weight="0.5"-->
+                        <!--android:buttonTint="@color/dark_purple"-->
+                        <!--android:textColor="@color/input_bg_color"/>-->
+                    <!--<CheckBox-->
+                        <!--android:layout_width="0dp"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:checked="false"-->
+                        <!--android:backgroundTint="@color/accent"-->
+                        <!--android:text="@string/pick_later"-->
+                        <!--android:layout_weight="0.5"-->
+                        <!--android:buttonTint="@color/dark_purple"-->
+                        <!--android:textColor="@color/input_bg_color"/>-->
+                <!--</LinearLayout>-->
+
+                <!--<android.support.design.widget.TextInputLayout-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:background="@drawable/input_fields_rounded"-->
+                    <!--android:textColorHint="@color/white"-->
+                    <!--android:hint="@string/input_pick_details"-->
+                    <!--android:layout_marginRight="@dimen/normal_margin"-->
+                    <!--android:layout_marginLeft="@dimen/normal_margin"-->
+                    <!--android:layout_marginTop="@dimen/normal_margin"-->
+                    <!--android:theme="@style/TextLabel"-->
+
+                    <!--&gt;-->
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:background="@drawable/input_fields_rounded"
+                    android:textColorHint="@color/white"
+                    android:hint="@string/input_pick_details"
+                    android:layout_marginRight="@dimen/normal_margin"
+                    android:layout_marginLeft="@dimen/normal_margin"
+                    android:layout_marginTop="@dimen/normal_margin"
+                    android:inputType="textMultiLine|textNoSuggestions"
+                    android:maxLines="5"
+                    android:textColor="@color/white"
+                    android:paddingLeft="@dimen/normal_padding"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:gravity="left"
+                    android:padding="@dimen/normal_margin"
+                    android:id="@+id/pick_description"
+
+
+
+
+
+                    />
+
+
+                <CheckBox
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/pay_at_pick_label"
+                    android:textColor="@color/input_bg_color"
+                    android:layout_marginRight="@dimen/normal_margin"
+                    android:layout_marginLeft="@dimen/normal_margin"
+                    android:buttonTint="@color/dark_purple"
+
+                    android:id="@+id/pay_at_pickupcheck"
+                    android:layout_marginTop="@dimen/small_margin"
+                    />
+                <!--android:layout_marginTop="@dimen/normal_margin"-->
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/add_pickdetails_btn"
+                    android:textColor="@color/white"
+                    android:gravity="center_vertical|center"
+                    android:text="@string/add_pick_btn"
+                    android:background="@drawable/orange_rounded_btn"
+
+                    android:layout_marginRight="@dimen/normal_margin"
+                    android:layout_marginLeft="@dimen/normal_margin"
+
+
+                    />
+                <!--android:layout_margin="@dimen/small_margin"-->
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+
+
+                    ></LinearLayout>
+
+                <!--android:layout_margin="@dimen/normal_margin"-->
+                <!--android:layout_weight="0.1"-->
+
+
+            </LinearLayout>
+
+
+
+        </LinearLayout>
+
+    </RelativeLayout>
+</layout>

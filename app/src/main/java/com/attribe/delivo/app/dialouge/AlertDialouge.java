@@ -23,6 +23,7 @@ public class AlertDialouge {
         pDialog.setTitleText("Oops...");
         pDialog.setContentText(message);
 
+
         //pDialog.setCancelable(false);
         pDialog.show();
     }

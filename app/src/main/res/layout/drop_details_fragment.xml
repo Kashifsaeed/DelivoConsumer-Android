@@ -55,7 +55,7 @@
 
 
                         />
-                    <EditText
+                    <com.attribe.delivo.app.utils.CustomEditText
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
@@ -114,7 +114,7 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:text="PICKUP TIME"
+                        android:text="DROP TIME"
                         android:gravity="center_vertical"
                         />
                     <EditText
@@ -125,8 +125,8 @@
                         android:gravity="center_vertical"
                         android:id="@+id/drop_time"
                         android:backgroundTint="@color/dark_purple"
-                        android:textColorHint="@color/theme_orange"
-                        android:textColor="@color/theme_orange"
+                        android:textColorHint="@color/input_bg_color"
+                        android:textColor="@color/input_bg_color"
                         android:focusableInTouchMode="false"
                         />
 
@@ -145,7 +145,7 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:text="PICKUP DATE"
+                        android:text="DROP DATE"
                         android:gravity="center_vertical"
                     />
                     <EditText
@@ -156,8 +156,8 @@
                         android:gravity="center_vertical"
                         android:id="@+id/drop_date"
                         android:backgroundTint="@color/dark_purple"
-                        android:textColorHint="@color/theme_orange"
-                        android:textColor="@color/theme_orange"
+                        android:textColorHint="@color/input_bg_color"
+                        android:textColor="@color/input_bg_color"
                         android:focusableInTouchMode="false"
                         />
 
@@ -188,7 +188,7 @@
                     android:id="@+id/add_dropdetails_btn"
                     android:textColor="@color/white"
                     android:gravity="center"
-                    android:text="Proceed"
+                    android:text="Place Order"
                     android:background="@drawable/orange_rounded_btn"
                     android:layout_weight="0.4"
                     android:layout_margin="@dimen/normal_margin"

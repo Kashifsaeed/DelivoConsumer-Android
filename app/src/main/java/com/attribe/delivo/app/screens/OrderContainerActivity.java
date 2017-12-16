@@ -132,17 +132,17 @@ public class OrderContainerActivity extends AppCompatActivity implements
     private void setToolbarTittle(int position) {
         switch (position) {
             case 0:
-                databinding.maintoolbar.myToolbar.setTitle("" + "Pick Location");
+                databinding.maintoolbar.myToolbar.setTitle("" + "PickUp Address");
 
                 break;
             case 1:
-                databinding.maintoolbar.myToolbar.setTitle("" + "Pick Detail");
+                databinding.maintoolbar.myToolbar.setTitle("" + "PickUp Details");
                 break;
             case 2:
-                databinding.maintoolbar.myToolbar.setTitle("" + "Drop Location");
+                databinding.maintoolbar.myToolbar.setTitle("" + "DropOff Address");
                 break;
             case 3:
-                databinding.maintoolbar.myToolbar.setTitle("" + "Drop Detail");
+                databinding.maintoolbar.myToolbar.setTitle("" + "DropOff Details");
                 break;
 
             default:
@@ -261,14 +261,18 @@ public class OrderContainerActivity extends AppCompatActivity implements
     }
 
     @Override
-    public void pickDetailFragmentInteraction(String pp_name, String pp_contactno, String detail_address, String pick_time, String pick_date, String pick_desc) {
+    public void pickDetailFragmentInteraction(String pp_name, String pp_contactno, String detail_address, String pick_time, String pick_date, String pick_desc,boolean pay_at_pickup,float pickUpamount) {
         pickupTask.setName(pp_name);
-        pickupTask.setContact(pp_contactno);
+        pickupTask.setContact("92"+pp_contactno);
         pickupTask.setAddress(detail_address);
         pickupTask.setTask_type(true);
         pickupTask.setDetails(pick_desc);
+        pickupTask.setSorting_order(0);
+        pickupTask.setPay_at_pickup(pay_at_pickup);
+        pickupTask.setPay_at_pickup_amount(pickUpamount);
         order.setPickup_time(pick_time);
         order.setPickup_date(pick_date);
+
 
 
         //taskslist.add(pickupTask);
@@ -345,10 +349,11 @@ public class OrderContainerActivity extends AppCompatActivity implements
     @Override
     public void dropDetailFragmentInteraction(String pp_name, String pp_contactno, String detail_address, String drop_time, String drop_date, String pick_desc) {
         dropoffTask.setName(pp_name);
-        dropoffTask.setContact(pp_contactno);
+        dropoffTask.setContact("92"+pp_contactno);
         dropoffTask.setAddress(detail_address);
         dropoffTask.setTask_type(false);
         dropoffTask.setDetails(pick_desc);
+        dropoffTask.setSorting_order(1);
         order.setDrop_time(drop_time);
         order.setDrop_date(drop_date);
         // taskslist.add(dropoffTask);

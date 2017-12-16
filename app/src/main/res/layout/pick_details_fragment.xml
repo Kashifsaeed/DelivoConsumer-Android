@@ -15,12 +15,12 @@
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="0.6"
+            android:layout_weight="0.5"
             android:background="@drawable/pick_n_drop_detail"/>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1.4"
+            android:layout_weight="1.5"
             android:id="@+id/input_arealayout"
             android:orientation="vertical"
             android:weightSum="3">
@@ -99,7 +99,7 @@
                 />
                 <!--android:layout_marginTop="@dimen/normal_margin"-->
             </LinearLayout>
-
+            <!--pick Time layout-->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
@@ -107,7 +107,8 @@
                 android:weightSum="2"
                 android:orientation="horizontal"
                 android:layout_marginLeft="@dimen/large_margin"
-                android:layout_marginRight="@dimen/normal_margin">
+                android:layout_marginRight="@dimen/normal_margin"
+                android:visibility="gone">
 
                 <TextView
                     android:layout_width="0dp"
@@ -131,8 +132,10 @@
 
                    />
 
+
             </LinearLayout>
             <!---->
+            <!--pick date layout-->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
@@ -140,7 +143,9 @@
                 android:weightSum="2"
                 android:orientation="horizontal"
                 android:layout_marginLeft="@dimen/large_margin"
-                android:layout_marginRight="@dimen/normal_margin">
+                android:layout_marginRight="@dimen/normal_margin"
+                android:visibility="gone">
+
 
                 <TextView
                     android:layout_width="0dp"
@@ -164,6 +169,35 @@
                     android:textColorHint="@color/theme_orange"
                     android:focusableInTouchMode="false"
                     />
+            </LinearLayout>
+            <!--checkbox area-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_weight="0.8"
+                android:orientation="horizontal"
+                android:layout_marginLeft="@dimen/large_margin"
+                android:layout_marginRight="@dimen/normal_margin"
+                android:weightSum="1"
+                android:gravity="center_vertical">
+                <CheckBox
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:checked="false"
+                    android:backgroundTint="@color/accent"
+                    android:text="@string/pick_now"
+                    android:layout_weight="0.5"
+                    android:buttonTint="@color/dark_purple"
+                    android:textColor="@color/input_bg_color"/>
+                <CheckBox
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:checked="false"
+                    android:backgroundTint="@color/accent"
+                    android:text="@string/pick_later"
+                    android:layout_weight="0.5"
+                    android:buttonTint="@color/dark_purple"
+                    android:textColor="@color/input_bg_color"/>
             </LinearLayout>
             <EditText
                 android:layout_width="match_parent"

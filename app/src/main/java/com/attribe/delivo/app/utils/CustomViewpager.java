@@ -10,6 +10,7 @@ import android.view.View;
  * Author: Uzair Qureshi
  * Date:  5/19/17.
  * Description:
+ * this is the custome viewpager in which finger swipe effect will be disable
  */
 
 public class CustomViewpager extends ViewPager {

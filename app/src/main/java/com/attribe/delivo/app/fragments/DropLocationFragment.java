@@ -20,6 +20,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.attribe.delivo.app.Extras.AppConstants;
 import com.attribe.delivo.app.R;
 import com.attribe.delivo.app.databinding.DropLocationFragmentBinding;
 import com.attribe.delivo.app.interfaces.OnNextPageNavigation;
@@ -29,6 +30,7 @@ import com.attribe.delivo.app.screens.OrderContainerActivity;
 import com.attribe.delivo.app.screens.PlaceSearchActivity;
 import com.attribe.delivo.app.utils.LocationTracker;
 import com.attribe.delivo.app.utils.ReverseGeoLocationTask;
+import com.attribe.delivo.app.utils.SnackBars;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
@@ -58,6 +60,7 @@ public class DropLocationFragment extends Fragment implements OnMapReadyCallback
     private TextView droplocation_txtview;
     private Button addDropkloc_btn;
     private ImageView search_icon;
+    private String drop_Location;
 
 
     public DropLocationFragment() {
@@ -288,8 +291,14 @@ public class DropLocationFragment extends Fragment implements OnMapReadyCallback
             try {
 
                 cameradropLocation = mMap.getCameraPosition().target;
-                String pick_Location = new ReverseGeoLocationTask(getContext()).execute(cameradropLocation.latitude, cameradropLocation.longitude).get();
-                droplocation_txtview.setText("" + pick_Location);
+                drop_Location = new ReverseGeoLocationTask(getContext()).execute(cameradropLocation.latitude, cameradropLocation.longitude).get();
+                if(drop_Location.equals(""))
+                {
+                    droplocation_txtview.setText(""+ "Address not found");
+                }
+                else {
+                    droplocation_txtview.setText("" + drop_Location);
+                }
             } catch (InterruptedException e) {
                 e.printStackTrace();
             } catch (ExecutionException e) {
@@ -307,9 +316,16 @@ public class DropLocationFragment extends Fragment implements OnMapReadyCallback
     private class onDropLocationListner implements View.OnClickListener {
         @Override
         public void onClick(View view) {
-            if (!droplocation_txtview.getText().toString().equals("")) {
+            if (drop_Location.equals(""))
+            {
+               // droplocation_txtview.setText(""+AppConstants.NEAR_BY_ADD_LABEL);
+                SnackBars.showMessage(viewBinding.getRoot(),AppConstants.NEAR_BY_ADD_LABEL);
+
+            }
+            else {
                 mListener.onDropLocationFragmentInteraction(droplocation_txtview.getText().toString(),cameradropLocation.latitude,cameradropLocation.longitude);
                 onNextPageNavigation.onPageChange(3);
+
             }
 
 

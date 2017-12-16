@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+    <RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:background="@color/white">
+
+
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@color/white"
+            android:layout_margin="@dimen/large_margin"
+          >
+            <!--android:layout_margin="25dp"-->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/pay_at_pick_label_dialoge"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:textStyle="bold"
+               />
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:inputType="number"
+                    android:id="@+id/pick_amount"
+                   android:textColor="@color/white"
+                    android:layout_marginLeft="@dimen/large_margin"
+                    android:layout_marginRight="@dimen/large_margin"
+                    android:layout_marginTop="@dimen/normal_margin"
+                    android:background="@drawable/input_fields_rounded"
+
+                    />
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@drawable/orange_rounded_btn"
+                android:layout_marginTop="@dimen/large_margin"
+                android:layout_marginLeft="@dimen/large_margin"
+                android:layout_marginRight="@dimen/large_margin"
+                android:text="@string/confirm"
+                android:textColor="@color/white"
+                android:id="@+id/pick_confirm_btn"/>
+
+
+
+
+
+
+            <RelativeLayout android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center">
+
+
+            </RelativeLayout>
+
+
+        </LinearLayout>
+
+
+
+    </RelativeLayout>
+</ScrollView>
+</layout>

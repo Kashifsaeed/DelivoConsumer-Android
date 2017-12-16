@@ -1,6 +1,7 @@
 package com.attribe.delivo.app.bals;
 
 import android.content.Context;
+import android.view.inputmethod.InputMethodManager;
 
 import com.attribe.delivo.app.models.request.OrderCreate;
 import com.attribe.delivo.app.models.response.ErrorBody;
@@ -18,6 +19,8 @@ import java.net.ConnectException;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import static android.content.Context.INPUT_METHOD_SERVICE;
 
 /**
  * Author: Uzair Qureshi
@@ -77,6 +80,7 @@ public class OrderBAL {
         });
 
     }
+
 
     public static void getMyOrders(Context context, final ResponseCallback<MyOrders> listner) {
         RestClient.getAuthRestAdapter().getMyOrders().enqueue(new Callback<MyOrders>() {

@@ -54,7 +54,7 @@ public class ReverseGeoLocationTask extends AsyncTask<Double, Void, String>
 
                 } else
                 {
-                    addressText = "Not Found...";
+                    addressText = "";//some error occur
                 }
 
                 return addressText;

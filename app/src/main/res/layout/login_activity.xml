@@ -133,23 +133,27 @@
                 </LinearLayout>
                 </LinearLayout>
                 <!--android:layout_marginTop="@dimen/normal_margin"-->
-                <Button
+                <!--<Button-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="0dp"-->
+                    <!--android:layout_weight="0.6"-->
+
+                    <!--android:layout_marginLeft="@dimen/fields_margin"-->
+                    <!--android:layout_marginRight="@dimen/fields_margin"-->
+
+                    <!--android:background="@drawable/fb_bg"-->
+
+                    <!--android:id="@+id/facebooklogin_btn"-->
+
+
+
+
+
+                    <!--/>-->
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
-                    android:layout_weight="0.6"
-
-                    android:layout_marginLeft="@dimen/fields_margin"
-                    android:layout_marginRight="@dimen/fields_margin"
-
-                    android:background="@drawable/fb_bg"
-
-                    android:id="@+id/facebooklogin_btn"
-
-
-
-
-
-                    />
+                    android:layout_weight="0.6"></LinearLayout>
                 <!--android:text="@string/fb_login"-->
                 <TextView
                     android:layout_width="match_parent"

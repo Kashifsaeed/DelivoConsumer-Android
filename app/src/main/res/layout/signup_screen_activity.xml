@@ -132,7 +132,7 @@
                         android:layout_height="match_parent"
                         android:background="@drawable/input_fields_rounded"
                         android:gravity="center_vertical"
-                        android:hint="@string/account_signup_confirmation_password"
+                        android:hint="@string/input_password_hint"
                         android:paddingLeft="@dimen/normal_padding"
                         android:textAppearance="?android:attr/textAppearanceSmall"
                         android:textColor="@color/white"

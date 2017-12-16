@@ -38,7 +38,7 @@ public class LoginScreen extends AppCompatActivity {
     private void setEventListners() {
         binding.loginBtn.setOnClickListener(new LoginListner());
         binding.accountsignupBtn.setOnClickListener(new SignUpNavigation());
-        binding.facebookloginBtn.setOnClickListener(new VerifyListner());
+       // binding.facebookloginBtn.setOnClickListener(new VerifyListner());
 
     }
 

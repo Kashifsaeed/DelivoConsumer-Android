@@ -57,7 +57,7 @@
                         android:layout_centerInParent="true"
                         android:layout_margin="2dp"
                         android:gravity="center_vertical"
-                        android:hint="Pick Delivo Location"
+                        android:hint="@string/add_pick_label"
                         android:inputType="textMultiLine|textNoSuggestions"
                         android:paddingLeft="@dimen/normal_margin"
                         android:textAppearance="@android:style/TextAppearance.DeviceDefault.Medium"

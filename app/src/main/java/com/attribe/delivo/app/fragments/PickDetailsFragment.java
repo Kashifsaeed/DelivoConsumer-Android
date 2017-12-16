@@ -1,6 +1,7 @@
 package com.attribe.delivo.app.fragments;
 
 import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.databinding.DataBindingUtil;
@@ -10,33 +11,50 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
 import com.attribe.delivo.app.R;
+import com.attribe.delivo.app.databinding.PayDialougeBinding;
 import com.attribe.delivo.app.databinding.PickDetailsFragmentBinding;
+import com.attribe.delivo.app.databinding.PickFrafTestBinding;
+import com.attribe.delivo.app.eventbus.PickEvent;
 import com.attribe.delivo.app.interfaces.OnNextPageNavigation;
+import com.attribe.delivo.app.utils.SnackBars;
+import com.attribe.delivo.app.utils.TimeUtility;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.Calendar;
+import java.util.Date;
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
  * to handle interaction events.
  */
-public class PickDetailsFragment extends Fragment{
-    PickDetailsFragmentBinding vBinding;
-   // Calendar dateSelected = Calendar.getInstance();
+public class PickDetailsFragment extends Fragment {
+    PickFrafTestBinding vBinding;
+    // Calendar dateSelected = Calendar.getInstance();
     private EditText pickpersonname_edittxt,
             pick_contact_edittxt, pick_detailaddress_edittxt, pick_desc_edittxt;
     private TextView pick_date_edittxt, pick_time_edittxt;
     private Button add_pickdetails_btn;
+    private CheckBox pay_pickup_check,picknow_check;
     private OnPickDetailFragmentInteractionListner mListener;
     private OnDetialToolbar mToolbarListner;
     private OnNextPageNavigation onNextPageNavigation;
-   // private DatePickerDialog datePickerDialog;
+    private int pickhour, pickmin;
+    private boolean pay_at_pickup=false;
+    private boolean picknow_flag=false;
+    private float pickUpamount=0;
+   private boolean isBefore=false;
+
+    // private DatePickerDialog datePickerDialog;
 
 
     public PickDetailsFragment() {
@@ -49,7 +67,7 @@ public class PickDetailsFragment extends Fragment{
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
 
-        vBinding = DataBindingUtil.inflate(inflater, R.layout.pick_details_fragment, container, false);
+        vBinding = DataBindingUtil.inflate(inflater, R.layout.pick_fraf_test, container, false);
         initViews();
         return vBinding.getRoot();
     }
@@ -73,6 +91,44 @@ public class PickDetailsFragment extends Fragment{
                 setDate();
             }
         });
+        pay_pickup_check.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if(compoundButton.isChecked()){
+                    PayPickUpDialoge dialoge=new PayPickUpDialoge(getContext());
+                    pay_at_pickup=true;
+                    dialoge.show();
+
+                }
+                else if (!compoundButton.isChecked()){
+                    pay_at_pickup=false;
+
+                }
+            }
+        });
+        picknow_check.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if (compoundButton.isChecked()){
+                    picknow_flag=true;
+                    pick_time_edittxt.setText(""+TimeUtility.getLocalTime(System.currentTimeMillis()));
+                    pick_date_edittxt.setText(""+TimeUtility.getLocalDate(System.currentTimeMillis()));
+                    pick_time_edittxt.setEnabled(false);
+                    pick_date_edittxt.setEnabled(false);
+                    pick_date_edittxt.setAlpha(0.4f);
+                    pick_time_edittxt.setAlpha(0.4f);
+                }
+                else if(!compoundButton.isChecked()){
+                    pick_time_edittxt.setEnabled(true);
+                    pick_date_edittxt.setEnabled(true);
+                    pick_date_edittxt.setAlpha(1f);
+                    pick_time_edittxt.setAlpha(1f);
+
+                }
+
+
+            }
+        });
 
     }
 
@@ -84,6 +140,8 @@ public class PickDetailsFragment extends Fragment{
         pick_time_edittxt = vBinding.pickTime;
         pick_date_edittxt = vBinding.pickDate;
         add_pickdetails_btn = vBinding.addPickdetailsBtn;
+        pay_pickup_check=vBinding.payAtPickupcheck;
+        picknow_check=vBinding.picknowCheck;
 //
 
 
@@ -130,40 +188,46 @@ public class PickDetailsFragment extends Fragment{
     //
     private void setPickTime() {
         // TODO Auto-generated method stub
-        Calendar mcurrentTime = Calendar.getInstance();
+
+        final Calendar mcurrentTime = Calendar.getInstance();
         int hour = mcurrentTime.get(Calendar.HOUR);
         int minute = mcurrentTime.get(Calendar.MINUTE);
 
         TimePickerDialog mTimePicker = new TimePickerDialog(getContext(), new TimePickerDialog.OnTimeSetListener() {
             @Override
-            public void onTimeSet(TimePicker timePicker, int i, int i1) {
-
-                String select_time = timePicker.getHour() + "" + ":" + timePicker.getMinute();
-                pick_time_edittxt.setText("" + select_time);
-
+            public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMin) {
+//
+                    String AM_PM = (selectedHour < 12) ? "AM" : "PM";
+                    pickhour = timePicker.getHour();
+                    pickmin = timePicker.getMinute();
+                    String select_time = timePicker.getHour() + "" + ":" + timePicker.getMinute();
+                    pick_time_edittxt.setText("" + select_time + "\u00A0" + AM_PM);
 
             }
         }
-                , hour, minute, true);
+                , hour, minute, false);
         mTimePicker.setTitle("Select Time");
         mTimePicker.show();
 
+
     }
-    private void setDate(){
+
+    private void setDate() {
         Calendar mcurrentTime = Calendar.getInstance();
         int year = mcurrentTime.get(Calendar.YEAR);
         int month = mcurrentTime.get(Calendar.MONTH);
-        int date=mcurrentTime.get(Calendar.DATE);
-       DatePickerDialog mDatePickerDialog=new DatePickerDialog(getContext(), new DatePickerDialog.OnDateSetListener() {
+        int date = mcurrentTime.get(Calendar.DATE);
+        DatePickerDialog mDatePickerDialog = new DatePickerDialog(getContext(), new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
-                String select_date = datePicker.getYear() + "/"  + datePicker.getMonth()+"/"+datePicker.getDayOfMonth();
+                String select_date = datePicker.getYear() + "/" + datePicker.getMonth() + "/" + datePicker.getDayOfMonth();
                 pick_date_edittxt.setText("" + select_date);
 
 
             }
-        },year,month,date);
+        }, year, month, date);
         mDatePickerDialog.setTitle("Select Date");
+        mDatePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
         mDatePickerDialog.show();
 
     }
@@ -205,22 +269,6 @@ public class PickDetailsFragment extends Fragment{
     }
 
 
-//    @Override
-//    public void onClick(View view) {
-//        int itemId = view.getId();
-//
-//        switch (itemId) {
-//
-//            case R.id.pick_time:
-//                 setPickTime();
-//                break;
-//            case R.id.pick_date:
-//                //setPickTime();
-//                break;
-//            default:
-//                break;
-//        }
-//    }
 
     /**
      * This interface must be implemented by activities that contain this
@@ -233,12 +281,13 @@ public class PickDetailsFragment extends Fragment{
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnPickDetailFragmentInteractionListner {
-        void pickDetailFragmentInteraction(String pp_name, String pp_contactno, String detail_address, String pick_time, String pick_date, String pick_desc);
+        void pickDetailFragmentInteraction(String pp_name, String pp_contactno, String detail_address, String pick_time, String pick_date, String pick_desc,boolean pay_at_pickup,float pickUpamount);
     }
 
     public interface OnDetialToolbar {
         void setTittle(String tittle);
     }
+
 
     private class onAddPickDetailsListner implements View.OnClickListener {
         @Override
@@ -249,14 +298,47 @@ public class PickDetailsFragment extends Fragment{
                         pick_contact_edittxt.getText().toString(),
                         pick_detailaddress_edittxt.getText().toString(),
                         pick_time_edittxt.getText().toString(), pick_date_edittxt.getText().toString(),
-                        pick_desc_edittxt.getText().toString());
+                        pick_desc_edittxt.getText().toString(),pay_at_pickup,pickUpamount);
 
-                       onNextPageNavigation.onPageChange(2);
+                onNextPageNavigation.onPageChange(2);
+                EventBus.getDefault().post(new PickEvent(pick_time_edittxt.getText().toString(),pick_date_edittxt.getText().toString(),picknow_flag));
+
 
             }
 
         }
     }
 
+    class PayPickUpDialoge extends Dialog {
+        private PayDialougeBinding bindView;
 
+        public PayPickUpDialoge(Context context) {
+            super(context);
+        }
+
+        @Override
+        protected void onCreate(Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+            setCancelable(false);
+            setCanceledOnTouchOutside(false);
+            bindView = DataBindingUtil.inflate(LayoutInflater.from(getContext()), R.layout.pay_dialouge, null, false);
+            setContentView(bindView.getRoot());
+            bindView.pickConfirmBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (!bindView.pickAmount.getText().toString().trim().equals("")) {
+                        pickUpamount = Float.valueOf(bindView.pickAmount.getText().toString().trim());
+                        // SnackBars.showMessage(vBinding.getRoot(), String.valueOf(pickUpamount));
+                        dismiss();
+                    }
+                    else {
+                        bindView.pickAmount.setError("Required");
+
+                    }
+                }
+            });
+            // initViews();
+        }
+
+    }
 }

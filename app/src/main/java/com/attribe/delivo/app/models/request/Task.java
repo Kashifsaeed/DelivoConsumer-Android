@@ -7,26 +7,29 @@ package com.attribe.delivo.app.models.request;
  */
 
 public class Task {
-    private float pay_at_pickup_amount;
 
     private String details;
-
-    private String status="901";
-
+    private String status = "901";
     private String address;
-
     private String name;
-
     private boolean task_type;
-
-
-
     private String nearby;
-
     private String contact;
+    private float lat = 24.64887f;
+    private float lng = 67.0045f;
+    private int sorting_order;
+    private boolean pay_at_pickup;
+    private float pay_at_pickup_amount;
 
-    private float lat=  24.64887f;
-    private float lng=67.0045f;
+
+    public boolean isPay_at_pickup() {
+        return pay_at_pickup;
+    }
+
+    public void setPay_at_pickup(boolean pay_at_pickup) {
+        this.pay_at_pickup = pay_at_pickup;
+    }
+
 
     public float getPay_at_pickup_amount() {
         return pay_at_pickup_amount;
@@ -107,4 +110,13 @@ public class Task {
     public void setLat(float lat) {
         this.lat = lat;
     }
+
+    public int getSorting_order() {
+        return sorting_order;
+    }
+
+    public void setSorting_order(int sorting_order) {
+        this.sorting_order = sorting_order;
+    }
+
 }

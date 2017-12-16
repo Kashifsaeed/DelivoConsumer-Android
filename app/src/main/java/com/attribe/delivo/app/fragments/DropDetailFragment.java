@@ -19,6 +19,14 @@ import android.widget.TimePicker;
 import com.attribe.delivo.app.R;
 import com.attribe.delivo.app.databinding.DropDetailFragmentBinding;
 import com.attribe.delivo.app.databinding.DropDetailsFragmentBinding;
+import com.attribe.delivo.app.dialouge.AlertDialouge;
+import com.attribe.delivo.app.eventbus.PickEvent;
+import com.attribe.delivo.app.utils.SnackBars;
+import com.attribe.delivo.app.utils.TimeUtility;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -28,30 +36,28 @@ import java.util.Date;
  * Activities that contain this fragment must implement the
  * {@link DropDetailFragment.OnDropDetailFragmentInteractionListner} interface
  * to handle interaction events.
-
  */
 public class DropDetailFragment extends Fragment {
+    DropDetailsFragmentBinding vBinding;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private TextView reciver_name, reciever_contact, drop_address, drop_desc ;
-    private EditText drop_time,drop_date;
+    private TextView reciver_name, reciever_contact, drop_address, drop_desc;
+    private EditText drop_time, drop_date;
     private Button dropdetailbtn;
-
-
+    private TimePickerDialog mTimePicker;
+    private int pickHour, pickMin,pickTime;
     private OnDropDetailFragmentInteractionListner mListener;
-    DropDetailsFragmentBinding vBinding;
 
     public DropDetailFragment() {
         // Required empty public constructor
     }
 
 
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        }
+    }
 
 
     @Override
@@ -59,24 +65,25 @@ public class DropDetailFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         vBinding = DataBindingUtil.inflate(inflater, R.layout.drop_details_fragment, container, false);
-         initViews();
+        initViews();
         return vBinding.getRoot();
     }
     //=============================================Initialize Views =======================================================//
 
     private void initViews() {
+        EventBus.getDefault().register(DropDetailFragment.this);
         getViewsReference();
         dropdetailbtn.setOnClickListener(new onDropDetailListner());
     }
 
     private void getViewsReference() {
-        reciver_name=vBinding.recivePersonName;
-        reciever_contact=vBinding.receivePersonContact;
-        drop_address=vBinding.dropDetailAddress;
-        drop_desc=vBinding.dropDescription;
-        drop_time=vBinding.dropTime;
-        drop_date=vBinding.dropDate;
-        dropdetailbtn=vBinding.addDropdetailsBtn;
+        reciver_name = vBinding.recivePersonName;
+        reciever_contact = vBinding.receivePersonContact;
+        drop_address = vBinding.dropDetailAddress;
+        drop_desc = vBinding.dropDescription;
+        drop_time = vBinding.dropTime;
+        drop_date = vBinding.dropDate;
+        dropdetailbtn = vBinding.addDropdetailsBtn;
         drop_time.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -95,42 +102,31 @@ public class DropDetailFragment extends Fragment {
 
     /**
      * this method will validate the input fields
+     *
      * @return
      */
-    private boolean isValidate()
-    {
-        if(reciver_name.getText().toString().trim().equals(""))
-        {
+    private boolean isValidate() {
+        if (reciver_name.getText().toString().trim().equals("")) {
             reciver_name.setError("missing field");
             return false;
 
-        }
-        else if(reciever_contact.getText().toString().trim().equals(""))
-        {
+        } else if (reciever_contact.getText().toString().trim().equals("")) {
             reciever_contact.setError("missing field");
             return false;
 
-        }
-        else if(drop_address.getText().toString().equals(""))
-        {
+        } else if (drop_address.getText().toString().equals("")) {
             drop_address.setError("missing field");
             return false;
 
-        }
-        else if(drop_time.getText().toString().trim().equals(""))
-        {
+        } else if (drop_time.getText().toString().trim().equals("")) {
             drop_time.setError("missing field");
             return false;
 
-        }
-        else if(drop_date.getText().toString().trim().equals(""))
-        {
+        } else if (drop_date.getText().toString().trim().equals("")) {
             drop_date.setError("missing field");
             return false;
 
-        }
-        else if(drop_desc.getText().toString().trim().equals(""))
-        {
+        } else if (drop_desc.getText().toString().trim().equals("")) {
             drop_desc.setError("missing field");
             return false;
 
@@ -144,46 +140,50 @@ public class DropDetailFragment extends Fragment {
         Calendar mcurrentTime = Calendar.getInstance();
         int hour = mcurrentTime.get(Calendar.HOUR);
         int minute = mcurrentTime.get(Calendar.MINUTE);
-        TimePickerDialog mTimePicker = new TimePickerDialog(getContext(), new TimePickerDialog.OnTimeSetListener() {
+        mTimePicker = new TimePickerDialog(getContext(), new TimePickerDialog.OnTimeSetListener() {
             @Override
-            public void onTimeSet(TimePicker timePicker, int i, int i1) {
+            public void onTimeSet(TimePicker timePicker, int selecthour, int selectminute) {
+                String AM_PM = (selecthour < 12) ? "AM" : "PM";
 
-                String select_time = timePicker.getHour() + "" + ":" + timePicker.getMinute();
-               // pick_time_edittxt.setText("" + select_time);
-                drop_time.setText(select_time);
+
+                if (selecthour < pickHour || (selecthour == pickHour && selectminute < pickMin)) {
+                    //SnackBars.showMessage(vBinding.getRoot(),"Drop Time must be 45min after");
+                    AlertDialouge.showDialoge(getContext(), "Drop Time must be 45min greater then pick");
+                } else {
+                    String select_time = timePicker.getHour() + "" + ":" + timePicker.getMinute();
+                    // pick_time_edittxt.setText("" + select_time);
+                    drop_time.setText(select_time+"\u00A0"+AM_PM);
+                }
 
 
             }
         }
-                , hour, minute, true);
+                , hour, minute, false);
         mTimePicker.setTitle("Select Time");
-
+        mTimePicker.updateTime(pickHour, pickMin);//thi will show default time in picker
         mTimePicker.show();
 
     }
-    private void setDropDate()
-    {
+
+    private void setDropDate() {
         Calendar mcurrentTime = Calendar.getInstance();
         int year = mcurrentTime.get(Calendar.YEAR);
         int month = mcurrentTime.get(Calendar.MONTH);
-        int date=mcurrentTime.get(Calendar.DATE);
-        DatePickerDialog mDatePickerDialog=new DatePickerDialog(getContext(), new DatePickerDialog.OnDateSetListener() {
+        int date = mcurrentTime.get(Calendar.DATE);
+        DatePickerDialog mDatePickerDialog = new DatePickerDialog(getContext(), new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
-                String date= String.valueOf(datePicker.getYear()+"/"+datePicker.getMonth()+"/"+datePicker.getDayOfMonth());
-               //pick_date_edittxt.setText(date);
+                String date = String.valueOf(datePicker.getYear() + "/" + datePicker.getMonth() + "/" + datePicker.getDayOfMonth());
+                //pick_date_edittxt.setText(date);
                 drop_date.setText(date);
 
             }
-        },year,month,date);
+        }, year, month, date);
         mDatePickerDialog.setTitle("Select Date");
+        mDatePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
         mDatePickerDialog.show();
 
     }
-
-
-
-
 
 
     @Override
@@ -203,6 +203,33 @@ public class DropDetailFragment extends Fragment {
         mListener = null;
     }
 
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onPickEvent(PickEvent pickEvent) {
+        if (pickEvent != null) {
+            Date time = TimeUtility.addTime(pickEvent.getPick_time());
+            Calendar cal = Calendar.getInstance();
+            cal.setTime(time);
+            pickHour = cal.get(Calendar.HOUR_OF_DAY);
+            pickMin = cal.get(Calendar.MINUTE);
+            String AM_PM = (pickHour < 12) ? "AM" : "PM";
+            drop_time.setText(pickHour + "" + ":" + pickMin + AM_PM);
+
+
+            if (pickEvent.isPicknow()) {
+
+                drop_date.setText("" + pickEvent.getPick_date());
+                drop_time.setEnabled(false);
+                drop_date.setEnabled(false);
+                drop_time.setAlpha(0.4f);
+                drop_date.setAlpha(0.4f);
+
+
+            }
+
+        }
+
+    }
+
     /**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated
@@ -211,16 +238,15 @@ public class DropDetailFragment extends Fragment {
      * <p>
      */
 
-    public interface OnDropDetailFragmentInteractionListner
-    {
+    public interface OnDropDetailFragmentInteractionListner {
         void dropDetailFragmentInteraction(String pp_name, String pp_contactno, String detail_address, String pick_time, String pick_date, String pick_desc);
     }
 
     private class onDropDetailListner implements View.OnClickListener {
         @Override
         public void onClick(View view) {
-            if(isValidate()){
-                mListener.dropDetailFragmentInteraction(reciver_name.getText().toString(),reciever_contact.getText().toString(),drop_address.getText().toString(),drop_time.getText().toString(), drop_date.getText().toString(),drop_desc.getText().toString());
+            if (isValidate()) {
+                mListener.dropDetailFragmentInteraction(reciver_name.getText().toString(), reciever_contact.getText().toString(), drop_address.getText().toString(), drop_time.getText().toString(), drop_date.getText().toString(), drop_desc.getText().toString());
             }
 
         }

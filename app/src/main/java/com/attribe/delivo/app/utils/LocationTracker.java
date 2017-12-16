@@ -20,6 +20,7 @@ import com.attribe.delivo.app.interfaces.onDialogeListner;
 
 /**
  * Created by Sabih Ahmed on 12-Jul-16.
+ * modified by Uzair Qureshi till created
  */
 public class LocationTracker extends Service implements LocationListener {
 
